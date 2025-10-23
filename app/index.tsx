@@ -1,13 +1,18 @@
+import AddSkillPage from "@/components/AddSkillPage";
+import AddTaskPage from "@/components/AddTaskPage";
+import HomePage from "@/components/HomePage";
 import { StyleSheet, Text, View } from "react-native";
+import { NativeRouter, Route, Routes } from "react-router-native";
 
 export default function Page() {
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
-        <Text style={styles.subtitle}>This is the first page of your app.</Text>
-      </View>
-    </View>
+    <NativeRouter>
+      <Routes>
+        <Route path='*' element={<HomePage />} />
+        <Route path='/addSkill' element={<AddSkillPage />} />
+        <Route path='/addTask' element={<AddTaskPage />} />
+      </Routes>
+    </NativeRouter>
   );
 }
 
