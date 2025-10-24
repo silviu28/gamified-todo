@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import { View } from "react-native";
-import { Link } from "react-router-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 type AddSkillFormProps = {
   onSubmit: (data: {
@@ -15,13 +14,17 @@ const AddSkillForm: FunctionComponent<AddSkillFormProps> = ({ onSubmit }) => {
 
   return (
     <View>
-      <form { ... onSubmit }>
-        <label>skill name: </label>
-        <input onChange={e => setSkillName(e.target.value)} />
-        <label>priority</label>
-        <input onChange={e => setPriority(parseInt(e.target.value))} />
-        <button type='submit'>+</button>
-      </form>
+      <View>
+        <Text style={{ color: 'white' }}>skill name: </Text>
+        <TextInput style={{ color: 'white', backgroundColor: 'gray' }} onChange={e => setSkillName(e.target.value)} />
+        <Text style={{ color: 'white' }}>priority:</Text>
+        <TextInput style={{ color: 'white', backgroundColor: 'gray' }}onChange={e => setPriority(parseInt(e.target.value))} />
+        <Pressable onPress={() => onSubmit({skillName, priority})}>
+          <Text style={{ color: 'lime', fontSize: 30 }}>
+            +
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
