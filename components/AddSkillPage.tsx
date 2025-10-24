@@ -3,11 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import AddSkillForm from "./AddSkillForm";
 import { useNavigate } from "react-router-native";
 import { bgStyle, heading, padding } from "@/constants/styles";
-
-type Skill = {
-  name: string,
-  priority: number,
-};
+import { Skill } from "@/types";
 
 const AddSkillPage: FunctionComponent = () => {
   const [skills, setSkills] = useState<Skill[]>([]);

@@ -1,6 +1,7 @@
 import AddSkillPage from "@/components/AddSkillPage";
 import AddTaskPage from "@/components/AddTaskPage";
 import HomePage from "@/components/HomePage";
+import MainPage from "@/components/MainPage";
 import { StyleSheet, Text, View } from "react-native";
 import { NativeRouter, Route, Routes } from "react-router-native";
 
@@ -11,6 +12,7 @@ export default function Page() {
         <Route path='*' element={<HomePage />} />
         <Route path='/addSkill' element={<AddSkillPage />} />
         <Route path='/addTask' element={<AddTaskPage />} />
+        <Route path='/main' element={<MainPage skills={[]} tasks={[]} />} />
       </Routes>
     </NativeRouter>
   );

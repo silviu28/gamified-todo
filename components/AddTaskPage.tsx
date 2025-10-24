@@ -1,18 +1,15 @@
 import { FunctionComponent, useState } from "react";
-import { GestureResponderEvent, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import AddTaskForm from "./AddTaskForm";
 import { bgStyle, heading, padding } from "@/constants/styles";
-
-type Task = {
-  task: string,
-  priority: string,
-  frequency: string,
-};
+import { useNavigate } from "react-router-native";
+import { Task } from "@/types";
 
 const AddTaskPage: FunctionComponent = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const navigate = useNavigate();
 
-  const addTask = ({ task, priority, frequency }) => {
+  const addTask = ({ task, priority, frequency }: Task) => {
     setTasks([...tasks, { task, priority, frequency }])
   };
   return (
@@ -28,7 +25,7 @@ const AddTaskPage: FunctionComponent = () => {
             {task.task}, {task.frequency}, {task.priority}
           </Text>) }
 
-        <Pressable>
+        <Pressable onPress={() => navigate('/main')}>
           <Text style={{ color: 'lime' }}>done</Text>
         </Pressable>
       </View>

@@ -1,3 +1,4 @@
+import { Frequency, Priority } from "@/types";
 import { Text } from "@react-navigation/elements";
 import { FunctionComponent, useState } from "react";
 import { Pressable, TextInput, View } from "react-native";
@@ -6,13 +7,9 @@ type AddTaskFormProps = {
   onSubmit: ({
     task: string,
     priority: Priority,
-    frequency: Frequency
+    frequency: Frequency,
   }) => void,
 };
-
-type Frequency = 'one-time' | 'daily' | 'weekly' | 'monthly' | 'yearly';
-
-type Priority = 'low' | 'average' | 'high';
 
 const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
   const [task, setTask] = useState<string>('');
