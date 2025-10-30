@@ -11,4 +11,5 @@ export type Task = {
   task: string,
   priority: string,
   frequency: string,
+  parentSkill: Skill,
 };

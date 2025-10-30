@@ -13,6 +13,7 @@ type AddTaskFormProps = {
 
 const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
   const [task, setTask] = useState<string>('');
+  const [skill, setSkill] = useState<string>('');
   const [priority, setPriority] = useState<Priority>('low');
   const [frequency, setFrequency] = useState<Frequency>('one-time');
 
@@ -21,6 +22,10 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
     <View>
       <Text style={{ color: 'white' }}>task:</Text>
       <TextInput onChangeText={t => setTask(t)} style={{ backgroundColor: 'gray' }} />
+      <Text />
+
+      <Text style={{ color: 'white' }}>belonging to skill:</Text>
+      <TextInput onChangeText={s => setSkill(s)} style={{ backgroundColor: 'gray' }} />
       <Text />
 
       <Text style={{ color: 'white' }}>how rewarding should this task be?</Text>
