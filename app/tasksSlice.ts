@@ -13,7 +13,7 @@ const tasksSlice = createSlice({
   reducers: {
     addTask: (state, action: PayloadAction<Task>) => {
       const task = action.payload;
-      state.allTasks.concat(task);
+      state.allTasks.push(task);
     },
     dismissTask: (state, action) => {
       const { name } = action.payload;

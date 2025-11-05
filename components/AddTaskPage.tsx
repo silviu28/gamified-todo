@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Pressable, Text, View } from "react-native";
 import AddTaskForm from "./AddTaskForm";
-import { bgStyle, heading, padding } from "@/constants/styles";
+import { bgStyle, heading, highlight, p, padding } from "@/constants/styles";
 import { useNavigate } from "react-router-native";
 import { Frequency, Priority, Task } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,9 @@ const AddTaskPage: FunctionComponent = () => {
       frequency,  
       xp: 0
     };
+    console.log(newTask);
     dispatch(addTask(newTask));
+    console.log(allTasks);
   };
   return (
     <View style={bgStyle}>
@@ -32,12 +34,13 @@ const AddTaskPage: FunctionComponent = () => {
         <AddTaskForm onSubmit={addNewTask} />
 
         { allTasks?.map(task => 
-          <Text style={{ color: 'white' }} key={task.name}>
+          <Text style={p} key={task.name}>
             {task.name}, {task.frequency}, {task.priority}
           </Text>) }
+        
 
         <Pressable onPress={() => navigate('/main')}>
-          <Text style={{ color: 'lime' }}>done</Text>
+          <Text style={highlight}>done</Text>
         </Pressable>
       </View>
     </View>

@@ -1,4 +1,4 @@
-import { bgStyle } from "@/constants/styles";
+import { bgStyle, p } from "@/constants/styles";
 import { Task } from "@/types";
 import { FC } from "react";
 import { Text, View } from "react-native";
@@ -9,7 +9,8 @@ interface TaskContainerProps {
 
 const TaskContainer: FC<TaskContainerProps> = ({ task }) => {
   return (
-    <View style={bgStyle}>
+    <View>
+      <Text style={p}>{task.name}</Text>
     </View>
   );
 };

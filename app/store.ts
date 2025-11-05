@@ -12,6 +12,8 @@ const persistConfig = {
 const persistedSkillsReducer = persistReducer(persistConfig, skillsReducer);
 const persistedTasksReducer = persistReducer(persistConfig, tasksReducer);
 
+// to use the skills and tasks slices, define a store
+// to persist, add a middleware property (disabled serializable check required)
 const store = configureStore({
   reducer: {
     skills: persistedSkillsReducer,
