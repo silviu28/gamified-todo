@@ -8,21 +8,24 @@ import UserPreferencesContext from "./context/UserPreferencesContext";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Provider } from "react-redux";
-import store from "./store";
+import store, { persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export default function Page() {
   return (
     <Provider store={store}>
-      <UserPreferencesContext.Provider value={{ isFirstBoot: false }}>
-        <NativeRouter>
-          <Routes>
-            <Route path='*' element={<HomePage />} />
-            <Route path='/addSkill' element={<AddSkillPage />} />
-            <Route path='/addTask' element={<AddTaskPage />} />
-            <Route path='/main' element={<MainPage skills={[]} tasks={[]} />} />
-          </Routes>
-        </NativeRouter>
-      </UserPreferencesContext.Provider>
+      <PersistGate loading={null} persistor={persistor}>
+        <UserPreferencesContext.Provider value={{ isFirstBoot: false }}>
+          <NativeRouter>
+            <Routes>
+              <Route path='*' element={<HomePage />} />
+              <Route path='/addSkill' element={<AddSkillPage />} />
+              <Route path='/addTask' element={<AddTaskPage />} />
+              <Route path='/main' element={<MainPage />} />
+            </Routes>
+          </NativeRouter>
+        </UserPreferencesContext.Provider>
+      </PersistGate>
     </Provider>
   );
 }
