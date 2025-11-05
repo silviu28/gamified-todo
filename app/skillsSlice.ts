@@ -1,5 +1,5 @@
 import { Skill } from "@/types";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const skillsSlice = createSlice({
   name: "skills",
@@ -24,10 +24,5 @@ const skillsSlice = createSlice({
   }
 });
 
-const tasksSlice = createSlice({
-  name: "tasks",
-  initialState: {
-    tasks: []
-  },
-  reducers: {}
-});
+export const { addSkill, removeSkill, modifySkill } = skillsSlice.actions;
+
