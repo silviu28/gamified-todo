@@ -1,16 +1,27 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import { Pressable, Text, View } from "react-native";
 import AddTaskForm from "./AddTaskForm";
 import { bgStyle, heading, padding } from "@/constants/styles";
 import { useNavigate } from "react-router-native";
-import { Task } from "@/types";
+import { Frequency, Priority, Task } from "@/types";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "@/app/store";
+import { addTask } from "@/app/tasksSlice";
 
 const AddTaskPage: FunctionComponent = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const allTasks = useSelector((state: State) => state.tasks.allTasks);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
-  const addTask = ({ task, priority, frequency }: Task) => {
-    setTasks([...tasks, { task, priority, frequency }])
+  const addNewTask = (name: string, priority: Priority, frequency: Frequency) => {
+    const newTask: Task = {
+      name,
+      priority,
+      frequency,  
+      xp: 0
+    };
+    dispatch(addTask(newTask));
   };
   return (
     <View style={bgStyle}>
@@ -18,11 +29,11 @@ const AddTaskPage: FunctionComponent = () => {
         <Text style={heading}>
           Now add some tasks that you need to do:
         </Text>
-        <AddTaskForm onSubmit={addTask} />
+        <AddTaskForm onSubmit={addNewTask} />
 
-        { tasks?.map(task => 
-          <Text style={{ color: 'white' }} key={task.task+task.frequency+task.priority}>
-            {task.task}, {task.frequency}, {task.priority}
+        { allTasks?.map(task => 
+          <Text style={{ color: 'white' }} key={task.name}>
+            {task.name}, {task.frequency}, {task.priority}
           </Text>) }
 
         <Pressable onPress={() => navigate('/main')}>

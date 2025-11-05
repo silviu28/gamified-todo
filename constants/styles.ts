@@ -17,3 +17,24 @@ export const heading: TextStyle = {
   fontSize: 18,
   color: 'white',
 };
+
+export const p: TextStyle = {
+  fontSize: 14,
+  color: 'white'
+};
+
+export const textInput = {
+  color: 'white',
+  backgroundColor: 'gray'
+};
+
+export const rowFlex: ViewStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 10,
+  overflow: 'scroll'
+};
+
+export const highlight: TextStyle = {
+  color: 'lime'
+};

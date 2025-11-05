@@ -5,9 +5,9 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
     // store both a list of all possible tasks,
-    allTasks: [],
+    allTasks: [] as Task[],
     // and a list of tasks that have to be done right now
-    tasksToDo: [],
+    tasksToDo: [] as Task[],
   },
   // same as the skills slice, define logic to manage the tasks here
   reducers: {
@@ -43,3 +43,4 @@ const tasksSlice = createSlice({
 });
 
 export const { addTask, dismissTask, removeTask, modifyTask, completeTask } = tasksSlice.actions;
+export default tasksSlice.reducer;

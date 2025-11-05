@@ -1,74 +1,90 @@
+import { State } from "@/app/store";
+import { highlight, p, rowFlex, textInput } from "@/constants/styles";
 import { Frequency, Priority } from "@/types";
 import { Text } from "@react-navigation/elements";
 import { FunctionComponent, useState } from "react";
 import { Pressable, TextInput, View } from "react-native";
+import { useSelector } from "react-redux";
 
 type AddTaskFormProps = {
-  onSubmit: ({
+  onSubmit: (
     task: string,
     priority: Priority,
     frequency: Frequency,
-  }) => void,
+  ) => void,
 };
 
 const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
+  const skills = useSelector((state: State) => state.skills.skills);
+
   const [task, setTask] = useState<string>('');
-  const [skill, setSkill] = useState<string>('');
   const [priority, setPriority] = useState<Priority>('low');
   const [frequency, setFrequency] = useState<Frequency>('one-time');
 
   return (
     // Use empty <Text /> tag to add a line break
     <View>
-      <Text style={{ color: 'white' }}>task:</Text>
-      <TextInput onChangeText={t => setTask(t)} style={{ backgroundColor: 'gray' }} />
+      <Text style={p}>task:</Text>
+      <TextInput
+        onChangeText={t => setTask(t)}
+        style={textInput}
+      />
       <Text />
 
-      <Text style={{ color: 'white' }}>belonging to skill:</Text>
-      <TextInput onChangeText={s => setSkill(s)} style={{ backgroundColor: 'gray' }} />
+      <Text style={p}>belonging to skill:</Text>
+      <View style={rowFlex}>
+        {skills.map(skill => 
+          <Pressable key={skill.name}>
+            <Text style={highlight}>{skill.name}</Text>
+          </Pressable>)}
+      </View>
       <Text />
 
-      <Text style={{ color: 'white' }}>how rewarding should this task be?</Text>
-      <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+      <Text style={p}>
+        how rewarding should this task be?
+      </Text>
+      <View style={rowFlex}>
         <Pressable onPress={() => setPriority('low')}>
-          <Text style={{ color: 'lime' }}>low</Text>
+          <Text style={highlight}>low</Text>
         </Pressable>
         <Pressable onPress={() => setPriority('average')}>
-          <Text style={{ color: 'lime' }}>average</Text>
+          <Text style={highlight}>average</Text>
         </Pressable>
         <Pressable onPress={() => setPriority('high')}>
-          <Text style={{ color: 'lime' }}>high</Text>
+          <Text style={highlight}>high</Text>
         </Pressable>
       </View>
-      <Text style={{ color: 'white' }}>low - receive 10 pts</Text>
-      <Text style={{ color: 'white' }}>average - receive 20 pts</Text>
-      <Text style={{ color: 'white' }}>high - receive 30 pts</Text>
+      <Text style={p}>low - receive 10 pts</Text>
+      <Text style={p}>average - receive 20 pts</Text>
+      <Text style={p}>high - receive 30 pts</Text>
 
       <Text/>
 
-      <Text style={{ color: 'white' }}>set a frequency for this task:</Text>
-      <View style={{ display: 'flex', flexDirection: 'row', gap: 10 }}>
+      <Text style={p}>set a frequency for this task:</Text>
+      <View style={rowFlex}>
         <Pressable onPress={() => setFrequency('one-time')}>
-          <Text style={{ color: 'lime' }}>one-time</Text>
+          <Text style={highlight}>one-time</Text>
         </Pressable>
         <Pressable onPress={() => setFrequency('daily')}>
-          <Text style={{ color: 'lime' }}>daily</Text>
+          <Text style={highlight}>daily</Text>
         </Pressable>
         <Pressable onPress={() => setFrequency('weekly')}>
-          <Text style={{ color: 'lime' }}>weekly</Text>
+          <Text style={highlight}>weekly</Text>
         </Pressable>
         <Pressable onPress={() => setFrequency('monthly')}>
-          <Text style={{ color: 'lime' }}>monthly</Text>
+          <Text style={highlight}>monthly</Text>
         </Pressable>
         <Pressable onPress={() => setFrequency('yearly')}>
-          <Text style={{ color: 'lime' }}>yearly</Text>
+          <Text style={highlight}>yearly</Text>
         </Pressable>
       </View>
-      <Text style={{ color: 'white' }}>tasks will be automatically added to your list based on the frequency</Text>
+      <Text style={p}>tasks will be automatically added to your list based on the frequency</Text>
 
 
-      <Pressable onPress={() => onSubmit({ task, priority, frequency })}>
-        <Text style={{ fontSize: 30, color: 'lime' }}>+</Text>
+      <Pressable onPress={() => onSubmit(task, priority, frequency)}>
+        <Text style={[ highlight, { fontSize: 30 }]}>
+          +
+        </Text>
       </Pressable>
     </View>
   )

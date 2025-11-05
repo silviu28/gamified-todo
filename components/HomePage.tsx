@@ -1,6 +1,6 @@
 import { bgStyle, heading, padding } from "@/constants/styles";
 import { FunctionComponent } from "react";
-import { Pressable, Text, View, ViewStyle } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { Link } from "react-router-native";
 
 const HomePage: FunctionComponent = () => {
@@ -11,7 +11,12 @@ const HomePage: FunctionComponent = () => {
         <Text style={{ color: 'white' }}>Bored of doing your daily mundane activities? Spice the process up by introducing rewards in experience, leveling and more using this app.</Text>
         <Pressable>
           <Link to='/addSkill'>
-            <Text style={{ color: 'lime' }}>let's go</Text>
+            <Text style={{ color: 'lime' }}>let&apos;s go</Text>
+          </Link>
+        </Pressable>
+        <Pressable>
+          <Link to='/main'>
+            <Text style={{ color: 'lime' }}>skip</Text>
           </Link>
         </Pressable>
       </View>

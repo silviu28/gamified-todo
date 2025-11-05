@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const skillsSlice = createSlice({
   name: "skills",
   initialState: {
-    skills: []
+    skills: [] as Skill[]
   },
   reducers: {
     addSkill: (state, action) => {
@@ -25,4 +25,5 @@ const skillsSlice = createSlice({
 });
 
 export const { addSkill, removeSkill, modifySkill } = skillsSlice.actions;
+export default skillsSlice.reducer;
 

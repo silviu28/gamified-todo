@@ -1,11 +1,9 @@
+import { highlight, p, rowFlex, textInput } from "@/constants/styles";
 import React, { FunctionComponent, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 
 type AddSkillFormProps = {
-  onSubmit: (data: {
-    name: string,
-    priority: number,
-  }) => void,
+  onSubmit: (name: string, priority: number) => void,
 }
 
 const AddSkillForm: FunctionComponent<AddSkillFormProps> = ({ onSubmit }) => {
@@ -15,22 +13,26 @@ const AddSkillForm: FunctionComponent<AddSkillFormProps> = ({ onSubmit }) => {
   return (
     <View>
       <View>
-        <Text style={{ color: 'white' }}>skill name: </Text>
-        <TextInput style={{ color: 'white', backgroundColor: 'gray' }} onChangeText={t => setName(t)} />
-        <Text style={{ color: 'white' }}>priority (how important this skill is to you):</Text>
-        <View style={{ display: 'flex', flexDirection: 'row', gap: 10, }}>
+        <Text style={p}>skill name: </Text>
+        <TextInput style={textInput} onChangeText={t => setName(t)} />
+
+        <Text style={p}>
+          priority (how important this skill is to you):
+        </Text>
+        <View style={rowFlex}>
           <Pressable onPress={() => setPriority(1)}>
-            <Text style={{ color: 'lime' }}>low</Text>
+            <Text style={highlight}>low</Text>
           </Pressable>
           <Pressable onPress={() => setPriority(2)}>
-            <Text style={{ color: 'lime' }}>medium</Text>
+            <Text style={highlight}>medium</Text>
           </Pressable>
           <Pressable onPress={() => setPriority(3)}>
-            <Text style={{ color: 'lime' }}>high</Text>
+            <Text style={highlight}>high</Text>
           </Pressable>
         </View>
-        <Pressable onPress={() => onSubmit({ name, priority })}>
-          <Text style={{ color: 'lime', fontSize: 30 }}>
+
+        <Pressable onPress={() => onSubmit(name, priority)}>
+          <Text style={[highlight, { fontSize: 30 }]}>
             +
           </Text>
         </Pressable>
