@@ -59,3 +59,17 @@ export const container: ViewStyle = {
   borderRadius: 5,
   padding: 10,
 };
+
+export const bottomBar: ViewStyle = {
+  position: 'absolute',
+  bottom: 60,
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  gap: 20,
+  flexGrow: 1,
+  borderTopWidth: 2,
+  borderTopColor: 'lime',
+  padding: 5
+};

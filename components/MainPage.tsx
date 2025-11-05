@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { useNavigate } from "react-router-native";
 import SkillContainer from "./styled/SkillContainer";
+import BottomBar from "./BottomBar";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
@@ -17,15 +18,6 @@ const MainPage: FC = () => {
   return (
     <View style={bgStyle}>
       <View style={padding}>
-
-      <View style={rowFlex}>
-        <Pressable onPress={() => navigate('/addTask')}>
-          <Text style={highlight}>Revise tasks</Text>
-        </Pressable>
-        <Pressable onPress={() => navigate('/addSkill')}>
-          <Text style={highlight}>Revise skills</Text>
-        </Pressable>
-      </View>
       
       <View style={container}>
         <Text style={{ color: "white" }}>Things to do</Text>
@@ -50,6 +42,14 @@ const MainPage: FC = () => {
       </View>
       
       </View>
+      <BottomBar>
+        <Pressable onPress={() => navigate('/addTask')}>
+          <Text style={highlight}>Revise tasks</Text>
+        </Pressable>
+        <Pressable onPress={() => navigate('/addSkill')}>
+          <Text style={highlight}>Revise skills</Text>
+        </Pressable>
+      </BottomBar>
     </View>
   );
 };
