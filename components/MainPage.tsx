@@ -1,12 +1,13 @@
-import { bgStyle, container, heading, highlight, p, padding, rowFlex } from "@/constants/styles";
+import { bgStyle, container, heading, highlight, p, padding, rowFlex, sub } from "@/constants/styles";
 import { FC } from "react";
-import { Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import TaskContainer from "./TaskContainer";
 import { useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { useNavigate } from "react-router-native";
 import SkillContainer from "./styled/SkillContainer";
 import BottomBar from "./BottomBar";
+import ToDoTask from "./ToDoTask";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
@@ -19,16 +20,28 @@ const MainPage: FC = () => {
     <View style={bgStyle}>
       <View style={padding}>
       
-      <View style={container}>
+      <View style={[container, { minHeight: 100 }]}>
         <Text style={{ color: "white" }}>Things to do</Text>
-        {toDoTasks.map((task, i) =>
-          <TaskContainer key={i} task={task} />)}
+        {toDoTasks.length > 0
+          ? <FlatList
+            data={toDoTasks}
+            keyExtractor={task => task.name}
+            renderItem={({ item }) =>
+              <ToDoTask task={item} />
+            }
+            />
+          : <Text style={sub}>Nothing to do for now</Text>}
       </View>
 
       <View style={container}>
         <Text style={heading}>Add tasks:</Text>
-        {allTasks.map((task, i) => 
-          <TaskContainer key={i} task={task} />)}
+        <Text />
+        <FlatList
+          data={allTasks}
+          keyExtractor={task => task.name}
+          renderItem={({ item }) => 
+            <TaskContainer task={item} assignable />}
+        />
       </View>
 
       <View style={container}>

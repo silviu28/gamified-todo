@@ -1,16 +1,35 @@
-import { p } from "@/constants/styles";
+import { assignTask, removeTask } from "@/app/tasksSlice";
+import { colFlex, flexContainer, highlight, p, sub } from "@/constants/styles";
 import { Task } from "@/types";
 import { FC } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 
 interface TaskContainerProps {
   task: Task;
+  assignable?: boolean;
+  removable?: boolean;
 };
 
-const TaskContainer: FC<TaskContainerProps> = ({ task }) => {
+const TaskContainer: FC<TaskContainerProps> = ({ task, assignable, removable }) => {
+  const dispatch = useDispatch();
+
   return (
-    <View>
-      <Text style={p}>{task.name}</Text>
+    <View style={flexContainer}>
+      <View style={colFlex}>
+        <Text style={p}>{task.name}</Text>
+        <Text style={sub}>{task.frequency}, {task.priority}</Text>
+      </View>
+      <View style={colFlex}>
+        { removable &&
+          <Pressable onPress={() => dispatch(removeTask(task))}>
+            <Text style={highlight}>x</Text>
+          </Pressable> }
+        { assignable &&
+          <Pressable onPress={() => dispatch(assignTask(task))}>
+            <Text style={highlight}>+</Text>
+          </Pressable> }
+      </View>
     </View>
   );
 };

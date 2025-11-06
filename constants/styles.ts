@@ -73,3 +73,39 @@ export const bottomBar: ViewStyle = {
   borderTopColor: 'lime',
   padding: 5
 };
+
+export const sub: TextStyle = {
+  ... p,
+  fontSize: 10
+};
+
+export const flexContainer: ViewStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignContent: 'center',
+  borderWidth: 2,
+  borderColor: 'lime',
+  borderRadius: 5,
+  padding: 10,
+};
+
+export const colFlex: ViewStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 10,
+  overflow: 'scroll'
+};
+
+export const checkBoxUnchecked: ViewStyle = {
+  width: 14,
+  height: 14,
+  borderWidth: 2,
+  borderRadius: 2,
+  borderColor: 'lime'
+};
+
+export const checkBoxChecked: ViewStyle = {
+  ... checkBoxUnchecked,
+  backgroundColor: 'lime'
+};

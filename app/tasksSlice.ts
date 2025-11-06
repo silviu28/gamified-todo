@@ -15,17 +15,21 @@ const tasksSlice = createSlice({
       const task = action.payload;
       state.allTasks.push(task);
     },
+    assignTask: (state, action: PayloadAction<Task>) => {
+      const task = action.payload;
+      state.tasksToDo.push(task);
+    },
     dismissTask: (state, action) => {
       const { name } = action.payload;
       state.tasksToDo = state.tasksToDo
-        .filter(task => task.name === name);
+        .filter(task => task.name !== name);
     },
     removeTask: (state, action) => {
       const { name } = action.payload;
       state.allTasks = state.allTasks
-        .filter(task => task.name === name);
+        .filter(task => task.name !== name);
       state.tasksToDo = state.allTasks
-        .filter(task => task.name === name);
+        .filter(task => task.name !== name);
     },
     modifyTask: (state, action: PayloadAction<Task>) => {
       const newTask = action.payload;
@@ -37,10 +41,10 @@ const tasksSlice = createSlice({
     completeTask: (state, action: PayloadAction<Task>) => {
       const completedTask = action.payload;
       state.tasksToDo = state.tasksToDo
-        .filter(task => task.name === completedTask.name);
+        .filter(task => task.name !== completedTask.name);
     }
   }
 });
 
-export const { addTask, dismissTask, removeTask, modifyTask, completeTask } = tasksSlice.actions;
+export const { addTask, assignTask, dismissTask, removeTask, modifyTask, completeTask } = tasksSlice.actions;
 export default tasksSlice.reducer;
