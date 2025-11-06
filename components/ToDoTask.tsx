@@ -1,9 +1,10 @@
 import { Task } from "@/types";
 import { FC, useState } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import CheckBox from "./CheckBox";
 import { p, rowFlex } from "@/constants/styles";
+import { dismissTask } from "@/app/tasksSlice";
 
 interface ToDoTaskProps {
   task: Task;
@@ -16,9 +17,12 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
   return (
     <View style={[rowFlex, { justifyContent: 'space-between' }]}>
       <Text style={p}>{task.name}</Text>
+      <Pressable onPress={() => dispatch(dismissTask(task))}>
+        <Text style={p}>x</Text>
+      </Pressable>
       <CheckBox onCheck={v => setDone(v)} />
     </View>
-  )
+  );
 };
 
 export default ToDoTask;
