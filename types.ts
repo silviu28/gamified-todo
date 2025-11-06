@@ -16,4 +16,6 @@ export type Task = {
   priority: string,
   frequency: string,
   xp: number,
+  creationDate: Date,
+  skill: Skill,
 };

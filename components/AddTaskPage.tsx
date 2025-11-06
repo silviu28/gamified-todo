@@ -3,7 +3,7 @@ import { FlatList, Pressable, Text, View } from "react-native";
 import AddTaskForm from "./AddTaskForm";
 import { bgStyle, heading, highlight, padding } from "@/constants/styles";
 import { useNavigate } from "react-router-native";
-import { Frequency, Priority, Task } from "@/types";
+import { Frequency, Priority, Skill, Task } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { addTask } from "@/app/tasksSlice";
@@ -15,12 +15,14 @@ const AddTaskPage: FunctionComponent = () => {
 
   const navigate = useNavigate();
 
-  const addNewTask = (name: string, priority: Priority, frequency: Frequency) => {
+  const addNewTask = (name: string, priority: Priority, frequency: Frequency, skill: Skill) => {
     const newTask: Task = {
       name,
       priority,
       frequency,  
-      xp: 0
+      xp: 0,
+      creationDate: new Date(),
+      skill
     };
     console.log(newTask);
     dispatch(addTask(newTask));

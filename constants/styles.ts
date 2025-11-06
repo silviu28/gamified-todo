@@ -8,7 +8,7 @@ export const bgStyle: ViewStyle = {
 };
 
 export const padding: ViewStyle = {
-  margin: 50,
+  margin: 30,
   top: 100,
   gap: 9,
 };

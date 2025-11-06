@@ -1,6 +1,6 @@
 import { State } from "@/app/store";
 import { highlight, p, rowFlex, textInput } from "@/constants/styles";
-import { Frequency, Priority } from "@/types";
+import { Frequency, Priority, Skill } from "@/types";
 import { Text } from "@react-navigation/elements";
 import { FunctionComponent, useState } from "react";
 import { Pressable, TextInput, View } from "react-native";
@@ -11,6 +11,7 @@ type AddTaskFormProps = {
     task: string,
     priority: Priority,
     frequency: Frequency,
+    skill: Skill
   ) => void,
 };
 
@@ -20,6 +21,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
   const [task, setTask] = useState<string>('');
   const [priority, setPriority] = useState<Priority>('low');
   const [frequency, setFrequency] = useState<Frequency>('one-time');
+  const [skill, setSkill] = useState<Skill>();
 
   return (
     // Use empty <Text /> tag to add a line break
@@ -34,7 +36,9 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
       <Text style={p}>belonging to skill:</Text>
       <View style={rowFlex}>
         {skills.map(skill => 
-          <Pressable key={skill.name}>
+          <Pressable
+            key={skill.name}
+            onPress={() => setSkill(skill)}>
             <Text style={highlight}>{skill.name}</Text>
           </Pressable>)}
       </View>
@@ -81,7 +85,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
       <Text style={p}>tasks will be automatically added to your list based on the frequency</Text>
 
 
-      <Pressable onPress={() => onSubmit(task, priority, frequency)}>
+      <Pressable onPress={() => onSubmit(task, priority, frequency, skill)}>
         <Text style={[ highlight, { fontSize: 30 }]}>
           +
         </Text>
