@@ -1,6 +1,7 @@
 import { Skill } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
+// because each task is a child of its skill, task integrity is managed in this slice.
 const skillsSlice = createSlice({
   name: "skills",
   initialState: {
@@ -21,9 +22,36 @@ const skillsSlice = createSlice({
       state.skills = state.skills
         .map(skill => skill.name === newSkill.name ? newSkill : skill);
     },
+    addTask: (state, action) => {
+      const { skill, task } = action.payload;
+      const existingSkill = state.skills
+        .find(s => s.name === skill.name);
+      if (existingSkill) {
+        existingSkill.tasks = existingSkill.tasks
+          .concat(task);
+      }
+    },
+    removeTask: (state, action) => {
+      const { skill, task } = action.payload;
+      const existingSkill = state.skills
+        .find(s => s.name === skill.name);
+      if (existingSkill) {
+        existingSkill.tasks = existingSkill.tasks
+          .filter(t => t.name !== task.name);
+      }
+    },
+    modifyTask: (state, action) => {
+      const { skill, task } = action.payload;
+      const existingSkill = state.skills
+        .find(s => s.name === skill.name);
+      if (existingSkill) {
+        existingSkill.tasks = existingSkill.tasks
+          .map(t => t.name === task.name ? task : t);
+      }
+    },
   }
 });
 
-export const { addSkill, removeSkill, modifySkill } = skillsSlice.actions;
+export const { addSkill, removeSkill, modifySkill, addTask, removeTask, modifyTask } = skillsSlice.actions;
 export default skillsSlice.reducer;
 

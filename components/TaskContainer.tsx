@@ -1,4 +1,5 @@
-import { assignTask, removeTask } from "@/app/tasksSlice";
+import { assignTask } from "@/app/tasksSlice";
+import { removeTask } from "@/app/skillsSlice";
 import { colFlex, flexContainer, highlight, p, sub } from "@/constants/styles";
 import { Task } from "@/types";
 import { FC } from "react";
@@ -22,7 +23,7 @@ const TaskContainer: FC<TaskContainerProps> = ({ task, assignable, removable }) 
       </View>
       <View style={colFlex}>
         { removable &&
-          <Pressable onPress={() => dispatch(removeTask(task))}>
+          <Pressable onPress={() => dispatch(removeTask({ skill: task.skill, task }))}>
             <Text style={highlight}>x</Text>
           </Pressable> }
         { assignable &&

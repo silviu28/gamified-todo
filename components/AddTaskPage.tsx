@@ -6,12 +6,16 @@ import { useNavigate } from "react-router-native";
 import { Frequency, Priority, Skill, Task } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
-import { addTask } from "@/app/tasksSlice";
+import { addTask } from "@/app/skillsSlice";
 import TaskContainer from "./TaskContainer";
 
 const AddTaskPage: FunctionComponent = () => {
-  const allTasks = useSelector((state: State) => state.tasks.allTasks);
+  const skills = useSelector((state: State) => state.skills.skills);
   const dispatch = useDispatch();
+
+  const allTasks = skills.flatMap(skill => skill.tasks ?? []);
+
+  // skills.forEach(skill => dispatch(removeSkill({ skill })));
 
   const navigate = useNavigate();
 
@@ -25,8 +29,8 @@ const AddTaskPage: FunctionComponent = () => {
       skill
     };
     console.log(newTask);
-    dispatch(addTask(newTask));
-    console.log(allTasks);
+    dispatch(addTask({ skill, task: newTask }));
+    console.log(skills);
   };
   return (
     <View style={bgStyle}>

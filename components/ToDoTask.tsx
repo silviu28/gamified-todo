@@ -4,11 +4,13 @@ import { Pressable, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import CheckBox from "./CheckBox";
 import { p, rowFlex } from "@/constants/styles";
-import { dismissTask } from "@/app/tasksSlice";
+import { dismissOrCompleteTask } from "@/app/tasksSlice";
 
-const computeTimeLeft = (then: Date) => {
+const computeTimeLeft = (the: string) => {
+  console.log("then", the, "now", new Date());
+  const then = new Date(the);
   const now = new Date();
-  const diff = now.getTime() - then.getTime();
+  const diff = then.getHours() - now.getHours();
   return diff;
 };
 
@@ -20,14 +22,18 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
   const dispatch = useDispatch();
   const [done, setDone] = useState<boolean>(false);
 
+  const complete = () => {
+    dispatch(dismissOrCompleteTask({ task }));
+  };
+
   return (
     <View style={[rowFlex, { justifyContent: 'space-between' }]}>
       <Text style={p}>{task.name}</Text>
-      <Text style={p}>{computeTimeLeft(task.creationDate)} left</Text>
-      <Pressable onPress={() => dispatch(dismissTask(task))}>
+      <Text style={p}>{computeTimeLeft(String(task.creationDate))}</Text>
+      <Pressable onPress={() => dispatch(dismissOrCompleteTask({ task }))}>
         <Text style={p}>x</Text>
       </Pressable>
-      <CheckBox onCheck={v => setDone(v)} />
+      <CheckBox onCheck={complete} />
     </View>
   );
 };

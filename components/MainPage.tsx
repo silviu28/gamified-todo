@@ -1,4 +1,4 @@
-import { bgStyle, container, heading, highlight, p, padding, rowFlex, sub } from "@/constants/styles";
+import { bgStyle, container, heading, highlight, p, padding, sub } from "@/constants/styles";
 import { FC } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 import TaskContainer from "./TaskContainer";
@@ -9,13 +9,15 @@ import SkillContainer from "./styled/SkillContainer";
 import BottomBar from "./BottomBar";
 import ToDoTask from "./ToDoTask";
 import StatsContainer from "./StatsContainer";
+import Modal from "./Modal";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
 
   const toDoTasks = useSelector((state: State) => state.tasks.tasksToDo);
-  const allTasks = useSelector((state: State) => state.tasks.allTasks);
   const skills = useSelector((state: State) => state.skills.skills);
+
+  const allTasks = skills.flatMap(skill => skill.tasks);
 
   return (
     <View style={bgStyle}>
@@ -66,6 +68,10 @@ const MainPage: FC = () => {
           <Text style={highlight}>Revise skills</Text>
         </Pressable>
       </BottomBar>
+
+      <Modal isVisible>
+        <Text style={p}>Show this above</Text>
+      </Modal>
     </View>
   );
 };
