@@ -2,7 +2,7 @@ import { p, sub } from "@/constants/styles";
 import { Skill } from "@/types";
 import { FC } from "react";
 import { Text, View } from "react-native";
-import ProgressBar from "../ProgressBar";
+import ProgressBar from "./ProgressBar";
 
 interface SkillContainerProps {
   skill: Skill;

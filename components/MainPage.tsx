@@ -5,7 +5,7 @@ import TaskContainer from "./TaskContainer";
 import { useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { useNavigate } from "react-router-native";
-import SkillContainer from "./styled/SkillContainer";
+import SkillContainer from "./SkillContainer";
 import BottomBar from "./BottomBar";
 import ToDoTask from "./ToDoTask";
 import StatsContainer from "./StatsContainer";
