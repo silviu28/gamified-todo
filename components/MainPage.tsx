@@ -11,6 +11,7 @@ import ToDoTask from "./ToDoTask";
 import StatsContainer from "./StatsContainer";
 import Modal from "./Modal";
 import TierContainer from "./TierContainer";
+import SettingsIcon from "./icons/SettingsIcon";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
@@ -22,9 +23,16 @@ const MainPage: FC = () => {
 
   return (
     <View style={bgStyle}>
+
+      <View style={{ top: 100, left: "80%", position: "absolute" }}>
+        <Pressable onPress={() => navigate("/settings")}>
+          <SettingsIcon />
+        </Pressable>
+      </View>
+      
       <View style={padding}>
       
-      <View style={[container, { minHeight: 100 }]}>
+      <View style={[container, { minHeight: 90 }]}>
         <Text style={{ color: "white" }}>Things to do</Text>
         {toDoTasks.length > 0
           ? <FlatList
@@ -75,6 +83,7 @@ const MainPage: FC = () => {
       <Modal isVisible>
         <Text style={p}>Show this above</Text>
       </Modal>
+      
     </View>
   );
 };

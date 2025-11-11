@@ -22,6 +22,14 @@ const skillsSlice = createSlice({
       state.skills = state.skills
         .map(skill => skill.name === newSkill.name ? newSkill : skill);
     },
+    levelSkill: (state, action) => {
+      const { skill, xp } = action.payload;
+      const existingSkill = state.skills
+        .find(s => s.name === skill.name);
+      if (existingSkill) {
+        existingSkill.xp += xp;
+      }
+    },
     addTask: (state, action) => {
       const { skill, task } = action.payload;
       const existingSkill = state.skills
@@ -52,6 +60,6 @@ const skillsSlice = createSlice({
   }
 });
 
-export const { addSkill, removeSkill, modifySkill, addTask, removeTask, modifyTask } = skillsSlice.actions;
+export const { addSkill, removeSkill, modifySkill, levelSkill, addTask, removeTask, modifyTask } = skillsSlice.actions;
 export default skillsSlice.reducer;
 

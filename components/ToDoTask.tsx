@@ -1,10 +1,10 @@
 import { Task } from "@/types";
-import { FC, useState } from "react";
-import { Text, View } from "react-native";
+import { FC } from "react";
+import { Alert, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import CheckBox from "./CheckBox";
 import { p, rowFlex } from "@/constants/styles";
-import { dismissOrCompleteTask } from "@/app/tasksSlice";
+import { levelSkill } from "@/app/skillsSlice";
 
 const computeTimeLeft = (the: string) => {
   console.log("then", the, "now", new Date());
@@ -19,10 +19,21 @@ interface ToDoTaskProps {
 
 const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
   const dispatch = useDispatch();
-  const [done, setDone] = useState<boolean>(false);
 
   const complete = () => {
-    dispatch(dismissOrCompleteTask({ task }));
+    Alert.alert("Task complete", "Confirm task completion?", [
+      {
+        text: "Yes",
+        onPress: () => dispatch(levelSkill({
+          skill: task.skill,
+          amount: task.xp
+        })),
+      },
+      {
+        text: "No",
+        style: "cancel"
+      }
+    ]);
   };
 
   return (
