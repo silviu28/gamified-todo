@@ -3,18 +3,21 @@ import { Skill } from "@/types";
 import { FC } from "react";
 import { Text, View } from "react-native";
 import ProgressBar from "./ProgressBar";
+import computeLevel from "@/utils/computeLevel";
 
 interface SkillContainerProps {
   skill: Skill;
 };
 
 const SkillContainer: FC<SkillContainerProps> = ({ skill }) => {
-  const percent = 100 * skill.xp / skill.requiredXp;
+  const [level, currentXp, requiredXp] = computeLevel(skill.xp);
+
+  const percent = 100 * currentXp / requiredXp;
   return (
     <View style={{ padding: 2 }}>
-      <Text style={p}>{skill.name}, Level {skill.level}</Text>
+      <Text style={p}>{skill.name}, Level {level}</Text>
       <ProgressBar percent={percent} />
-      <Text style={sub}>{skill.xp}/{skill.requiredXp}</Text>
+      <Text style={sub}>{currentXp}/{requiredXp}</Text>
     </View>
   );
 };

@@ -10,6 +10,7 @@ import BottomBar from "./BottomBar";
 import ToDoTask from "./ToDoTask";
 import StatsContainer from "./StatsContainer";
 import Modal from "./Modal";
+import TierContainer from "./TierContainer";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
@@ -58,6 +59,8 @@ const MainPage: FC = () => {
       </View>
 
       <StatsContainer />
+
+      <TierContainer />
       
       </View>
       <BottomBar>

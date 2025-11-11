@@ -9,11 +9,6 @@ const StatsContainer: FC = () => {
   let totalXp = 0;
   let totalLevels = 0;
 
-  skills.forEach(skill => {
-    totalXp += skill.xp;
-    totalLevels += skill.level;
-  });
-
   return (
     <View style={container}>
       <Text style={heading}>Your overall stats:</Text>

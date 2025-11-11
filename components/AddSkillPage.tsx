@@ -18,10 +18,8 @@ const AddSkillPage: FunctionComponent = () => {
     const newSkill: Skill = {
       name,
       priority,
-      requiredXp: 50,
       xp: 0,
       tasks: [],
-      level: 1
     };
     dispatch(addSkill(newSkill));
   };

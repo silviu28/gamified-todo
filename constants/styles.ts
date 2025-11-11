@@ -109,3 +109,14 @@ export const checkBoxChecked: ViewStyle = {
   ... checkBoxUnchecked,
   backgroundColor: 'lime'
 };
+
+export const circularProgress: ViewStyle = {
+  borderWidth: 2,
+  borderColor: "green",
+  borderRadius: "50%",
+  width: 40,
+  height: 40,
+  justifyContent: "center",
+  alignItems: "center",
+  overflow: "scroll"
+};

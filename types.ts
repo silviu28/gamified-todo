@@ -1,6 +1,4 @@
 export type Skill = {
-  level: number,
-  requiredXp: number,
   xp: number,
   name: string,
   priority: number,
