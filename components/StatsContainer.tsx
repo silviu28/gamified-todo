@@ -3,6 +3,7 @@ import { container, heading, p } from "@/constants/styles";
 import { FC } from "react";
 import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
+import StatsIcon from "./icons/StatsIcon";
 
 const StatsContainer: FC = () => {
   const skills = useSelector((state: State) => state.skills.skills);
@@ -11,7 +12,7 @@ const StatsContainer: FC = () => {
 
   return (
     <View style={container}>
-      <Text style={heading}>Your overall stats:</Text>
+      <Text style={heading}><StatsIcon /> Your overall stats:</Text>
       <Text style={p}>Total XP: {totalXp}</Text>
       <Text style={p}>Total level: {totalLevels}</Text>
     </View>

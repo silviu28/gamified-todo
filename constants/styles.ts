@@ -89,8 +89,9 @@ export const container: ViewStyle = {
 
 export const bottomBar: ViewStyle = {
   position: 'absolute',
-  bottom: 30,
+  bottom: 0,
   width: '100%',
+  height: 60,
   flexDirection: 'row',
   justifyContent: 'center',
   gap: 20,

@@ -1,4 +1,4 @@
-import { heading, highlight } from "@/constants/styles";
+import { highlight } from "@/constants/styles";
 import { FC } from "react";
 import { Pressable, Text } from "react-native";
 

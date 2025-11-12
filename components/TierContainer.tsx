@@ -1,11 +1,12 @@
 import { circularProgress, container, heading, highlight, rowFlex } from "@/constants/styles";
 import { FC } from "react";
 import { Text, View } from "react-native";
+import TrophyIcon from "./icons/TrophyIcon";
 
 const TierContainer: FC = () => {
   return (
     <View style={container}>
-      <Text style={heading}>Your tier:</Text>
+      <Text style={heading}><TrophyIcon /> Your tier:</Text>
       <View style={rowFlex}>
         <View style={circularProgress}>
           <Text style={heading}>{0}</Text>

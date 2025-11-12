@@ -5,6 +5,7 @@ import { Text } from "@react-navigation/elements";
 import { FunctionComponent, useState } from "react";
 import { Pressable, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
+import Selection from "./Selection";
 
 type AddTaskFormProps = {
   onSubmit: (
@@ -35,12 +36,13 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
 
       <Text style={p}>belonging to skill:</Text>
       <View style={rowFlex}>
-        {skills.map(skill => 
-          <Pressable
-            key={skill.name}
-            onPress={() => setSkill(skill)}>
-            <Text style={highlight}>{skill.name}</Text>
-          </Pressable>)}
+        {skills.map(sk => 
+          <Selection
+            value={sk === skill}
+            key={sk.name}
+            onSelect={() => setSkill(sk)}
+            text={sk.name}
+          />)}
       </View>
       <Text />
 
@@ -48,15 +50,21 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
         how rewarding should this task be?
       </Text>
       <View style={rowFlex}>
-        <Pressable onPress={() => setPriority('low')}>
-          <Text style={highlight}>low</Text>
-        </Pressable>
-        <Pressable onPress={() => setPriority('average')}>
-          <Text style={highlight}>average</Text>
-        </Pressable>
-        <Pressable onPress={() => setPriority('high')}>
-          <Text style={highlight}>high</Text>
-        </Pressable>
+        <Selection
+          value={priority === "low"}
+          onSelect={() => setPriority("low")}
+          text="low"
+        />
+        <Selection
+          value={priority === "average"}
+          onSelect={() => setPriority("average")}
+          text="low"
+        />
+        <Selection
+          value={priority === "high"}
+          onSelect={() => setPriority("high")}
+          text="high"
+        />
       </View>
       <Text style={p}>low - receive 10 pts</Text>
       <Text style={p}>average - receive 20 pts</Text>
@@ -66,21 +74,31 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
 
       <Text style={p}>set a frequency for this task:</Text>
       <View style={rowFlex}>
-        <Pressable onPress={() => setFrequency('one-time')}>
-          <Text style={highlight}>one-time</Text>
-        </Pressable>
-        <Pressable onPress={() => setFrequency('daily')}>
-          <Text style={highlight}>daily</Text>
-        </Pressable>
-        <Pressable onPress={() => setFrequency('weekly')}>
-          <Text style={highlight}>weekly</Text>
-        </Pressable>
-        <Pressable onPress={() => setFrequency('monthly')}>
-          <Text style={highlight}>monthly</Text>
-        </Pressable>
-        <Pressable onPress={() => setFrequency('yearly')}>
-          <Text style={highlight}>yearly</Text>
-        </Pressable>
+        <Selection
+          value={frequency === "one-time"}
+          onSelect={() => setFrequency("one-time")}
+          text={"one-time"}
+        />
+        <Selection
+          value={frequency === "daily"}
+          onSelect={() => setFrequency("daily")}
+          text={"daily"}
+        />
+        <Selection
+          value={frequency === "weekly"}
+          onSelect={() => setFrequency("weekly")}
+          text={"weekly"}
+        />
+        <Selection
+          value={frequency === "monthly"}
+          onSelect={() => setFrequency("monthly")}
+          text={"monthly"}
+        />
+        <Selection
+          value={frequency === "yearly"}
+          onSelect={() => setFrequency("yearly")}
+          text={"yearly"}
+        />
       </View>
       <Text style={p}>tasks will be automatically added to your list based on the frequency</Text>
 
