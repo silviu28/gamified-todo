@@ -32,8 +32,8 @@ const MainPage: FC = () => {
       
       <View style={padding}>
       
-      <View style={[container, { minHeight: 90 }]}>
-        <Text style={{ color: "white" }}>Things to do</Text>
+      <View style={container}>
+        <Text style={heading}>Things to do</Text>
         {toDoTasks.length > 0
           ? <FlatList
             data={toDoTasks}

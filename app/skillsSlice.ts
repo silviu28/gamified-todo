@@ -24,6 +24,7 @@ const skillsSlice = createSlice({
     },
     levelSkill: (state, action) => {
       const { skill, xp } = action.payload;
+      console.log("leveling skill by", xp);
       const existingSkill = state.skills
         .find(s => s.name === skill.name);
       if (existingSkill) {

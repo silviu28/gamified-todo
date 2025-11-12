@@ -1,6 +1,7 @@
 import { highlight, p, rowFlex, textInput } from "@/constants/styles";
 import React, { FunctionComponent, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
+import Selection from "./Selection";
 
 type AddSkillFormProps = {
   onSubmit: (name: string, priority: number) => void,
@@ -19,16 +20,23 @@ const AddSkillForm: FunctionComponent<AddSkillFormProps> = ({ onSubmit }) => {
         <Text style={p}>
           priority (how important this skill is to you):
         </Text>
+        
         <View style={rowFlex}>
-          <Pressable onPress={() => setPriority(1)}>
-            <Text style={highlight}>low</Text>
-          </Pressable>
-          <Pressable onPress={() => setPriority(2)}>
-            <Text style={highlight}>medium</Text>
-          </Pressable>
-          <Pressable onPress={() => setPriority(3)}>
-            <Text style={highlight}>high</Text>
-          </Pressable>
+          <Selection
+            value={priority === 1}
+            onSelect={() => setPriority(1)} 
+            text="low"
+          />
+          <Selection
+            value={priority === 2}
+            onSelect={() => setPriority(2)} 
+            text="average"
+          />
+          <Selection
+            value={priority === 3}
+            onSelect={() => setPriority(3)} 
+            text="high"
+          />
         </View>
 
         <Pressable onPress={() => onSubmit(name, priority)}>

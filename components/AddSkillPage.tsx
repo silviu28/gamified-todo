@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import AddSkillForm from "./AddSkillForm";
 import { useNavigate } from "react-router-native";
 import { bgStyle, heading, highlight, p, padding } from "@/constants/styles";
@@ -7,6 +7,7 @@ import { Skill } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchFunction, State } from "@/app/store";
 import { addSkill } from "@/app/skillsSlice";
+import SkillContainer from "./SkillContainer";
 
 const AddSkillPage: FunctionComponent = () => {
   const skills = useSelector((state: State) => state.skills.skills);
@@ -32,10 +33,15 @@ const AddSkillPage: FunctionComponent = () => {
         </Text>
         <AddSkillForm onSubmit={onSubmit} />
 
-        { skills?.map(skill => 
-          <Text key={skill.name} style={p}>
-            {skill.name}, {skill.priority}
-          </Text>) }
+        <FlatList
+          data={skills}
+          keyExtractor={skill => skill.name}
+          renderItem={({ item }) =>
+            <>
+              <SkillContainer skill={item} />
+              <Text style={p}>You selected priority {item.priority} for this skill.</Text>
+            </>}
+        />
 
         <Pressable onPress={() => navigate('/addTask')}>
           <Text style={highlight}>done</Text>

@@ -26,7 +26,7 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
         text: "Yes",
         onPress: () => dispatch(levelSkill({
           skill: task.skill,
-          amount: task.xp
+          xp: task.xp
         })),
       },
       {
