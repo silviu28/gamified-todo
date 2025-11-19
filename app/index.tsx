@@ -2,7 +2,7 @@ import AddSkillPage from "@/components/AddSkillPage";
 import AddTaskPage from "@/components/AddTaskPage";
 import HomePage from "@/components/HomePage";
 import MainPage from "@/components/MainPage";
-import { NativeRouter, Route, Routes, useNavigate } from "react-router-native";
+import { NativeRouter, Route, Routes } from "react-router-native";
 import UserPreferencesContext from "./context/UserPreferencesContext";
 import { Provider } from "react-redux";
 import store, { persistor } from "./store";

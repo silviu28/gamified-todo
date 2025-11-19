@@ -1,5 +1,5 @@
 // return the current level, the xp collected for passing current level, and required xp to pass it
-function computeLevel(xp: number): [number, number, number] {
+function computeLevel(xp: number): [level: number, currentXp: number, requiredXp: number] {
   const baseXp = 50;
   const growth = 1.2;
 
