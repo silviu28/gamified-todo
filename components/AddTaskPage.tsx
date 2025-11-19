@@ -20,11 +20,26 @@ const AddTaskPage: FunctionComponent = () => {
   const navigate = useNavigate();
 
   const addNewTask = (name: string, priority: Priority, frequency: Frequency, skill: Skill) => {
+    let xp;
+    switch (priority) {
+      case "low":
+        xp = 10;
+        break;
+      case "average":
+        xp = 20;
+        break;
+      case "high":
+        xp = 30;
+        break;
+      default:
+        xp = 0;
+        break;
+    }
     const newTask: Task = {
       name,
       priority,
       frequency,  
-      xp: 0,
+      xp,
       creationDate: new Date(),
       skill
     };

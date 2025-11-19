@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import skillsReducer from "./skillsSlice";
 import tasksReducer from "./tasksSlice";
+import preferencesReducer from "./preferencesSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistStore, persistReducer } from 'redux-persist';
 
@@ -11,13 +12,15 @@ const persistConfig = {
 
 const persistedSkillsReducer = persistReducer(persistConfig, skillsReducer);
 const persistedTasksReducer = persistReducer(persistConfig, tasksReducer);
+const persistedPrefsReducer = persistReducer(persistConfig, preferencesReducer);
 
 // to use the skills and tasks slices, define a store
 // to persist, add a middleware property (disabled serializable check required)
 const store = configureStore({
   reducer: {
     skills: persistedSkillsReducer,
-    tasks: persistedTasksReducer
+    tasks: persistedTasksReducer,
+    preferences: persistedPrefsReducer,
   },
   middleware: getDefaultMiddleware => 
     getDefaultMiddleware({

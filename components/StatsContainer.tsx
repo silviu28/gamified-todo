@@ -4,11 +4,12 @@ import { FC } from "react";
 import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import StatsIcon from "./icons/StatsIcon";
+import computeLevel from "@/utils/computeLevel";
 
 const StatsContainer: FC = () => {
   const skills = useSelector((state: State) => state.skills.skills);
-  let totalXp = 0;
-  let totalLevels = 0;
+  const totalXp = skills.reduce((total, skill) => total + skill.xp, 0);
+  const [totalLevels] = computeLevel(totalXp);
 
   return (
     <View style={container}>
