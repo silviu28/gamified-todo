@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import AddSkillForm from "./AddSkillForm";
 import { useNavigate } from "react-router-native";
 import { bgStyle, heading, highlight, p, padding } from "@/constants/styles";
@@ -26,7 +26,9 @@ const AddSkillPage: FunctionComponent = () => {
   };
 
   return (
-    <View style={bgStyle}>
+    <ScrollView
+        style={bgStyle}
+        showsVerticalScrollIndicator={false}>
       <View style={padding}>
         <Text style={heading}>
           Start by adding any skill (e.g. drawing, programming, doing dishes)
@@ -35,10 +37,11 @@ const AddSkillPage: FunctionComponent = () => {
 
         <FlatList
           data={skills}
+          scrollEnabled={false}
           keyExtractor={skill => skill.name}
           renderItem={({ item }) =>
             <>
-              <SkillContainer skill={item} />
+              <SkillContainer skill={item} removable />
               <Text style={p}>You selected priority {item.priority} for this skill.</Text>
             </>}
         />
@@ -47,7 +50,7 @@ const AddSkillPage: FunctionComponent = () => {
           <Text style={highlight}>done</Text>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

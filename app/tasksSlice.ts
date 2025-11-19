@@ -12,7 +12,9 @@ const tasksSlice = createSlice({
   reducers: {
     assignTask: (state, action: PayloadAction<Task>) => {
       const task = action.payload;
-      state.tasksToDo.push(task);
+      if (!state.tasksToDo.find(t => t.name === task.name)) {
+        state.tasksToDo.push(task);
+      }
     },
     dismissOrCompleteTask: (state, action) => {
       const { name } = action.payload;

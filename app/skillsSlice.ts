@@ -10,7 +10,9 @@ const skillsSlice = createSlice({
   reducers: {
     addSkill: (state, action) => {
       const skill = action.payload as Skill;
-      state.skills = state.skills.concat(skill);
+      if (!state.skills.find(sk => sk.name === skill.name) || skill.name) { 
+        state.skills = state.skills.concat(skill);
+      }
     },
     removeSkill: (state, action) => {
       const { name } = action.payload as Skill;
@@ -36,8 +38,8 @@ const skillsSlice = createSlice({
       const existingSkill = state.skills
         .find(s => s.name === skill.name);
       if (existingSkill) {
-        existingSkill.tasks = existingSkill.tasks
-          .concat(task);
+        if (!skill.tasks.find(t => t.name === task.name))
+        existingSkill.tasks.push(task);
       }
     },
     removeTask: (state, action) => {

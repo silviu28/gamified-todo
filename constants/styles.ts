@@ -40,13 +40,12 @@ export const p: TextStyle = {
   lineHeight: 20,
 };
 
-export const textInput: ViewStyle = {
+export const textInput: TextStyle = {
   backgroundColor: '#222',
   borderColor: '#0F0',
   borderWidth: 1,
   borderRadius: 5,
   padding: 10,
-  ...shadow,
 };
 
 export const rowFlex: ViewStyle = {

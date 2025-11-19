@@ -9,12 +9,12 @@ interface HasChildren {
 const GradientBackground: FC<HasChildren> = ({ children }) => {
   return (
     <LinearGradient
-    colors={['#000000', '#001100', '#00ff00ff']}
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 1 }}
-    style={bgStyle}>
-    {children}
-  </LinearGradient>
+      colors={['#000000', '#001100', '#00ff00ff']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={bgStyle}>
+      {children}
+    </LinearGradient>
   );
 };
 

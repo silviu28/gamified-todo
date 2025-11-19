@@ -58,7 +58,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
         <Selection
           value={priority === "average"}
           onSelect={() => setPriority("average")}
-          text="low"
+          text="average"
         />
         <Selection
           value={priority === "high"}

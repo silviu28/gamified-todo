@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import AddTaskForm from "./AddTaskForm";
 import { bgStyle, heading, highlight, padding } from "@/constants/styles";
 import { useNavigate } from "react-router-native";
@@ -48,7 +48,9 @@ const AddTaskPage: FunctionComponent = () => {
     console.log(skills);
   };
   return (
-    <View style={bgStyle}>
+    <ScrollView
+      style={bgStyle}
+      showsVerticalScrollIndicator={false}>
       <View style={padding}>
         <Text style={heading}>
           Now add some tasks that you need to do:
@@ -57,6 +59,7 @@ const AddTaskPage: FunctionComponent = () => {
 
         <FlatList
           data={allTasks}
+          scrollEnabled={false}
           keyExtractor={task => task.name}
           renderItem={({ item }) => 
             <TaskContainer task={item} removable />}
@@ -66,7 +69,7 @@ const AddTaskPage: FunctionComponent = () => {
           <Text style={highlight}>done</Text>
         </Pressable>
       </View>
-    </View>
+    </ScrollView>
   )
 };
 

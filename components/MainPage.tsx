@@ -2,7 +2,7 @@ import { container, heading, highlight, padding, sub } from "@/constants/styles"
 import { FC } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import TaskContainer from "./TaskContainer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { useNavigate } from "react-router-native";
 import SkillContainer from "./SkillContainer";
@@ -16,14 +16,18 @@ import GradientBackground from "./GradientBackground";
 import CheckboxIcon from "./icons/CheckboxIcon";
 import InfoIcon from "./icons/InfoIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
+import { dismissOrCompleteTask } from "@/app/tasksSlice";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
+  // const dispatch = useDispatch();
 
   const toDoTasks = useSelector((state: State) => state.tasks.tasksToDo);
   const skills = useSelector((state: State) => state.skills.skills);
 
   const allTasks = skills.flatMap(skill => skill.tasks);
+
+  // toDoTasks.forEach(t => dispatch(dismissOrCompleteTask(t)));
 
   return (
     <GradientBackground>
