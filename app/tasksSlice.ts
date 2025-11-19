@@ -21,8 +21,11 @@ const tasksSlice = createSlice({
       state.tasksToDo = state.tasksToDo
         .filter(task => task.name === name);
     },
+    dismissAllTasks: (state) => {
+      state.tasksToDo = [];
+    },
   }
 });
 
-export const { assignTask, dismissOrCompleteTask } = tasksSlice.actions;
+export const { assignTask, dismissOrCompleteTask, dismissAllTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;

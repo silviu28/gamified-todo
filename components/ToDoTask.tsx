@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import CheckBox from "./CheckBox";
 import { p, rowFlex } from "@/constants/styles";
 import { levelSkill } from "@/app/skillsSlice";
+import { addStats } from "@/app/tierSlice";
 
 const computeTimeLeft = (the: string) => {
   console.log("then", the, "now", new Date());
@@ -24,10 +25,10 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
     Alert.alert("Task complete", "Confirm task completion?", [
       {
         text: "Yes",
-        onPress: () => dispatch(levelSkill({
-          skill: task.skill,
-          xp: task.xp
-        })),
+        onPress: () => {
+          dispatch(levelSkill({ skill: task.skill, xp: task.xp }));
+          dispatch(addStats({ taskCount: 1, xp: task.xp }));
+        },
       },
       {
         text: "No",

@@ -1,4 +1,5 @@
 import { Skill } from "@/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
 
 // because each task is a child of its skill, task integrity is managed in this slice.
@@ -60,9 +61,12 @@ const skillsSlice = createSlice({
           .map(t => t.name === task.name ? task : t);
       }
     },
+    removeAllSkills: (state) => {
+      state.skills = [];
+    },
   }
 });
 
-export const { addSkill, removeSkill, modifySkill, levelSkill, addTask, removeTask, modifyTask } = skillsSlice.actions;
+export const { addSkill, removeSkill, modifySkill, levelSkill, addTask, removeTask, modifyTask, removeAllSkills } = skillsSlice.actions;
 export default skillsSlice.reducer;
 

@@ -12,15 +12,20 @@ const preferencesSlice = createSlice({
       const { accent } = action.payload;
       state.accent = accent;
     },
-    skipStart: (state, _action) => {
+    skipStart: (state) => {
       state.showStart = !state.showStart;
     },
     changeTheme: (state, action) => {
       const { theme } = action.payload;
       state.theme = theme;
     },
+    resetPreferences: (state) => {
+      state.showStart = true;
+      state.accent = "lime";
+      state.theme = "dark";
+    },
   }
 });
 
-export const { changeAccent, skipStart, changeTheme } = preferencesSlice.actions;
+export const { changeAccent, skipStart, changeTheme, resetPreferences } = preferencesSlice.actions;
 export default preferencesSlice.reducer;

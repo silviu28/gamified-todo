@@ -15,11 +15,9 @@ const tierSlice = createSlice({
     decreaseTier: (state, _action) => {
       --state.tier;
     },
-    addFinishedTask: (state, _action) => {
-      ++state.tasksCount;
-    },
-    addXp: (state, action) => {
-      const xp: number = action.payload;
+    addStats: (state, action) => {
+      const { taskCount, xp } = action.payload;
+      state.tasksCount += taskCount;
       state.consolidatedXp += xp;
     },
     decayTier: (state, action) => {
@@ -31,8 +29,13 @@ const tierSlice = createSlice({
       const [tier] = computeTier(state.tasksCount, state.consolidatedXp);
       state.tier = tier;
     },
+    clearTier: (state) => {
+      state.tier = 0;
+      state.consolidatedXp = 0;
+      state.tier = 0;
+    },
   }
 });
 
-export const { increaseTier, decreaseTier, addFinishedTask, addXp, decayTier } = tierSlice.actions;
+export const { increaseTier, decreaseTier, addStats, decayTier, clearTier } = tierSlice.actions;
 export default tierSlice.reducer;

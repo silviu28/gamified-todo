@@ -6,20 +6,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import Selection from "./Selection";
 import { changeAccent, changeTheme } from "@/app/preferencesSlice";
+import { useNavigate } from "react-router-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SettingsPage: FC = () => {
   const prefs = useSelector((state: State) => state.preferences);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const wipeAllAndClose = () => {
     Alert.alert("Wipe everything",
-      "Are you really sure you want to do this? This process is irreversible.",
-    [
+      "Are you really sure you want to do this? This process is irreversible.", [
       {
         text: "Yes",
         onPress: () => {
-          Alert.alert("Wipe everything", "The app will now close.");
-          // ... execute wipe
+          Alert.alert("Data erase", "Wipe successful.");
+          AsyncStorage.clear();
+          // return to main page
+          navigate("*");
         }
       },
       {

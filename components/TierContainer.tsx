@@ -21,7 +21,7 @@ const TierContainer: FC = () => {
     }
   }, [tier.tier]);
 
-  const [,,] = computeTier(tier.tasksCount, tier.consolidatedXp);
+  const [currentTier, requiredTaskCount, requiredXpCount] = computeTier(tier.tasksCount, tier.consolidatedXp);
 
   return (
     <View style={container}>
@@ -29,13 +29,13 @@ const TierContainer: FC = () => {
       <View style={rowFlex}>
         <View style={circularProgress}>
           <Text style={heading}>
-            {tier.tier}
+            {currentTier}
           </Text>
         </View>
         <Text style={highlight}>
           {`To raise your tier, you must:
-          > complete ${0} tasks
-          > acquire ${0} xp.`}
+          > complete ${requiredTaskCount} tasks
+          > acquire ${requiredXpCount} xp.`}
         </Text>
       </View>
     </View>
