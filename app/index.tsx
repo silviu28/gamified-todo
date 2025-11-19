@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import SettingsPage from "@/components/SettingsPage";
 import BackButtonHandler from "@/components/BackButtonHandler";
 import MePage from "@/components/MePage";
+import MeCard from "@/components/MeCard";
 
 export default function Page() {
   return (
@@ -25,6 +26,7 @@ export default function Page() {
               <Route path='/main' element={<MainPage />} />
               <Route path='/settings' element={<SettingsPage />} />
               <Route path='/me' element={<MePage />} />
+              <Route path='/share' element={<MeCard />} />
             </Routes>
           </NativeRouter>
         </UserPreferencesContext.Provider>

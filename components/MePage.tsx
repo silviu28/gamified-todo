@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import GradientBackground from "./GradientBackground";
 import { useSelector } from "react-redux";
@@ -7,19 +7,20 @@ import { colFlex, heading } from "@/constants/styles";
 import ShareIcon from "./icons/ShareIcon";
 import PencilIcon from "./icons/PencilIcon";
 import StatsSummary from "./StatsSummary";
-import TierContainer from "./TierContainer";
+import { useNavigate } from "react-router-native";
 
 const MePage: FC = () => {
   const prefs = useSelector((state: State) => state.preferences);
+  const navigate = useNavigate();
 
   return (
     <GradientBackground>
-      <View style={{position: "absolute", top: 60, right: 20 }}>
+      <View style={{position: "absolute", top: 60, right: 20, zIndex: 10 }}>
         <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
           <Pressable>
             <PencilIcon />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => navigate("/share")}>
             <ShareIcon />
           </Pressable>
         </View>
