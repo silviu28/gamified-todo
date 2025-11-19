@@ -17,6 +17,7 @@ import CheckboxIcon from "./icons/CheckboxIcon";
 import InfoIcon from "./icons/InfoIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
 import { dismissOrCompleteTask } from "@/app/tasksSlice";
+import PersonIcon from "./icons/PersonIcon";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
@@ -27,14 +28,17 @@ const MainPage: FC = () => {
 
   const allTasks = skills.flatMap(skill => skill.tasks);
 
-  // toDoTasks.forEach(t => dispatch(dismissOrCompleteTask(t)));
-
   return (
     <GradientBackground>
-      <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10,}}>
-        <Pressable onPress={() => navigate("/settings")}>
-          <SettingsIcon />
-        </Pressable>
+      <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
+        <View style={{display: "flex", flexDirection: "row", gap: 10 }}>
+          <Pressable onPress={() => navigate("/me")}>
+            <PersonIcon />
+          </Pressable>
+          <Pressable onPress={() => navigate("/settings")}>
+            <SettingsIcon />
+          </Pressable>
+        </View>
       </View>
 
       <ScrollView

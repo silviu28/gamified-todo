@@ -5,7 +5,10 @@ const preferencesSlice = createSlice({
   initialState: {
     showStart: true,
     accent: "lime",
-    theme: "dark"
+    theme: "dark",
+    thumbnail: "",
+    profilePicture: "",
+    username: "user",
   },
   reducers: {
     changeAccent: (state, action) => {

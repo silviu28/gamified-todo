@@ -13,8 +13,8 @@ function computeLevel(xp: number): [level: number, currentXp: number, requiredXp
     level++;
   }
 
-  const currentXp = xp - xpSpent;
-  const requiredXp = xpForNext;
+  const currentXp = Math.round(xp - xpSpent);
+  const requiredXp = Math.round(xpForNext);
 
   return [level, currentXp, requiredXp];
 };

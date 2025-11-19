@@ -9,6 +9,7 @@ import store, { persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import SettingsPage from "@/components/SettingsPage";
 import BackButtonHandler from "@/components/BackButtonHandler";
+import MePage from "@/components/MePage";
 
 export default function Page() {
   return (
@@ -23,6 +24,7 @@ export default function Page() {
               <Route path='/addTask' element={<AddTaskPage />} />
               <Route path='/main' element={<MainPage />} />
               <Route path='/settings' element={<SettingsPage />} />
+              <Route path='/me' element={<MePage />} />
             </Routes>
           </NativeRouter>
         </UserPreferencesContext.Provider>
