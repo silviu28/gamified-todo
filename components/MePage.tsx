@@ -1,13 +1,14 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import GradientBackground from "./GradientBackground";
 import { useSelector } from "react-redux";
 import { State } from "@/app/store";
-import { colFlex, heading } from "@/constants/styles";
+import { colFlex, container, heading } from "@/constants/styles";
 import ShareIcon from "./icons/ShareIcon";
 import PencilIcon from "./icons/PencilIcon";
 import StatsSummary from "./StatsSummary";
 import { useNavigate } from "react-router-native";
+import SkillRadarChart from "./SkillRadarChart";
 
 const MePage: FC = () => {
   const prefs = useSelector((state: State) => state.preferences);
@@ -44,7 +45,16 @@ const MePage: FC = () => {
           <Text style={[heading, {alignSelf: "center", top: -20}]}>{prefs.username}</Text>
 
         <StatsSummary />
+
+        <Text />
+
+        <View style={container}>
+          <SkillRadarChart />
+        </View>
+
       </ScrollView>
+
+      <Text />
 
 
     </GradientBackground>

@@ -1,9 +1,10 @@
 import { State } from "@/app/store";
-import { bgStyle, container, heading, padding, sub } from "@/constants/styles";
+import { bgStyle, colFlex, container, heading, padding, sub } from "@/constants/styles";
 import { FC } from "react";
 import { Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import TrophyIcon from "./icons/TrophyIcon";
+import SkillRadarChart from "./SkillRadarChart";
 
 const MeCard: FC = () => {
   const prefs = useSelector((state: State) => state.preferences);
@@ -32,9 +33,13 @@ const MeCard: FC = () => {
           </Text>
           </View>
 
-          <Text style={heading}>
-            <TrophyIcon /> Tier {tier.tier}
-          </Text>
+          <View style={[colFlex, { right: 25, }]}>
+            <Text style={[heading, {textAlign: "center"}]}>
+              <TrophyIcon /> Tier {tier.tier}
+            </Text>
+
+            <SkillRadarChart />
+          </View>
         </View>
         <Text style={[sub, {textAlign: "center"}]}>
         screenshot this and share your progress with your friends.
