@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DispatchFunction, State } from "@/app/store";
 import { addSkill } from "@/app/skillsSlice";
 import SkillContainer from "./SkillContainer";
+import AnimatePage from "./AnimatePage";
 
 const AddSkillPage: FunctionComponent = () => {
   const skills = useSelector((state: State) => state.skills.skills);
@@ -26,31 +27,33 @@ const AddSkillPage: FunctionComponent = () => {
   };
 
   return (
-    <ScrollView
-        style={bgStyle}
-        showsVerticalScrollIndicator={false}>
-      <View style={padding}>
-        <Text style={heading}>
-          Start by adding any skill (e.g. drawing, programming, doing dishes)
-        </Text>
-        <AddSkillForm onSubmit={onSubmit} />
+    <AnimatePage>
+      <ScrollView
+          style={bgStyle}
+          showsVerticalScrollIndicator={false}>
+        <View style={padding}>
+          <Text style={heading}>
+            Start by adding any skill (e.g. drawing, programming, doing dishes)
+          </Text>
+          <AddSkillForm onSubmit={onSubmit} />
 
-        <FlatList
-          data={skills}
-          scrollEnabled={false}
-          keyExtractor={skill => skill.name}
-          renderItem={({ item }) =>
-            <>
-              <SkillContainer skill={item} removable />
-              <Text style={p}>You selected priority {item.priority} for this skill.</Text>
-            </>}
-        />
+          <FlatList
+            data={skills}
+            scrollEnabled={false}
+            keyExtractor={skill => skill.name}
+            renderItem={({ item }) =>
+              <>
+                <SkillContainer skill={item} removable />
+                <Text style={p}>You selected priority {item.priority} for this skill.</Text>
+              </>}
+          />
 
-        <Pressable onPress={() => navigate('/addTask')}>
-          <Text style={highlight}>done</Text>
-        </Pressable>
-      </View>
-    </ScrollView>
+          <Pressable onPress={() => navigate('/addTask')}>
+            <Text style={highlight}>done</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </AnimatePage>
   );
 };
 

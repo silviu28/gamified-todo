@@ -4,9 +4,11 @@ import { Pressable, Text, View } from "react-native";
 import { Link } from "react-router-native";
 import CheckboxIcon from "./icons/CheckboxIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
+import AnimatePage from "./AnimatePage";
 
 const HomePage: FunctionComponent = () => {
   return (
+    <AnimatePage>
     <View style={bgStyle}>
       <View style={padding}>
         <Text style={heading}>welcome</Text>
@@ -37,6 +39,7 @@ const HomePage: FunctionComponent = () => {
         </Pressable>
       </View>
     </View>
+    </AnimatePage>
   );
 };
 

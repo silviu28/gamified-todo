@@ -18,6 +18,7 @@ import InfoIcon from "./icons/InfoIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
 import { dismissOrCompleteTask } from "@/app/tasksSlice";
 import PersonIcon from "./icons/PersonIcon";
+import AnimatePage from "./AnimatePage";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
@@ -29,79 +30,81 @@ const MainPage: FC = () => {
   const allTasks = skills.flatMap(skill => skill.tasks);
 
   return (
-    <GradientBackground>
-      <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
-        <View style={{display: "flex", flexDirection: "row", gap: 10 }}>
-          <Pressable onPress={() => navigate("/me")}>
-            <PersonIcon />
-          </Pressable>
-          <Pressable onPress={() => navigate("/settings")}>
-            <SettingsIcon />
-          </Pressable>
+    <AnimatePage>
+      <GradientBackground>
+        <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
+          <View style={{display: "flex", flexDirection: "row", gap: 10 }}>
+            <Pressable onPress={() => navigate("/me")}>
+              <PersonIcon />
+            </Pressable>
+            <Pressable onPress={() => navigate("/settings")}>
+              <SettingsIcon />
+            </Pressable>
+          </View>
         </View>
-      </View>
 
-      <ScrollView
-        style={{ flex: 1 }}
-        contentContainerStyle={[padding, { paddingBottom: 120 }]}
-        showsVerticalScrollIndicator={false}>
-        
-        <View style={container}>
-          <Text style={heading}>
-            <CheckboxIcon /> Things to do
-          </Text>
-          <Text/>
-          {toDoTasks.length > 0
-            ? <FlatList
-              data={toDoTasks}
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={[padding, { paddingBottom: 120 }]}
+          showsVerticalScrollIndicator={false}>
+          
+          <View style={container}>
+            <Text style={heading}>
+              <CheckboxIcon /> Things to do
+            </Text>
+            <Text/>
+            {toDoTasks.length > 0
+              ? <FlatList
+                data={toDoTasks}
+                keyExtractor={(task) => task.name}
+                renderItem={({ item }) => <ToDoTask task={item} />}
+                scrollEnabled={false}
+              />
+              : <Text style={sub}>Nothing to do for now</Text>}
+          </View>
+
+          <View style={container}>
+            <Text style={heading}>
+              <InfoIcon /> Add tasks:
+            </Text>
+            <Text />
+            <FlatList
+              data={allTasks}
               keyExtractor={(task) => task.name}
-              renderItem={({ item }) => <ToDoTask task={item} />}
               scrollEnabled={false}
-             />
-            : <Text style={sub}>Nothing to do for now</Text>}
-        </View>
+              renderItem={({ item }) =>
+                <TaskContainer task={item} assignable />}
+            />
+          </View>
 
-        <View style={container}>
-          <Text style={heading}>
-            <InfoIcon /> Add tasks:
-          </Text>
-          <Text />
-          <FlatList
-            data={allTasks}
-            keyExtractor={(task) => task.name}
-            scrollEnabled={false}
-            renderItem={({ item }) =>
-              <TaskContainer task={item} assignable />}
-          />
-        </View>
+          <View style={container}>
+            <Text style={heading}>
+              <UpArrowIcon /> Your skills:
+            </Text>
+            {skills.map(skill => 
+              <SkillContainer key={skill.name} skill={skill} />)}
+          </View>
 
-        <View style={container}>
-          <Text style={heading}>
-            <UpArrowIcon /> Your skills:
-          </Text>
-          {skills.map(skill => 
-            <SkillContainer key={skill.name} skill={skill} />)}
-        </View>
+          <StatsContainer />
+          <TierContainer />
 
-        <StatsContainer />
-        <TierContainer />
+          <Text/>
+        </ScrollView>
 
-        <Text/>
-      </ScrollView>
+        <BottomBar>
+          <Pressable onPress={() => navigate("/addTask")}>
+            <Text style={highlight}>Revise tasks</Text>
+          </Pressable>
+          <Pressable onPress={() => navigate("/addSkill")}>
+            <Text style={highlight}>Revise skills</Text>
+          </Pressable>
+        </BottomBar>
 
-      <BottomBar>
-        <Pressable onPress={() => navigate("/addTask")}>
-          <Text style={highlight}>Revise tasks</Text>
-        </Pressable>
-        <Pressable onPress={() => navigate("/addSkill")}>
-          <Text style={highlight}>Revise skills</Text>
-        </Pressable>
-      </BottomBar>
-
-      <Modal isVisible>
-        <Text style={sub}>Show this above</Text>
-      </Modal>
-    </GradientBackground>
+        <Modal isVisible>
+          <Text style={sub}>Show this above</Text>
+        </Modal>
+      </GradientBackground>
+    </AnimatePage>
   );
 };
 

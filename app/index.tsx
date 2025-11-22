@@ -11,24 +11,27 @@ import SettingsPage from "@/components/SettingsPage";
 import BackButtonHandler from "@/components/BackButtonHandler";
 import MePage from "@/components/MePage";
 import MeCard from "@/components/MeCard";
+import { View } from "react-native";
 
 export default function Page() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <UserPreferencesContext.Provider value={{ isFirstBoot: false }}>
-          <NativeRouter>
-            <BackButtonHandler />
-            <Routes>
-              <Route path='*' element={<HomePage />} />
-              <Route path='/addSkill' element={<AddSkillPage />} />
-              <Route path='/addTask' element={<AddTaskPage />} />
-              <Route path='/main' element={<MainPage />} />
-              <Route path='/settings' element={<SettingsPage />} />
-              <Route path='/me' element={<MePage />} />
-              <Route path='/share' element={<MeCard />} />
-            </Routes>
-          </NativeRouter>
+          <View style={{ flex: 1, backgroundColor: "black" }}>
+            <NativeRouter>
+              <BackButtonHandler />
+              <Routes>
+                <Route path='*' element={<HomePage />} />
+                <Route path='/addSkill' element={<AddSkillPage />} />
+                <Route path='/addTask' element={<AddTaskPage />} />
+                <Route path='/main' element={<MainPage />} />
+                <Route path='/settings' element={<SettingsPage />} />
+                <Route path='/me' element={<MePage />} />
+                <Route path='/share' element={<MeCard />} />
+              </Routes>
+            </NativeRouter>
+          </View>
         </UserPreferencesContext.Provider>
       </PersistGate>
     </Provider>

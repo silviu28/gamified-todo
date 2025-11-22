@@ -8,14 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { addTask } from "@/app/skillsSlice";
 import TaskContainer from "./TaskContainer";
+import AnimatePage from "./AnimatePage";
 
 const AddTaskPage: FunctionComponent = () => {
   const skills = useSelector((state: State) => state.skills.skills);
   const dispatch = useDispatch();
 
   const allTasks = skills.flatMap(skill => skill.tasks ?? []);
-
-  // skills.forEach(skill => dispatch(removeSkill({ skill })));
 
   const navigate = useNavigate();
 
@@ -48,28 +47,30 @@ const AddTaskPage: FunctionComponent = () => {
     console.log(skills);
   };
   return (
-    <ScrollView
-      style={bgStyle}
-      showsVerticalScrollIndicator={false}>
-      <View style={padding}>
-        <Text style={heading}>
-          Now add some tasks that you need to do:
-        </Text>
-        <AddTaskForm onSubmit={addNewTask} />
+    <AnimatePage>
+      <ScrollView
+        style={bgStyle}
+        showsVerticalScrollIndicator={false}>
+        <View style={padding}>
+          <Text style={heading}>
+            Now add some tasks that you need to do:
+          </Text>
+          <AddTaskForm onSubmit={addNewTask} />
 
-        <FlatList
-          data={allTasks}
-          scrollEnabled={false}
-          keyExtractor={task => task.name}
-          renderItem={({ item }) => 
-            <TaskContainer task={item} removable />}
-        />
+          <FlatList
+            data={allTasks}
+            scrollEnabled={false}
+            keyExtractor={task => task.name}
+            renderItem={({ item }) => 
+              <TaskContainer task={item} removable />}
+          />
 
-        <Pressable onPress={() => navigate('/main')}>
-          <Text style={highlight}>done</Text>
-        </Pressable>
-      </View>
-    </ScrollView>
+          <Pressable onPress={() => navigate('/main')}>
+            <Text style={highlight}>done</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </AnimatePage>
   )
 };
 

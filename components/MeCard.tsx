@@ -12,38 +12,56 @@ const MeCard: FC = () => {
 
   return (
     <View style={[bgStyle]}>
-      <View style={[padding]}>
+      <View style={padding}>
 
-        <View style={{ ... container, flexDirection: "row", height: 400, alignItems: "center" }}>
-          <View style={{ top: 60 }}>
+        <Image
+          style={{
+            width: "100%",
+            height: 140,
+            borderRadius: 12,
+            marginBottom: -40,
+          }}
+          source={
+            prefs.thumbnail
+              ? { uri: prefs.thumbnail }
+              : require("../assets/partial-react-logo.png")
+          }
+        />
+
+        <View style={{ alignItems: "center" }}>
           <Image
-            style={{ width: 130 }}
-            source={prefs.thumbnail 
-              ? { uri: prefs.thumbnail } 
-              : require('../assets/partial-react-logo.png')} 
+            style={{
+              width: 90,
+              height: 90,
+              borderRadius: 50,
+              borderWidth: 3,
+              borderColor: "#fff",
+              backgroundColor: "#eee",
+            }}
+            source={
+              prefs.profilePicture
+                ? { uri: prefs.profilePicture }
+                : require("../assets/icon.png")
+            }
           />
-          <Image
-            style={{width: 80, height: 80, top: "-55%", alignSelf: "center", borderRadius: 50}}
-            source={prefs.profilePicture 
-              ? { uri: prefs.profilePicture } 
-              : require('../assets/icon.png')} 
-          />
-          <Text style={[heading, {top:"-50%", alignSelf: "center" }]}>
+
+          <Text style={[heading, { marginTop: 10 }]}>
             {prefs.username}
           </Text>
-          </View>
 
-          <View style={[colFlex, { right: 25, }]}>
-            <Text style={[heading, {textAlign: "center"}]}>
-              <TrophyIcon /> Tier {tier.tier}
-            </Text>
-
-            <SkillRadarChart />
-          </View>
+          <Text style={[sub, { fontSize: 18, marginTop: 4 }]}>
+            <TrophyIcon /> Tier {tier.tier}
+          </Text>
         </View>
-        <Text style={[sub, {textAlign: "center"}]}>
-        screenshot this and share your progress with your friends.
-      </Text>
+
+        {/* Radar Chart */}
+        <View style={[container, { marginTop: 20 }]}>
+          <SkillRadarChart />
+        </View>
+
+        <Text style={[sub, { textAlign: "center", marginTop: 10 }]}>
+          screenshot this and share your progress with your friends.
+        </Text>
 
       </View>
     </View>
