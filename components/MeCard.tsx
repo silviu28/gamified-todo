@@ -25,7 +25,7 @@ const MeCard: FC = () => {
           <Image
             style={{width: 80, height: 80, top: "-55%", alignSelf: "center", borderRadius: 50}}
             source={prefs.profilePicture 
-              ? { uri: prefs.thumbnail } 
+              ? { uri: prefs.profilePicture } 
               : require('../assets/icon.png')} 
           />
           <Text style={[heading, {top:"-50%", alignSelf: "center" }]}>

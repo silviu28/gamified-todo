@@ -27,8 +27,29 @@ const preferencesSlice = createSlice({
       state.accent = "lime";
       state.theme = "dark";
     },
+    setProfilePicture: (state, action) => {
+      const { profilePicture } = action.payload;
+      state.profilePicture = profilePicture;
+    },
+    setThumbnail: (state, action) => {
+      const { thumbnail } = action.payload;
+      state.thumbnail = thumbnail;
+    },
+    setUsername: (state, action) => {
+      const { username } = action.payload;
+      state.username = username;
+    },
   }
 });
 
-export const { changeAccent, skipStart, changeTheme, resetPreferences } = preferencesSlice.actions;
+export const {
+  changeAccent,
+  skipStart,
+  changeTheme,
+  resetPreferences,
+  setProfilePicture,
+  setThumbnail,
+  setUsername
+} = preferencesSlice.actions;
+
 export default preferencesSlice.reducer;

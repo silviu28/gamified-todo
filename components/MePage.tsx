@@ -1,18 +1,61 @@
-import { FC } from "react";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { FC, useState } from "react";
+import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import GradientBackground from "./GradientBackground";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
-import { colFlex, container, heading } from "@/constants/styles";
+import { colFlex, container, heading, highlight, rowFlex, textInput } from "@/constants/styles";
 import ShareIcon from "./icons/ShareIcon";
 import PencilIcon from "./icons/PencilIcon";
 import StatsSummary from "./StatsSummary";
 import { useNavigate } from "react-router-native";
 import SkillRadarChart from "./SkillRadarChart";
+import * as imgPick from "expo-image-picker";
+import { setProfilePicture, setThumbnail, setUsername } from "@/app/preferencesSlice";
 
 const MePage: FC = () => {
   const prefs = useSelector((state: State) => state.preferences);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [editingName, setEditingName] = useState<boolean>(false);
+  const [writtenUsername, setWrittenUsername] = useState<string>(prefs.username);
+
+  const pickImageFor = async (target: "profilePicture" | "thumbnail" ) => {
+    const { status } = await imgPick.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Error", 
+        "Please grant required permissions for this operation.");
+    }
+
+    const img = await imgPick.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      // aspect: [4, 3],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!img.canceled) {
+      const base64Img = `data:image/jpeg;base64,${img.assets[0].base64}`;
+      if (target === "profilePicture") {
+        dispatch(
+          setProfilePicture({ profilePicture: base64Img })
+        );
+      } else {
+        dispatch(
+          setThumbnail({ thumbnail: base64Img })
+        );
+      }
+      console.log("your base64 image kind sire", prefs.profilePicture);
+    }
+  };
+
+  const saveUsername = () => {
+    dispatch(
+      setUsername({ username: writtenUsername })
+    );
+    setEditingName(false);
+  };
 
   return (
     <GradientBackground>
@@ -29,20 +72,42 @@ const MePage: FC = () => {
 
       <ScrollView style={colFlex}>
           <View>
-            <Image
-              style={{height: 200}}
-              source={prefs.thumbnail 
-                ? { uri: prefs.thumbnail } 
-                : require('../assets/partial-react-logo.png')} 
-            />
-            <Image
-              style={{width: 80, height: 80, top: -30, alignSelf: "center", borderRadius: 50}}
-              source={prefs.profilePicture 
-                ? { uri: prefs.thumbnail } 
-                : require('../assets/icon.png')} 
-            />
+            <Pressable onPress={() => pickImageFor("thumbnail")}>
+              <Image
+                style={{height: 200}}
+                source={prefs.thumbnail 
+                  ? { uri: prefs.thumbnail } 
+                  : require('../assets/partial-react-logo.png')} 
+              />
+            </Pressable>
+            <Pressable onPress={() => pickImageFor("profilePicture")}>
+              <Image
+                style={{width: 80, height: 80, top: -30, alignSelf: "center", borderRadius: 50}}
+                source={prefs.profilePicture 
+                  ? { uri: prefs.profilePicture } 
+                  : require('../assets/icon.png')}
+              />
+            </Pressable>
           </View>
-          <Text style={[heading, {alignSelf: "center", top: -20}]}>{prefs.username}</Text>
+
+          { editingName
+            ? (
+              <View>
+                <TextInput
+                  style={textInput}
+                  value={writtenUsername}
+                  onChangeText={u => setWrittenUsername(u)}
+                />
+                <Pressable onPress={() => saveUsername()}>
+                  <Text style={highlight}>save</Text>
+                </Pressable>
+              </View>)
+            : (
+              <Pressable onPress={() => setEditingName(true)}>
+                <Text style={[heading, {alignSelf: "center", top: -20}]}>
+                  {prefs.username}
+                </Text>
+              </Pressable>)}
 
         <StatsSummary />
 
