@@ -1,10 +1,11 @@
 import { bgStyle, heading, p, padding, rowFlex, sub } from "@/constants/styles";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Link } from "react-router-native";
 import CheckboxIcon from "./icons/CheckboxIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
 import AnimatePage from "./AnimatePage";
+import ThemeContext from "@/app/context/ThemeContext";
 
 const HomePage: FunctionComponent = () => {
   return (
