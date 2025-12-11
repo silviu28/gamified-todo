@@ -5,6 +5,7 @@ import CheckboxIcon from "./icons/CheckboxIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
 import FadeInWrapper from "./FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
+import SmileyIcon from "./icons/SmileyIcon";
 
 const HomePage: FC = () => {
   const style = useContext(ThemeContext);
@@ -18,14 +19,20 @@ const HomePage: FC = () => {
           <Pressable>
 
           <Text />
-          <View style={[style.rowFlex, { justifyContent: "center" }]}>
-            <View>
+          <View style={[style.rowFlex, { alignSelf: "center", justifyContent: "center", width: "95%" }]}>
+            <View style={{ flex: 1 }}>
               <Text style={style.p}><CheckboxIcon /> Track your tasks</Text>
-              <Text style={style.sub}>{`Keep yourself productive\nand organized by using a to-do list\nthat updates on your preferences.`}</Text>
+              <Text style={style.sub}>{`Keep yourself productive and organized by using a to-do list that updates on your preferences.`}</Text>
             </View>
-            <View>
+            
+            <View style={{ flex: 1 }}>
               <Text style={style.p}><UpArrowIcon /> Level up</Text>
-              <Text style={style.sub}>{`Remain motivated by\nsetting yourself skill caps\nyou want to achieve.`}</Text>
+              <Text style={style.sub}>{`Remain motivated by setting yourself skill caps you want to achieve.`}</Text>
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <Text style={style.p}><SmileyIcon /> Motivate yourself</Text>
+              <Text style={style.sub}>{`See yourself progress in a tangible way. Share your progress using personalized stat cards.`}</Text>
             </View>
           </View>
           <Text />

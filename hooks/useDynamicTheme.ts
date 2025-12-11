@@ -114,7 +114,7 @@ const useDynamicTheme = () => {
       borderColor: accent,
       borderRadius: 8,
       padding: 15,
-      backgroundColor: theme === "dark" ? "#111" : "#DDD",
+      backgroundColor: theme === "dark" ? "#111" : "#FFF",
       ... shadow,
     },
 

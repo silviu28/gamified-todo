@@ -1,9 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import GradientBackground from "./GradientBackground";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
-import { colFlex, container, heading, highlight, rowFlex, textInput } from "@/constants/styles";
 import ShareIcon from "./icons/ShareIcon";
 import PencilIcon from "./icons/PencilIcon";
 import StatsSummary from "./StatsSummary";
@@ -11,8 +10,10 @@ import { useNavigate } from "react-router-native";
 import SkillRadarChart from "./SkillRadarChart";
 import * as imgPick from "expo-image-picker";
 import { setProfilePicture, setThumbnail, setUsername } from "@/app/preferencesSlice";
+import ThemeContext from "@/app/context/ThemeContext";
 
 const MePage: FC = () => {
+  const style = useContext(ThemeContext);
   const prefs = useSelector((state: State) => state.preferences);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const MePage: FC = () => {
 
   return (
     <GradientBackground>
-      <View style={{position: "absolute", top: 60, right: 20, zIndex: 10 }}>
+      <View style={{ position: "absolute", top: 60, right: 20, zIndex: 10 }}>
         <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
           <Pressable>
             <PencilIcon />
@@ -70,7 +71,7 @@ const MePage: FC = () => {
         </View>
       </View>
 
-      <ScrollView style={colFlex}>
+      <ScrollView style={style.colFlex}>
           <View>
             <Pressable onPress={() => pickImageFor("thumbnail")}>
               <Image
@@ -94,17 +95,17 @@ const MePage: FC = () => {
             ? (
               <View>
                 <TextInput
-                  style={textInput}
+                  style={style.textInput}
                   value={writtenUsername}
                   onChangeText={u => setWrittenUsername(u)}
                 />
                 <Pressable onPress={() => saveUsername()}>
-                  <Text style={highlight}>save</Text>
+                  <Text style={style.highlight}>save</Text>
                 </Pressable>
               </View>)
             : (
               <Pressable onPress={() => setEditingName(true)}>
-                <Text style={[heading, {alignSelf: "center", top: -20}]}>
+                <Text style={[style.heading, {alignSelf: "center", top: -20}]}>
                   {prefs.username}
                 </Text>
               </Pressable>)}
@@ -113,7 +114,7 @@ const MePage: FC = () => {
 
         <Text />
 
-        <View style={container}>
+        <View style={style.container}>
           <SkillRadarChart />
         </View>
 

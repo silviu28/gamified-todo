@@ -1,5 +1,3 @@
-import { PersistGate } from "redux-persist/integration/react";
-import { persistor } from "./store";
 import UserPreferencesContext from "./context/UserPreferencesContext";
 import useDynamicTheme from "@/hooks/useDynamicTheme";
 import { View } from "react-native";

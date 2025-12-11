@@ -14,8 +14,8 @@ const GradientBackground: FC<HasChildren> = ({ children }) => {
   return (
     <LinearGradient
       colors={ theme === "dark" 
-        ? ["#000", "#001100", accent]
-        : ["#FFF", "#FFDDFF", accent] }
+        ? ["#000", "#111111", accent]
+        : [accent, "#FFF", "#DDDDDD"] }
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={bgStyle}>
