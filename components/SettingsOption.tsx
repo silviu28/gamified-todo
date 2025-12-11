@@ -18,8 +18,8 @@ const SettingsOption: FC<SettingsOptionProps> = ({
   const style = useContext(ThemeContext);
 
   return (
-    <View style={style.rowFlex}>
-      <View style={style.colFlex}>
+    <View style={[style.rowFlex, { width: "90%", justifyContent: "space-between" }]}>
+      <View style={[style.colFlex, { flex: 1 }]}>
         <Text style={style.highlight}>{title}</Text>
         <Text style={style.sub}>{description}</Text>
       </View>

@@ -17,7 +17,6 @@ import InfoIcon from "./icons/InfoIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
 import PersonIcon from "./icons/PersonIcon";
 import FadeInWrapper from "./FadeInWrapper";
-import useDynamicTheme from "@/hooks/useDynamicTheme";
 import ThemeContext from "@/app/context/ThemeContext";
 
 const MainPage: FC = () => {

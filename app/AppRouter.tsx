@@ -14,7 +14,7 @@ import ThemeContext from "./context/ThemeContext";
 
 const AppRouter = () => {
   const style = useDynamicTheme();
-  
+
   return (
     <UserPreferencesContext.Provider value={{ isFirstBoot: false }}>
       <ThemeContext.Provider value={style}>

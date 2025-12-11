@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { State } from "../app/store";
 import { Platform, StyleSheet, TextStyle, ViewStyle } from "react-native";
+import { useFonts } from "expo-font";
 
 // We can create our own top-level hook functions by combining hooks provided by React, Redux, etc.
 // this will be used at the top-level of the "App" component in order to pass down
@@ -11,6 +12,9 @@ import { Platform, StyleSheet, TextStyle, ViewStyle } from "react-native";
 const useDynamicTheme = () => {
   const { accent, theme } = useSelector((state: State) => state.preferences);
 
+  // The Platform.select() method allows us to branch our code based on the user's platform,
+  // without having to write it by ourselves.
+  // (for example, you would need to write this shadow in both Kotlin/Java and Swift)
   const shadow = Platform.select({
     ios: {
         shadowColor: accent,
@@ -25,9 +29,10 @@ const useDynamicTheme = () => {
         elevation: 8,
       },
   });
-
+  
   const baseText: TextStyle = {
     fontSize: 15,
+    fontFamily: "Lilex-Regular",
     color: theme === "dark" ? "#DDD" : "#111",
     lineHeight: 20,
   };
@@ -59,13 +64,13 @@ const useDynamicTheme = () => {
     heading: {
       fontSize: 22,
       color: theme === "dark" ? "#FFF" : "#000",
-      fontWeight: "700",
       textShadowColor: accent,
       textShadowOffset: {
         width: 1,
         height: 1,
       },
       textShadowRadius: 3,
+      fontFamily: "Lilex-Bold",
     },
 
     p: {
@@ -73,7 +78,7 @@ const useDynamicTheme = () => {
     },
 
     textInput: {
-      backgroundColor: theme === "dark" ? "#222" : "#CCC",
+      backgroundColor: theme === "dark" ? "#222" : "#EEE",
       borderColor: accent,
       borderWidth: 1,
       borderRadius: 5,
@@ -88,7 +93,7 @@ const useDynamicTheme = () => {
 
     highlight: {
       color: accent,
-      fontWeight: "600",
+      fontFamily: "Lilex-Bold",
     },
 
     nav: {
@@ -104,9 +109,9 @@ const useDynamicTheme = () => {
     },
 
     navButton: {
+      ... baseText,
       color: accent,
       fontSize: 20,
-      fontWeight: "600",
     },
 
     container: {
@@ -175,8 +180,18 @@ const useDynamicTheme = () => {
       height: 50,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: theme === "dark" ? "#111" : "#DDD",
+      backgroundColor: theme === "dark" ? "#111" : "#EEE",
       ... shadow,
+    },
+
+    selectionUnselected: {
+      ... baseText,
+      color: theme === "dark" ? "white" : "black",
+    },
+
+    selectionSelected: {
+      ... baseText,
+      color: accent,
     },
   });
 

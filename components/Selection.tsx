@@ -13,7 +13,7 @@ const Selection: FC<SelectionProps> = ({ value, text, onSelect }) => {
 
   return (
     <Pressable onPress={onSelect}>
-      <Text style={value ? { ... style.highlight, color: "white" } : style.highlight}>
+      <Text style={value ? style.selectionSelected : style.selectionUnselected}>
         {text}
       </Text>
     </Pressable>
