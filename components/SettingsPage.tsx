@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import SettingsOption from "./SettingsOption";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
@@ -42,7 +42,7 @@ const SettingsPage: FC = () => {
         <View style={style.colFlex}>
           <Text style={style.highlight}>Color palette</Text>
           <Text style={style.sub}>Pick another accent color.</Text>
-          <View style={style.rowFlex}>
+          <View style={{ gap: 1 }}>
             <Selection
               value={prefs.accent === "lime"}
               onSelect={() => dispatch(changeAccent({ accent: "lime" }))}
@@ -54,6 +54,11 @@ const SettingsPage: FC = () => {
               text="purple"
             />
             <Selection
+              value={prefs.accent === "indigo"}
+              onSelect={() => dispatch(changeAccent({ accent: "indigo" }))}
+              text="indigo"
+            />
+            <Selection
               value={prefs.accent === "red"}
               onSelect={() => dispatch(changeAccent({ accent: "red" }))}
               text="red"
@@ -62,6 +67,21 @@ const SettingsPage: FC = () => {
               value={prefs.accent === "orange"}
               onSelect={() => dispatch(changeAccent({ accent: "orange" }))}
               text="orange"
+            />
+            <Selection
+              value={prefs.accent === "navy"}
+              onSelect={() => dispatch(changeAccent({ accent: "navy" }))}
+              text="navy"
+            />
+            <Selection
+              value={prefs.accent === "teal"}
+              onSelect={() => dispatch(changeAccent({ accent: "teal" }))}
+              text="teal"
+            />
+            <Selection
+              value={prefs.accent === "hotpink"}
+              onSelect={() => dispatch(changeAccent({ accent: "hotpink" }))}
+              text="hot_pink"
             />
           </View>
         </View>

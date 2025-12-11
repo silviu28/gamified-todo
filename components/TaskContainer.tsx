@@ -1,10 +1,10 @@
 import { assignTask } from "@/app/tasksSlice";
 import { removeTask } from "@/app/skillsSlice";
 import { Task } from "@/types";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
-import useDynamicTheme from "@/hooks/useDynamicTheme";
+import ThemeContext from "@/app/context/ThemeContext";
 
 interface TaskContainerProps {
   task: Task;
@@ -13,7 +13,7 @@ interface TaskContainerProps {
 };
 
 const TaskContainer: FC<TaskContainerProps> = ({ task, assignable, removable }) => {
-  const style = useDynamicTheme();
+  const style = useContext(ThemeContext);
   const dispatch = useDispatch();
 
   return (

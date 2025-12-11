@@ -8,7 +8,7 @@ const PersistentBackButton: FC = () => {
 
   return (
     <Pressable
-      style={{ position: "fixed", left: 10, top: 75, zIndex: 2, width: 20 }}
+      style={{ position: "fixed", left: 10, top: 75, zIndex: 2, width: 20, height: 0 }}
       onPress={() => navigate(-1)}>
       <LeftArrowIcon />
     </Pressable>

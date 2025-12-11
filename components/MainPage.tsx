@@ -48,7 +48,7 @@ const MainPage: FC = () => {
           
           <View style={style.container}>
             <Text style={style.heading}>
-              <CheckboxIcon /> Things to do
+              <CheckboxIcon /> Quest list
             </Text>
             <Text/>
             {toDoTasks.length > 0
@@ -63,7 +63,7 @@ const MainPage: FC = () => {
 
           <View style={style.container}>
             <Text style={style.heading}>
-              <InfoIcon /> Add tasks:
+              <InfoIcon /> Add quests
             </Text>
             <Text />
             <FlatList

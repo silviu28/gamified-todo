@@ -149,10 +149,11 @@ const useDynamicTheme = () => {
       justifyContent: 'space-between',
       alignItems: 'center',
       borderWidth: 2,
-      borderColor: 'lime',
+      borderColor: accent,
       borderRadius: 8,
       padding: 10,
-      backgroundColor: theme === "dark" ? "#111" : "#DDD",
+      margin: 5,
+      backgroundColor: theme === "dark" ? "#111" : "#EEE",
       ...shadow,
     },
 

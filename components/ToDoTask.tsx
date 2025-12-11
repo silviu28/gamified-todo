@@ -1,11 +1,11 @@
 import { Task } from "@/types";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { Alert, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import CheckBox from "./CheckBox";
-import { p, rowFlex } from "@/constants/styles";
 import { levelSkill } from "@/app/skillsSlice";
 import { addStats } from "@/app/tierSlice";
+import ThemeContext from "@/app/context/ThemeContext";
 
 const computeTimeLeft = (the: string) => {
   console.log("then", the, "now", new Date());
@@ -19,6 +19,7 @@ interface ToDoTaskProps {
 };
 
 const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
+  const style = useContext(ThemeContext);
   const dispatch = useDispatch();
 
   const complete = () => {
@@ -38,9 +39,9 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
   };
 
   return (
-    <View style={[rowFlex, { justifyContent: 'space-between' }]}>
-      <Text style={p}>{task.name}</Text>
-      <Text style={p}>
+    <View style={[style.rowFlex, { justifyContent: 'space-between' }]}>
+      <Text style={style.p}>{task.name}</Text>
+      <Text style={style.p}>
         {computeTimeLeft(String(task.creationDate))} hours left
       </Text>
       <CheckBox onCheck={complete} />
