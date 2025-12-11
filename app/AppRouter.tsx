@@ -11,6 +11,7 @@ import MePage from "@/components/MePage";
 import MeCard from "@/components/MeCard";
 import MainPage from "@/components/MainPage";
 import ThemeContext from "./context/ThemeContext";
+import PersistentBackButton from "@/components/PersistentBackButton";
 
 const AppRouter = () => {
   const style = useDynamicTheme();
@@ -21,6 +22,7 @@ const AppRouter = () => {
         <View style={{ flex: 1, backgroundColor: "black" }}>
           <NativeRouter>
             <BackButtonHandler />
+            <PersistentBackButton />
             <Routes>
               <Route path='*' element={<HomePage />} />
               <Route path='/addSkill' element={<AddSkillPage />} />
