@@ -1,12 +1,13 @@
-import { circularProgress, container, heading, highlight, rowFlex } from "@/constants/styles";
 import { FC, useEffect, useRef } from "react";
 import { Alert, Text, View } from "react-native";
 import TrophyIcon from "./icons/TrophyIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import computeTier from "@/utils/computeTier";
+import useDynamicTheme from "@/hooks/useDynamicTheme";
 
 const TierContainer: FC = () => {
+  const style = useDynamicTheme();
   const tier = useSelector((state: State) => state.tier);
   const dispatch = useDispatch();
 
@@ -24,15 +25,15 @@ const TierContainer: FC = () => {
   const [currentTier, requiredTaskCount, requiredXpCount] = computeTier(tier.tasksCount, tier.consolidatedXp);
 
   return (
-    <View style={container}>
-      <Text style={heading}><TrophyIcon /> Your tier:</Text>
-      <View style={rowFlex}>
-        <View style={circularProgress}>
-          <Text style={heading}>
+    <View style={style.container}>
+      <Text style={style.heading}><TrophyIcon /> Your tier:</Text>
+      <View style={style.rowFlex}>
+        <View style={style.circularProgress}>
+          <Text style={style.heading}>
             {currentTier}
           </Text>
         </View>
-        <Text style={highlight}>
+        <Text style={style.highlight}>
           {`To raise your tier, you must:
           > complete ${requiredTaskCount} tasks
           > acquire ${requiredXpCount} xp.`}

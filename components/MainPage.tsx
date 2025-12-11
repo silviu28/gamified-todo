@@ -1,5 +1,4 @@
-import { container, heading, highlight, padding, sub } from "@/constants/styles";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import TaskContainer from "./TaskContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,21 +15,21 @@ import GradientBackground from "./GradientBackground";
 import CheckboxIcon from "./icons/CheckboxIcon";
 import InfoIcon from "./icons/InfoIcon";
 import UpArrowIcon from "./icons/UpArrowIcon";
-import { dismissOrCompleteTask } from "@/app/tasksSlice";
 import PersonIcon from "./icons/PersonIcon";
-import AnimatePage from "./AnimatePage";
+import FadeInWrapper from "./FadeInWrapper";
+import useDynamicTheme from "@/hooks/useDynamicTheme";
+import ThemeContext from "@/app/context/ThemeContext";
 
 const MainPage: FC = () => {
+  const style = useContext(ThemeContext);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
   const toDoTasks = useSelector((state: State) => state.tasks.tasksToDo);
   const skills = useSelector((state: State) => state.skills.skills);
 
   const allTasks = skills.flatMap(skill => skill.tasks);
 
   return (
-    <AnimatePage>
+    <FadeInWrapper>
       <GradientBackground>
         <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
           <View style={{display: "flex", flexDirection: "row", gap: 10 }}>
@@ -45,11 +44,11 @@ const MainPage: FC = () => {
 
         <ScrollView
           style={{ flex: 1 }}
-          contentContainerStyle={[padding, { paddingBottom: 120 }]}
+          contentContainerStyle={[style.padding, { paddingBottom: 120 }]}
           showsVerticalScrollIndicator={false}>
           
-          <View style={container}>
-            <Text style={heading}>
+          <View style={style.container}>
+            <Text style={style.heading}>
               <CheckboxIcon /> Things to do
             </Text>
             <Text/>
@@ -60,11 +59,11 @@ const MainPage: FC = () => {
                 renderItem={({ item }) => <ToDoTask task={item} />}
                 scrollEnabled={false}
               />
-              : <Text style={sub}>Nothing to do for now</Text>}
+              : <Text style={style.sub}>Nothing to do for now</Text>}
           </View>
 
-          <View style={container}>
-            <Text style={heading}>
+          <View style={style.container}>
+            <Text style={style.heading}>
               <InfoIcon /> Add tasks:
             </Text>
             <Text />
@@ -77,8 +76,8 @@ const MainPage: FC = () => {
             />
           </View>
 
-          <View style={container}>
-            <Text style={heading}>
+          <View style={style.container}>
+            <Text style={style.heading}>
               <UpArrowIcon /> Your skills:
             </Text>
             {skills.map(skill => 
@@ -93,18 +92,18 @@ const MainPage: FC = () => {
 
         <BottomBar>
           <Pressable onPress={() => navigate("/addTask")}>
-            <Text style={highlight}>Revise tasks</Text>
+            <Text style={style.highlight}>Revise tasks</Text>
           </Pressable>
           <Pressable onPress={() => navigate("/addSkill")}>
-            <Text style={highlight}>Revise skills</Text>
+            <Text style={style.highlight}>Revise skills</Text>
           </Pressable>
         </BottomBar>
 
         <Modal isVisible>
-          <Text style={sub}>Show this above</Text>
+          <Text style={style.sub}>Show this above</Text>
         </Modal>
       </GradientBackground>
-    </AnimatePage>
+    </FadeInWrapper>
   );
 };
 

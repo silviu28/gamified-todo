@@ -1,11 +1,13 @@
-import { checkBoxChecked, checkBoxUnchecked } from "@/constants/styles";
-import { FC, useState } from "react";
-import { Pressable, View } from "react-native";
+import ThemeContext from "@/app/context/ThemeContext";
+import { FC, useContext, useState } from "react";
+import { Pressable } from "react-native";
 
 interface CheckBoxProps {
   onCheck: (value: boolean) => void;
 }; 
+
 const CheckBox: FC<CheckBoxProps> = ({ onCheck }) => {
+  const style = useContext(ThemeContext);
   const [checked, setChecked] = useState<boolean>(false);
   const check = () => {
     onCheck(checked);
@@ -14,7 +16,7 @@ const CheckBox: FC<CheckBoxProps> = ({ onCheck }) => {
 
   return (
     <Pressable
-      style={checked ? checkBoxChecked : checkBoxUnchecked}
+      style={checked ? style.checkBoxChecked : style.checkBoxUnchecked}
       onPress={check}
     />
   );

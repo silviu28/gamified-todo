@@ -4,7 +4,7 @@ import { Animated } from "react-native";
 // unfortunately, because we do not have CSS in React Native,
 // we need to use the Animated API in combination with an effect
 // to render animations.
-const AnimatePage = ({ children }) => {
+const FadeInWrapper = ({ children }) => {
   // initiate refs for the starting values of the animation
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(-20)).current;
@@ -34,4 +34,4 @@ const AnimatePage = ({ children }) => {
     </Animated.View>);
 };
 
-export default AnimatePage;
+export default FadeInWrapper;

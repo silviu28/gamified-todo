@@ -1,22 +1,22 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import AddTaskForm from "./AddTaskForm";
-import { bgStyle, heading, highlight, padding } from "@/constants/styles";
 import { useNavigate } from "react-router-native";
 import { Frequency, Priority, Skill, Task } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { addTask } from "@/app/skillsSlice";
 import TaskContainer from "./TaskContainer";
-import AnimatePage from "./AnimatePage";
+import FadeInWrapper from "./FadeInWrapper";
+import ThemeContext from "@/app/context/ThemeContext";
 
 const AddTaskPage: FunctionComponent = () => {
+  const style = useContext(ThemeContext);
   const skills = useSelector((state: State) => state.skills.skills);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const allTasks = skills.flatMap(skill => skill.tasks ?? []);
-
-  const navigate = useNavigate();
 
   const addNewTask = (name: string, priority: Priority, frequency: Frequency, skill: Skill) => {
     let xp;
@@ -47,12 +47,12 @@ const AddTaskPage: FunctionComponent = () => {
     console.log(skills);
   };
   return (
-    <AnimatePage>
+    <FadeInWrapper>
       <ScrollView
-        style={bgStyle}
+        style={style.bg}
         showsVerticalScrollIndicator={false}>
-        <View style={padding}>
-          <Text style={heading}>
+        <View style={style.padding}>
+          <Text style={style.heading}>
             Now add some tasks that you need to do:
           </Text>
           <AddTaskForm onSubmit={addNewTask} />
@@ -66,11 +66,11 @@ const AddTaskPage: FunctionComponent = () => {
           />
 
           <Pressable onPress={() => navigate('/main')}>
-            <Text style={highlight}>done</Text>
+            <Text style={style.highlight}>done</Text>
           </Pressable>
         </View>
       </ScrollView>
-    </AnimatePage>
+    </FadeInWrapper>
   )
 };
 

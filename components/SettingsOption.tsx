@@ -1,5 +1,5 @@
-import { colFlex, highlight, rowFlex, sub } from "@/constants/styles";
-import { FC } from "react";
+import ThemeContext from "@/app/context/ThemeContext";
+import { FC, useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 
 interface SettingsOptionProps {
@@ -15,14 +15,16 @@ const SettingsOption: FC<SettingsOptionProps> = ({
   actionName = "Execute",
   onPress
 }) => {
+  const style = useContext(ThemeContext);
+
   return (
-    <View style={rowFlex}>
-      <View style={colFlex}>
-        <Text style={highlight}>{title}</Text>
-        <Text style={sub}>{description}</Text>
+    <View style={style.rowFlex}>
+      <View style={style.colFlex}>
+        <Text style={style.highlight}>{title}</Text>
+        <Text style={style.sub}>{description}</Text>
       </View>
       <Pressable onPress={onPress}>
-        <Text style={highlight}>{actionName}</Text>
+        <Text style={style.highlight}>{actionName}</Text>
       </Pressable>
     </View>
   );

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 // with each edge going further away from the center as its value rises.
 const SkillRadarChart: FC = () => {
   const skills = useSelector((state: State) => state.skills.skills);
+  const { accent } = useSelector((state: State) => state.preferences);
 
   if (skills.length === 0) {
     return <_Text style={sub}>no datapoints.</_Text>;
@@ -65,9 +66,9 @@ const SkillRadarChart: FC = () => {
         {/* Data radar shape */}
         <Polygon
           points={polygonPoints}
-          fill="lime"
+          fill={accent}
           fillOpacity="0.8"
-          stroke="lime"
+          stroke={accent}
           strokeWidth="2"
         />
         
@@ -78,7 +79,7 @@ const SkillRadarChart: FC = () => {
             cx={point.x}
             cy={point.y}
             r="3"
-            fill="lime"
+            fill={accent}
           />
         ))}
         

@@ -1,10 +1,10 @@
 import { assignTask } from "@/app/tasksSlice";
 import { removeTask } from "@/app/skillsSlice";
-import { colFlex, flexContainer, highlight, p, sub } from "@/constants/styles";
 import { Task } from "@/types";
 import { FC } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
+import useDynamicTheme from "@/hooks/useDynamicTheme";
 
 interface TaskContainerProps {
   task: Task;
@@ -13,22 +13,23 @@ interface TaskContainerProps {
 };
 
 const TaskContainer: FC<TaskContainerProps> = ({ task, assignable, removable }) => {
+  const style = useDynamicTheme();
   const dispatch = useDispatch();
 
   return (
-    <View style={flexContainer}>
-      <View style={colFlex}>
-        <Text style={p}>{task.name}</Text>
-        <Text style={sub}>{task.frequency}, {task.priority}</Text>
+    <View style={style.flexContainer}>
+      <View style={style.colFlex}>
+        <Text style={style.p}>{task.name}</Text>
+        <Text style={style.sub}>{task.frequency}, {task.priority}</Text>
       </View>
-      <View style={colFlex}>
+      <View style={style.colFlex}>
         { removable &&
           <Pressable onPress={() => dispatch(removeTask({ skill: task.skill, task }))}>
-            <Text style={highlight}>x</Text>
+            <Text style={style.highlight}>x</Text>
           </Pressable> }
         { assignable &&
           <Pressable onPress={() => dispatch(assignTask(task))}>
-            <Text style={highlight}>+</Text>
+            <Text style={style.highlight}>+</Text>
           </Pressable> }
       </View>
     </View>

@@ -1,5 +1,6 @@
+import ThemeContext from "@/app/context/ThemeContext";
 import { bottomBar } from "@/constants/styles";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useContext } from "react";
 import { View } from "react-native";
 
 interface BottomBarProps {
@@ -7,8 +8,10 @@ interface BottomBarProps {
 };
 
 const BottomBar: FC<BottomBarProps> = ({ children }) => {
+  const style = useContext(ThemeContext);
+
   return (
-    <View style={bottomBar}>
+    <View style={style.bottomBar ?? bottomBar}>
       {children}
     </View>
   );

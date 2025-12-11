@@ -3,14 +3,15 @@ import { FC } from "react";
 import { FlatList, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import SkillContainer from "./SkillContainer";
-import { container, heading } from "@/constants/styles";
+import useDynamicTheme from "@/hooks/useDynamicTheme";
 
 const StatsSummary: FC = () => {
+  const style = useDynamicTheme();
   const skills = useSelector((state: State) => state.skills.skills);
 
   return (
-    <View style={container}>
-      <Text style={heading}>My stats:</Text>
+    <View style={style.container}>
+      <Text style={style.heading}>My stats:</Text>
       <FlatList
         data={skills}
         keyExtractor={skill => skill.name}

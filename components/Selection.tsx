@@ -1,4 +1,4 @@
-import { highlight } from "@/constants/styles";
+import useDynamicTheme from "@/hooks/useDynamicTheme";
 import { FC } from "react";
 import { Pressable, Text } from "react-native";
 
@@ -9,9 +9,11 @@ interface SelectionProps {
 };
 
 const Selection: FC<SelectionProps> = ({ value, text, onSelect }) => {
+  const style = useDynamicTheme();
+
   return (
     <Pressable onPress={onSelect}>
-      <Text style={value ? { ... highlight, color: "white" } : highlight}>
+      <Text style={value ? { ... style.highlight, color: "white" } : style.highlight}>
         {text}
       </Text>
     </Pressable>

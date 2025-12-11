@@ -1,44 +1,13 @@
-import AddSkillPage from "@/components/AddSkillPage";
-import AddTaskPage from "@/components/AddTaskPage";
-import HomePage from "@/components/HomePage";
-import MainPage from "@/components/MainPage";
-import { NativeRouter, Route, Routes } from "react-router-native";
-import UserPreferencesContext from "./context/UserPreferencesContext";
 import { Provider } from "react-redux";
 import store, { persistor } from "./store";
+import AppRouter from "./AppRouter";
 import { PersistGate } from "redux-persist/integration/react";
-import SettingsPage from "@/components/SettingsPage";
-import BackButtonHandler from "@/components/BackButtonHandler";
-import MePage from "@/components/MePage";
-import MeCard from "@/components/MeCard";
-import { StyleSheet, View } from "react-native";
-import useDynamicTheme from "@/hooks/useDynamicTheme";
-import { ThemeContext } from "@react-navigation/native";
 
 export default function Page() {
-  // const styles: any = useDynamicTheme();
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <UserPreferencesContext.Provider value={{ isFirstBoot: false }}>
-          {/* <ThemeContext.Provider value={styles}> */}
-            <View style={{ flex: 1, backgroundColor: "black" }}>
-              <NativeRouter>
-                <BackButtonHandler />
-                <Routes>
-                  <Route path='*' element={<HomePage />} />
-                  <Route path='/addSkill' element={<AddSkillPage />} />
-                  <Route path='/addTask' element={<AddTaskPage />} />
-                  <Route path='/main' element={<MainPage />} />
-                  <Route path='/settings' element={<SettingsPage />} />
-                  <Route path='/me' element={<MePage />} />
-                  <Route path='/share' element={<MeCard />} />
-                </Routes>
-              </NativeRouter>
-            </View>
-          {/* </ThemeContext.Provider> */}
-        </UserPreferencesContext.Provider>
+        <AppRouter />
       </PersistGate>
     </Provider>
   );

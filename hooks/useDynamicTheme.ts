@@ -2,9 +2,12 @@ import { useSelector } from "react-redux";
 import { State } from "../app/store";
 import { Platform, StyleSheet, TextStyle, ViewStyle } from "react-native";
 
-// we can create our own top-level hook functions by combining hooks provided by React, Redux, etc.
+// We can create our own top-level hook functions by combining hooks provided by React, Redux, etc.
 // this will be used at the top-level of the "App" component in order to pass down
 // to all children the theme using React's Context API.
+// One downside of this specific hook is that it's strongly coupled
+// with our Redux store, which might not be ideal in most use cases.
+// Isolating components from the store will be difficult
 const useDynamicTheme = () => {
   const { accent, theme } = useSelector((state: State) => state.preferences);
 
@@ -25,7 +28,7 @@ const useDynamicTheme = () => {
 
   const baseText: TextStyle = {
     fontSize: 15,
-    color: theme === "dark" ? "DDD" : "#111",
+    color: theme === "dark" ? "#DDD" : "#111",
     lineHeight: 20,
   };
 
@@ -124,7 +127,7 @@ const useDynamicTheme = () => {
       justifyContent: 'center',
       gap: 20,
       borderTopWidth: 1,
-      borderTopColor: 'lime',
+      borderTopColor: accent,
       padding: 10,
       backgroundColor: theme === "dark" ? "#000C" : "#FFFC",
       ... shadow,

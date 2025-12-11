@@ -1,16 +1,17 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import AddSkillForm from "./AddSkillForm";
 import { useNavigate } from "react-router-native";
-import { bgStyle, heading, highlight, p, padding } from "@/constants/styles";
 import { Skill } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchFunction, State } from "@/app/store";
 import { addSkill } from "@/app/skillsSlice";
 import SkillContainer from "./SkillContainer";
-import AnimatePage from "./AnimatePage";
+import FadeInWrapper from "./FadeInWrapper";
+import ThemeContext from "@/app/context/ThemeContext";
 
 const AddSkillPage: FunctionComponent = () => {
+  const style = useContext(ThemeContext);
   const skills = useSelector((state: State) => state.skills.skills);
   const dispatch: DispatchFunction = useDispatch();
 
@@ -27,12 +28,12 @@ const AddSkillPage: FunctionComponent = () => {
   };
 
   return (
-    <AnimatePage>
+    <FadeInWrapper>
       <ScrollView
-          style={bgStyle}
+          style={style.bg}
           showsVerticalScrollIndicator={false}>
-        <View style={padding}>
-          <Text style={heading}>
+        <View style={style.padding}>
+          <Text style={style.heading}>
             Start by adding any skill (e.g. drawing, programming, doing dishes)
           </Text>
           <AddSkillForm onSubmit={onSubmit} />
@@ -44,16 +45,16 @@ const AddSkillPage: FunctionComponent = () => {
             renderItem={({ item }) =>
               <>
                 <SkillContainer skill={item} removable />
-                <Text style={p}>You selected priority {item.priority} for this skill.</Text>
+                <Text style={style.p}>You selected priority {item.priority} for this skill.</Text>
               </>}
           />
 
           <Pressable onPress={() => navigate('/addTask')}>
-            <Text style={highlight}>done</Text>
+            <Text style={style.highlight}>done</Text>
           </Pressable>
         </View>
       </ScrollView>
-    </AnimatePage>
+    </FadeInWrapper>
   );
 };
 

@@ -1,4 +1,3 @@
-import { bgStyle, colFlex, highlight, p, padding, rowFlex, sub } from "@/constants/styles";
 import { FC } from "react";
 import { Alert, Text, View } from "react-native";
 import SettingsOption from "./SettingsOption";
@@ -8,8 +7,10 @@ import Selection from "./Selection";
 import { changeAccent, changeTheme } from "@/app/preferencesSlice";
 import { useNavigate } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useDynamicTheme from "@/hooks/useDynamicTheme";
 
 const SettingsPage: FC = () => {
+  const style = useDynamicTheme();
   const prefs = useSelector((state: State) => state.preferences);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,14 +35,14 @@ const SettingsPage: FC = () => {
   };
 
   return (
-    <View style={bgStyle}>
-      <View style={padding}>
-        <Text style={p}>This is the settings page</Text>
+    <View style={style.bg}>
+      <View style={style.padding}>
+        <Text style={style.p}>This is the settings page</Text>
         
-        <View style={colFlex}>
-          <Text style={highlight}>Color palette</Text>
-          <Text style={sub}>Pick another accent color.</Text>
-          <View style={rowFlex}>
+        <View style={style.colFlex}>
+          <Text style={style.highlight}>Color palette</Text>
+          <Text style={style.sub}>Pick another accent color.</Text>
+          <View style={style.rowFlex}>
             <Selection
               value={prefs.accent === "lime"}
               onSelect={() => dispatch(changeAccent({ accent: "lime" }))}
@@ -65,10 +66,10 @@ const SettingsPage: FC = () => {
           </View>
         </View>
 
-        <View style={colFlex}>
-          <Text style={highlight}>Theme</Text>
-          <Text style={sub}>Pick dark or light theme.</Text>
-          <View style={rowFlex}>
+        <View style={style.colFlex}>
+          <Text style={style.highlight}>Theme</Text>
+          <Text style={style.sub}>Pick dark or light theme.</Text>
+          <View style={style.rowFlex}>
             <Selection
               value={prefs.theme === "dark"}
               onSelect={() => dispatch(changeTheme({ theme: "dark" }))}

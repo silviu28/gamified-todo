@@ -1,6 +1,9 @@
+import useDynamicTheme from "@/hooks/useDynamicTheme";
 import { createContext } from "react";
-import { StyleSheet } from "react-native";
 
-const ThemeContext = createContext<typeof StyleSheet.create | null>(null);
+// The return type of our hook is very verbose, but we can use ReturnType
+// to specify to Typescript that we want the type of whatever our hook returns.
+export type ThemeStyles = ReturnType<typeof useDynamicTheme>;
+const ThemeContext = createContext<ThemeStyles | null>(null);
 
 export default ThemeContext;

@@ -1,4 +1,3 @@
-import { p, sub } from "@/constants/styles";
 import { Skill } from "@/types";
 import { FC, useEffect, useRef } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
@@ -6,6 +5,7 @@ import ProgressBar from "./ProgressBar";
 import computeLevel from "@/utils/computeLevel";
 import { useDispatch } from "react-redux";
 import { removeSkill } from "@/app/skillsSlice";
+import useDynamicTheme from "@/hooks/useDynamicTheme";
 
 interface SkillContainerProps {
   skill: Skill;
@@ -14,6 +14,7 @@ interface SkillContainerProps {
 
 const SkillContainer: FC<SkillContainerProps> = ({ skill, removable }) => {
   const dispatch = useDispatch();
+  const style = useDynamicTheme();
   const [level, currentXp, requiredXp] = computeLevel(skill.xp);
 
   // track the previous level using a ref (a value that persists between renders)
@@ -31,12 +32,12 @@ const SkillContainer: FC<SkillContainerProps> = ({ skill, removable }) => {
   const percent = 100 * currentXp / requiredXp;
   return (
     <View style={{ padding: 2 }}>
-      <Text style={p}>{skill.name}, Level {level}</Text>
+      <Text style={style.p}>{skill.name}, Level {level}</Text>
       <ProgressBar percent={percent} />
-      <Text style={sub}>{currentXp}/{requiredXp}</Text>
+      <Text style={style.sub}>{currentXp}/{requiredXp}</Text>
       {removable &&
         <Pressable onPress={() => dispatch(removeSkill(skill))}>
-          <Text style={sub}>remove</Text>
+          <Text style={style.sub}>remove</Text>
         </Pressable>}
     </View>
   );
