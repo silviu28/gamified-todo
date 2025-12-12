@@ -52,6 +52,9 @@ const AddSkillPage: FunctionComponent = () => {
           <Pressable onPress={() => navigate('/addTask')}>
             <Text style={style.highlight}>done</Text>
           </Pressable>
+          <Pressable onPress={() => navigate('/suggest')}>
+            <Text style={style.highlight}>need help?</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </FadeInWrapper>

@@ -38,7 +38,6 @@ const MainPage: FC = () => {
   return (
     <FadeInWrapper>
       <GradientBackground>
-        
 
         <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
           <View style={{display: "flex", flexDirection: "row", gap: 10 }}>

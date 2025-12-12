@@ -12,6 +12,7 @@ import MeCard from "@/components/MeCard";
 import MainPage from "@/components/MainPage";
 import ThemeContext from "./context/ThemeContext";
 import PersistentBackButton from "@/components/PersistentBackButton";
+import SuggestThingsPage from "@/components/SuggestThingsPage";
 
 const AppRouter = () => {
   // uncomment this is case the store breaks the app
@@ -33,6 +34,7 @@ const AppRouter = () => {
               <Route path='/settings' element={<SettingsPage />} />
               <Route path='/me' element={<MePage />} />
               <Route path='/share' element={<MeCard />} />
+              <Route path='/suggest' element={<SuggestThingsPage />} />
             </Routes>
           </NativeRouter>
         </View>

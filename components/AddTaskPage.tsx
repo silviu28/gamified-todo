@@ -68,6 +68,9 @@ const AddTaskPage: FunctionComponent = () => {
           <Pressable onPress={() => navigate('/main')}>
             <Text style={style.highlight}>done</Text>
           </Pressable>
+          <Pressable onPress={() => navigate('/suggest')}>
+            <Text style={style.highlight}>need help?</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </FadeInWrapper>
