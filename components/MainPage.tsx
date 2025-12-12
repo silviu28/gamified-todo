@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import TaskContainer from "./TaskContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,8 @@ import FadeInWrapper from "./FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
 import PencilIcon from "./icons/PencilIcon";
 import NoteView from "./Note";
+import AddNoteForm from "./AddNoteForm";
+import { addNote } from "@/app/notesSlice";
 
 const MainPage: FC = () => {
   const style = useContext(ThemeContext);
@@ -27,12 +29,17 @@ const MainPage: FC = () => {
   const { tasksToDo, completedTasks } = useSelector((state: State) => state.tasks);
   const skills = useSelector((state: State) => state.skills.skills);
   const notes = useSelector((state: State) => state.notes.notes);
+  const dispatch = useDispatch();
+
+  const [showNoteForm, setShowNoteForm] = useState<boolean>(false);
 
   const allTasks = skills.flatMap(skill => skill.tasks);
 
   return (
     <FadeInWrapper>
       <GradientBackground>
+        
+
         <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
           <View style={{display: "flex", flexDirection: "row", gap: 10 }}>
             <Pressable onPress={() => navigate("/me")}>
@@ -76,14 +83,29 @@ const MainPage: FC = () => {
             <Text style={style.heading}>
               <PencilIcon /> Notes 
             </Text>
+              {showNoteForm &&
+                <>
+                  <AddNoteForm
+                    onSubmit={(title, content) => {
+                      dispatch(
+                        addNote({ title, content, creationDate: new Date() })
+                      );
+                      setShowNoteForm(false);
+                    }}
+                  />
+                  <Pressable onPress={() => setShowNoteForm(false)}>
+                    <Text style={style.sub}>cancel</Text>
+                  </Pressable>
+                </>}
               {notes.length > 0
                 ? <FlatList
                     data={notes}
                     keyExtractor={note => note.title}
                     renderItem={({ item }) => <NoteView note={item} removable />}
+                    scrollEnabled={false}
                   />
                 : <Text style={style.sub}>No notes added</Text>}
-              <Pressable onPress={() => {}}>
+              <Pressable onPress={() => setShowNoteForm(true)}>
                 <Text style={style.raisedHighlight}>+</Text>
               </Pressable>
           </View>
@@ -116,6 +138,11 @@ const MainPage: FC = () => {
           <Text/>
         </ScrollView>
 
+        {/* <Modal isVisible>
+          { showNoteForm &&
+            <AddNoteForm onSubmit={() => {}} />}
+        </Modal> */}
+
         <BottomBar>
           <Pressable onPress={() => navigate("/addTask")}>
             <Text style={style.highlight}>Revise tasks</Text>
@@ -124,10 +151,6 @@ const MainPage: FC = () => {
             <Text style={style.highlight}>Revise skills</Text>
           </Pressable>
         </BottomBar>
-
-        <Modal isVisible>
-          <Text style={style.sub}>Show this above</Text>
-        </Modal>
       </GradientBackground>
     </FadeInWrapper>
   );

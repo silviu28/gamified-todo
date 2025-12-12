@@ -8,7 +8,8 @@ const noteSlice = createSlice({
   },
   reducers: {
     addNote: (state, action) => {
-      const { note } = action.payload;
+      const { title, content, creationDate } = action.payload;
+      const note: Note = { title, content, creationDate };
       if (!state.notes.find(n => n.title === note.title)) {
         state.notes.push(note);
       }

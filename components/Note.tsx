@@ -15,20 +15,24 @@ const NoteView: FC<NoteViewProps> = ({ note, removable }) => {
   const dispatch = useDispatch();
 
   return (
-    <View>
-      <Text style={style.heading}>
-        {note.title}
-      </Text>
-      <Text style={style.p}>
-        {note.content}
-      </Text>
-      <Text style={style.sub}>
-        {note.creationDate.toDateString()}
-      </Text>
-      {removable &&
-        <Pressable onPress={() => dispatch(removeNote({ note }))}>
-          <Text style={style.raisedHighlight}>x</Text>
-        </Pressable>}
+    <View style={[style.rowFlex, { justifyContent: "space-between" }]}>
+      <View style={style.colFlex}>
+        <Text style={style.heading}>
+          {note.title}
+        </Text>
+        <Text style={style.p}>
+          {note.content}
+        </Text>
+        <Text style={style.sub}>
+          {new Date(note.creationDate).toLocaleString()}
+        </Text>
+      </View>
+      <View style={style.colFlex}>
+        {removable &&
+          <Pressable onPress={() => dispatch(removeNote({ note }))}>
+            <Text style={style.raisedHighlight}>x</Text>
+          </Pressable>}
+      </View>
     </View>
   );
 };

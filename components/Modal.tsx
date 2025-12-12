@@ -10,7 +10,7 @@ const Modal: FC<ModalProps> = ({ isVisible, children }) => {
   if (!isVisible) return;
 
   return (
-    <View style={{ position: 'fixed', left: '50%', top: '50%' }}>
+    <View style={{ position: 'fixed', left: 0, top: 0 }}>
       {children}
     </View>
   );
