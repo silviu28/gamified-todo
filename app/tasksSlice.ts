@@ -7,6 +7,7 @@ const tasksSlice = createSlice({
   initialState: {
     // and a list of tasks that have to be done right now
     tasksToDo: [] as Task[],
+    completedTasks: [] as Task[],
   },
   // same as the skills slice, define logic to manage the tasks here
   reducers: {
@@ -17,15 +18,24 @@ const tasksSlice = createSlice({
       }
     },
     dismissOrCompleteTask: (state, action) => {
-      const { name } = action.payload;
-      state.tasksToDo = state.tasksToDo
-        .filter(task => task.name === name);
+      const { task } = action.payload;
+      const completedTask = state.tasksToDo
+        .find(t => task.name === t.name);
+      if (completedTask) {
+        state.completedTasks.push(completedTask);
+        state.tasksToDo = state.tasksToDo
+          .filter(task => task.name !== completedTask.name);
+      }
     },
     dismissAllTasks: (state) => {
+      state.completedTasks = [... state.tasksToDo];
       state.tasksToDo = [];
+    },
+    pruneCompletedTasks: (state) => {
+      state.completedTasks = [];
     },
   }
 });
 
-export const { assignTask, dismissOrCompleteTask, dismissAllTasks } = tasksSlice.actions;
+export const { assignTask, dismissOrCompleteTask, dismissAllTasks, pruneCompletedTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;

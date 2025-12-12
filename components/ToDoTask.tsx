@@ -6,6 +6,7 @@ import CheckBox from "./CheckBox";
 import { levelSkill } from "@/app/skillsSlice";
 import { addStats } from "@/app/tierSlice";
 import ThemeContext from "@/app/context/ThemeContext";
+import { dismissOrCompleteTask } from "@/app/tasksSlice";
 
 const computeTimeLeft = (the: string) => {
   console.log("then", the, "now", new Date());
@@ -16,9 +17,10 @@ const computeTimeLeft = (the: string) => {
 
 interface ToDoTaskProps {
   task: Task;
+  completed?: boolean;
 };
 
-const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
+const ToDoTask: FC<ToDoTaskProps> = ({ task, completed }) => {
   const style = useContext(ThemeContext);
   const dispatch = useDispatch();
 
@@ -27,6 +29,7 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
       {
         text: "Yes",
         onPress: () => {
+          dispatch(dismissOrCompleteTask({ task }));
           dispatch(levelSkill({ skill: task.skill, xp: task.xp }));
           dispatch(addStats({ taskCount: 1, xp: task.xp }));
         },
@@ -40,10 +43,11 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task }) => {
 
   return (
     <View style={[style.rowFlex, { justifyContent: 'space-between' }]}>
-      <Text style={style.p}>{task.name}</Text>
-      <Text style={style.p}>
-        {computeTimeLeft(String(task.creationDate))} hours left
-      </Text>
+      <Text style={[style.p, (completed && { textDecorationLine: "line-through" })]}>{task.name}</Text>
+      {!completed &&
+        <Text style={style.p}>
+          {computeTimeLeft(String(task.creationDate))} hours left
+        </Text>}
       <CheckBox onCheck={complete} />
     </View>
   );

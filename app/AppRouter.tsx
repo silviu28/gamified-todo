@@ -12,8 +12,11 @@ import MeCard from "@/components/MeCard";
 import MainPage from "@/components/MainPage";
 import ThemeContext from "./context/ThemeContext";
 import PersistentBackButton from "@/components/PersistentBackButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AppRouter = () => {
+  // uncomment this is case the store breaks the app
+  // AsyncStorage.clear();
   const style = useDynamicTheme();
 
   return (

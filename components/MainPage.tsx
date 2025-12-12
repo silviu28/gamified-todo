@@ -22,7 +22,8 @@ import ThemeContext from "@/app/context/ThemeContext";
 const MainPage: FC = () => {
   const style = useContext(ThemeContext);
   const navigate = useNavigate();
-  const toDoTasks = useSelector((state: State) => state.tasks.tasksToDo);
+  const { tasksToDo, completedTasks } = useSelector((state: State) => state.tasks);
+  console.log(tasksToDo, completedTasks);
   const skills = useSelector((state: State) => state.skills.skills);
 
   const allTasks = skills.flatMap(skill => skill.tasks);
@@ -51,13 +52,21 @@ const MainPage: FC = () => {
               <CheckboxIcon /> Quest list
             </Text>
             <Text/>
-            {toDoTasks.length > 0
-              ? <FlatList
-                data={toDoTasks}
-                keyExtractor={(task) => task.name}
-                renderItem={({ item }) => <ToDoTask task={item} />}
-                scrollEnabled={false}
-              />
+            {tasksToDo.length > 0 || completedTasks.length > 0
+              ? <>
+                  <FlatList
+                    data={tasksToDo}
+                    keyExtractor={task => task.name}
+                    renderItem={({ item }) => <ToDoTask task={item} />}
+                    scrollEnabled={false}
+                  />
+                  <FlatList
+                    data={completedTasks}
+                    keyExtractor={task => task.name}
+                    renderItem={({ item }) => <ToDoTask task={item} completed />}
+                    scrollEnabled={false}
+                  />
+                </>
               : <Text style={style.sub}>Nothing to do for now</Text>}
           </View>
 

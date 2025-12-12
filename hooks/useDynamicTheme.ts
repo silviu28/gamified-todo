@@ -79,6 +79,7 @@ const useDynamicTheme = () => {
 
     textInput: {
       backgroundColor: theme === "dark" ? "#222" : "#EEE",
+      color: accent,
       borderColor: accent,
       borderWidth: 1,
       borderRadius: 5,

@@ -10,7 +10,7 @@ type AddSkillFormProps = {
 const AddSkillForm: FC<AddSkillFormProps> = ({ onSubmit }) => {
   const style = useContext(ThemeContext);
   const [name, setName] = useState<string>('');
-  const [priority, setPriority] = useState<number>(0);
+  const [priority, setPriority] = useState<number>(1);
 
   return (
     <View>

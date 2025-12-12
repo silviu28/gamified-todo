@@ -23,7 +23,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
   const [task, setTask] = useState<string>('');
   const [priority, setPriority] = useState<Priority>('low');
   const [frequency, setFrequency] = useState<Frequency>('one-time');
-  const [skill, setSkill] = useState<Skill>();
+  const [skill, setSkill] = useState<Skill>(skills[0]);
 
   return (
     // Use empty <Text /> tag to add a line break
