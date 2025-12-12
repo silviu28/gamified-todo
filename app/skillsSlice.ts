@@ -1,5 +1,4 @@
 import { Skill } from "@/types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
 
 // because each task is a child of its skill, task integrity is managed in this slice.
@@ -11,8 +10,8 @@ const skillsSlice = createSlice({
   reducers: {
     addSkill: (state, action) => {
       const skill = action.payload as Skill;
-      if (!state.skills.find(sk => sk.name === skill.name) || skill.name) { 
-        state.skills = state.skills.concat(skill);
+      if (!state.skills.find(sk => sk.name === skill.name)) { 
+        state.skills.push(skill);
       }
     },
     removeSkill: (state, action) => {
@@ -39,8 +38,9 @@ const skillsSlice = createSlice({
       const existingSkill = state.skills
         .find(s => s.name === skill.name);
       if (existingSkill) {
-        if (!skill.tasks.find(t => t.name === task.name))
-        existingSkill.tasks.push(task);
+        if (!existingSkill.tasks.find(t => t.name === task.name)) {
+          existingSkill.tasks.push(task);
+        }
       }
     },
     removeTask: (state, action) => {
