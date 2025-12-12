@@ -18,13 +18,15 @@ import UpArrowIcon from "./icons/UpArrowIcon";
 import PersonIcon from "./icons/PersonIcon";
 import FadeInWrapper from "./FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
+import PencilIcon from "./icons/PencilIcon";
+import NoteView from "./Note";
 
 const MainPage: FC = () => {
   const style = useContext(ThemeContext);
   const navigate = useNavigate();
   const { tasksToDo, completedTasks } = useSelector((state: State) => state.tasks);
-  console.log(tasksToDo, completedTasks);
   const skills = useSelector((state: State) => state.skills.skills);
+  const notes = useSelector((state: State) => state.notes.notes);
 
   const allTasks = skills.flatMap(skill => skill.tasks);
 
@@ -68,6 +70,22 @@ const MainPage: FC = () => {
                   />
                 </>
               : <Text style={style.sub}>Nothing to do for now</Text>}
+          </View>
+
+          <View style={style.container}>
+            <Text style={style.heading}>
+              <PencilIcon /> Notes 
+            </Text>
+              {notes.length > 0
+                ? <FlatList
+                    data={notes}
+                    keyExtractor={note => note.title}
+                    renderItem={({ item }) => <NoteView note={item} removable />}
+                  />
+                : <Text style={style.sub}>No notes added</Text>}
+              <Pressable onPress={() => {}}>
+                <Text style={style.raisedHighlight}>+</Text>
+              </Pressable>
           </View>
 
           <View style={style.container}>

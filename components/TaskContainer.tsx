@@ -25,11 +25,11 @@ const TaskContainer: FC<TaskContainerProps> = ({ task, assignable, removable }) 
       <View style={style.colFlex}>
         { removable &&
           <Pressable onPress={() => dispatch(removeTask({ skill: task.skill, task }))}>
-            <Text style={style.highlight}>x</Text>
+            <Text style={style.raisedHighlight}>x</Text>
           </Pressable> }
         { assignable &&
           <Pressable onPress={() => dispatch(assignTask(task))}>
-            <Text style={style.highlight}>+</Text>
+            <Text style={style.raisedHighlight}>+</Text>
           </Pressable> }
       </View>
     </View>

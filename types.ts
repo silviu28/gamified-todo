@@ -17,3 +17,9 @@ export type Task = {
   creationDate: Date,
   skill: Skill,
 };
+
+export type Note = {
+  title: string,
+  content: string,
+  creationDate: Date,
+};

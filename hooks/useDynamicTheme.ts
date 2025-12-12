@@ -97,6 +97,12 @@ const useDynamicTheme = () => {
       fontFamily: "Lilex-Bold",
     },
 
+    raisedHighlight: {
+      color: accent,
+      fontFamily: "Lilex-Bold",
+      fontSize: 24,
+    },
+
     nav: {
       height: 100,
       paddingHorizontal: 20,

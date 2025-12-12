@@ -9,7 +9,6 @@ import ThemeContext from "@/app/context/ThemeContext";
 import { dismissOrCompleteTask } from "@/app/tasksSlice";
 
 const computeTimeLeft = (the: string) => {
-  console.log("then", the, "now", new Date());
   const then = new Date(the);
   const hoursLeft = 24 - then.getHours();
   return hoursLeft;
