@@ -78,7 +78,7 @@ const MePage: FC = () => {
                 style={{height: 200}}
                 source={prefs.thumbnail 
                   ? { uri: prefs.thumbnail } 
-                  : require('../assets/partial-react-logo.png')} 
+                  : require('../assets/images/partial-react-logo.png')} 
               />
             </Pressable>
             <Pressable onPress={() => pickImageFor("profilePicture")}>
@@ -86,7 +86,7 @@ const MePage: FC = () => {
                 style={{width: 80, height: 80, top: -30, alignSelf: "center", borderRadius: 50}}
                 source={prefs.profilePicture 
                   ? { uri: prefs.profilePicture } 
-                  : require('../assets/icon.png')}
+                  : require('../assets/images/icon.png')}
               />
             </Pressable>
           </View>

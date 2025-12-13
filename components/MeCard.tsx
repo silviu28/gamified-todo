@@ -25,7 +25,7 @@ const MeCard: FC = () => {
           source={
             prefs.thumbnail
               ? { uri: prefs.thumbnail }
-              : require("../assets/partial-react-logo.png")
+              : require("../assets/images/partial-react-logo.png")
           }
         />
 
@@ -42,7 +42,7 @@ const MeCard: FC = () => {
             source={
               prefs.profilePicture
                 ? { uri: prefs.profilePicture }
-                : require("../assets/icon.png")
+                : require("../assets/images/icon.png")
             }
           />
 
