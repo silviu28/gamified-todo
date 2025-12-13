@@ -41,14 +41,22 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task, completed }) => {
   };
 
   return (
-    <View style={[style.rowFlex, { justifyContent: 'space-between' }]}>
-      <Text style={[style.p, (completed && { textDecorationLine: "line-through" })]}>{task.name}</Text>
-      {!completed &&
-        <Text style={style.p}>
-          {computeTimeLeft(String(task.creationDate))} hours left
-        </Text>}
+    <View style={[style.rowFlex, { justifyContent: 'space-between', alignItems: 'center', padding: 3 }]}>
+    <Text
+      style={[style.p,completed && { textDecorationLine: 'line-through' },{ flexShrink: 1 }]}>
+      {task.name}
+    </Text>
+
+    {!completed && (
+      <Text style={[style.p, { marginHorizontal: 8, flexShrink: 0 }]}>
+        {computeTimeLeft(String(task.creationDate))} hours left
+      </Text>
+    )}
+
+    <View style={{ flexShrink: 0 }}>
       <CheckBox onCheck={complete} />
     </View>
+  </View>
   );
 };
 

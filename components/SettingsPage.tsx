@@ -21,10 +21,9 @@ const SettingsPage: FC = () => {
       {
         text: "Yes",
         onPress: () => {
-          Alert.alert("Data erase", "Wipe successful.");
-          AsyncStorage.clear();
-          // return to main page
-          navigate("*");
+          AsyncStorage.clear()
+                      .then(() => navigate("*"))
+                      .then(() => Alert.alert("Data erase", "Wipe successful. Please open and close the app."));
         }
       },
       {

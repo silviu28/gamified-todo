@@ -18,7 +18,7 @@ const TaskContainer: FC<TaskContainerProps> = ({ task, assignable, removable }) 
 
   return (
     <View style={style.flexContainer}>
-      <View style={style.colFlex}>
+      <View style={[style.colFlex, { width: "80%" }]}>
         <Text style={style.p}>{task.name}</Text>
         <Text style={style.sub}>{task.frequency}, {task.priority}</Text>
       </View>

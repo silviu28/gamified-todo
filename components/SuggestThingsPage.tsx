@@ -60,7 +60,7 @@ const SuggestThingsPage: FC = () => {
             name: response.activity,
             frequency: "one-time",
             creationDate: new Date(),
-            priority: "",
+            priority: response.duration === "minutes" ? "low" : "average",
             xp: 0,
           }
       ];
@@ -78,29 +78,33 @@ const SuggestThingsPage: FC = () => {
   return (
     <FadeInWrapper>
       <View style={style.bg}>
-        <GradientBackground>
-          <View style={style.padding}>
-            <Text style={style.heading}>not in a creative mood?</Text>
-            <Text style={style.p}>consider getting some suggestions from online.</Text>
-            <Pressable onPress={() => showSuggestion()}>
-              <Text style={style.highlight}>
-                try it!
-              </Text>
-            </Pressable>
-            <Text style={style.p}>{outputMessage}</Text>
-            {(!errorOccured && suggestedSkill) &&
-              <>
-                <Pressable onPress={() => addSuggestdSkill()}>
-                  <Text style={style.highlight}>seems good!</Text>
-                </Pressable>
-                <Pressable onPress={() => addSuggestdSkill(true)}>
-                  <Text style={style.highlight}>just the skill</Text>
-                </Pressable>
-              </>}
+        <View style={style.padding}>
+          <Text style={style.heading}>not in a creative mood?</Text>
+          <Text style={style.p}>consider getting some suggestions from online.</Text>
+          <Pressable onPress={() => showSuggestion()}>
+            <Text style={style.highlight}>
+              try it!
+            </Text>
+          </Pressable>
+          <Text style={style.p}>{outputMessage}</Text>
+          {(!errorOccured && suggestedSkill) &&
+            <>
+              <Pressable onPress={() => addSuggestdSkill()}>
+                <Text style={style.highlight}>seems good!</Text>
+              </Pressable>
+              <Pressable onPress={() => addSuggestdSkill(true)}>
+                <Text style={style.highlight}>just the skill</Text>
+              </Pressable>
+            </>}
+          <Pressable onPress={() => navigate("/main")}>
+            <Text style={style.highlight}>
+              continue
+            </Text>
+          </Pressable>
 
-            <Text style={style.sub}>powered by bored-api</Text>
-          </View>
-        </GradientBackground>
+          <Text style={style.sub}>powered by bored-api.</Text>
+          <Text style={style.sub}>suggestions might be rate limited depending on your usage</Text>
+        </View>
       </View>
     </FadeInWrapper>
   );

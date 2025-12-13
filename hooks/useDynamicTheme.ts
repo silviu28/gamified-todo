@@ -75,6 +75,7 @@ const useDynamicTheme = () => {
 
     p: {
       ... baseText,
+      overflow: "hidden",
     },
 
     textInput: {
