@@ -20,8 +20,10 @@ import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
 import PencilIcon from "../icons/PencilIcon";
 import NoteView from "../Note";
-import AddNoteForm from "../AddNoteForm";
+import AddNoteForm from "../forms/AddNoteForm";
 import { addNote } from "@/app/notesSlice";
+import { assignTask } from "@/app/tasksSlice";
+import { removeTask } from "@/app/skillsSlice";
 
 const MainPage: FC = () => {
   const style = useContext(ThemeContext);
@@ -29,6 +31,7 @@ const MainPage: FC = () => {
   const { tasksToDo, completedTasks } = useSelector((state: State) => state.tasks);
   const skills = useSelector((state: State) => state.skills.skills);
   const notes = useSelector((state: State) => state.notes.notes);
+  const tier = useSelector((state: State) => state.tier);
   const dispatch = useDispatch();
 
   const [showNoteForm, setShowNoteForm] = useState<boolean>(false);
@@ -119,7 +122,12 @@ const MainPage: FC = () => {
               keyExtractor={(task) => task.name}
               scrollEnabled={false}
               renderItem={({ item }) =>
-                <TaskContainer task={item} assignable />}
+                <TaskContainer
+                  task={item}
+                  onAssign={(task) => dispatch(assignTask(task))}
+                  onRemove={(task) => dispatch(removeTask({ skill: task.skill, task }))}
+                />
+              }
             />
           </View>
 
@@ -128,11 +136,11 @@ const MainPage: FC = () => {
               <UpArrowIcon /> Your skills:
             </Text>
             {skills.map(skill => 
-              <SkillContainer key={skill.name} skill={skill} />)}
+              <SkillContainer key={skill.name} skill={skill} style={style} />)}
           </View>
 
-          <StatsContainer />
-          <TierContainer />
+          <StatsContainer style={style} skills={skills} />
+          <TierContainer style={style} tier={tier} />
 
           <Text/>
         </ScrollView>

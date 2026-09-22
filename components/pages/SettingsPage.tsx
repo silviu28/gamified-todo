@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import SettingsOption from "../SettingsOption";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
@@ -15,15 +15,15 @@ const SettingsPage: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const wipeAllAndClose = () => {
+  const promptWiping = () => {
     Alert.alert("Wipe everything",
       "Are you really sure you want to do this? This process is irreversible.", [
       {
         text: "Yes",
         onPress: () => {
           AsyncStorage.clear()
-                      .then(() => navigate("*"))
-                      .then(() => Alert.alert("Data erase", "Wipe successful. Please open and close the app."));
+            .then(() => navigate("*"))
+            .then(() => Alert.alert("Data erase", "Wipe successful. Please open and close the app."));
         }
       },
       {
@@ -43,41 +43,49 @@ const SettingsPage: FC = () => {
           <Text style={style.sub}>Pick another accent color.</Text>
           <View style={{ gap: 1 }}>
             <Selection
+              style={style}
               value={prefs.accent === "lime"}
               onSelect={() => dispatch(changeAccent({ accent: "lime" }))}
               text="lime"
             />
             <Selection
+              style={style}
               value={prefs.accent === "purple"}
               onSelect={() => dispatch(changeAccent({ accent: "purple" }))}
               text="purple"
             />
             <Selection
+              style={style}
               value={prefs.accent === "indigo"}
               onSelect={() => dispatch(changeAccent({ accent: "indigo" }))}
               text="indigo"
             />
             <Selection
+              style={style}
               value={prefs.accent === "red"}
               onSelect={() => dispatch(changeAccent({ accent: "red" }))}
               text="red"
             />
             <Selection
+              style={style}
               value={prefs.accent === "orange"}
               onSelect={() => dispatch(changeAccent({ accent: "orange" }))}
               text="orange"
             />
             <Selection
+              style={style}
               value={prefs.accent === "navy"}
               onSelect={() => dispatch(changeAccent({ accent: "navy" }))}
               text="navy"
             />
             <Selection
+              style={style}
               value={prefs.accent === "teal"}
               onSelect={() => dispatch(changeAccent({ accent: "teal" }))}
               text="teal"
             />
             <Selection
+              style={style}
               value={prefs.accent === "hotpink"}
               onSelect={() => dispatch(changeAccent({ accent: "hotpink" }))}
               text="hot_pink"
@@ -90,11 +98,13 @@ const SettingsPage: FC = () => {
           <Text style={style.sub}>Pick dark or light theme.</Text>
           <View style={style.rowFlex}>
             <Selection
+              style={style}
               value={prefs.theme === "dark"}
               onSelect={() => dispatch(changeTheme({ theme: "dark" }))}
               text="dark"
             />
             <Selection
+              style={style}
               value={prefs.accent === "light"}
               onSelect={() => dispatch(changeTheme({ accent: "light" }))}
               text="light"
@@ -103,11 +113,13 @@ const SettingsPage: FC = () => {
         </View>
 
         <SettingsOption
+          style={style}
           title="Wipe everything"
           description="This will delete everything you have done on this app"
-          onPress={wipeAllAndClose}
+          onPress={promptWiping}
         />
         <SettingsOption
+          style={style}
           title="Optimize storing"
           description="Clear some things that might make the experience worse."
           onPress={() => {}}/>

@@ -1,14 +1,9 @@
-import { State } from "@/app/store";
-import { FC } from "react";
 import { Text, View } from "react-native";
-import { useSelector } from "react-redux";
 import StatsIcon from "./icons/StatsIcon";
 import computeLevel from "@/utils/computeLevel";
-import useDynamicTheme from "@/hooks/useDynamicTheme";
+import { Skill, Theme } from "@/types";
 
-const StatsContainer: FC = () => {
-  const style = useDynamicTheme();
-  const skills = useSelector((state: State) => state.skills.skills);
+const StatsContainer = ({ style, skills }: { style: Theme, skills: Skill[] }) => {
   const totalXp = skills.reduce((total, skill) => total + skill.xp, 0);
   const [totalLevels] = computeLevel(totalXp);
 

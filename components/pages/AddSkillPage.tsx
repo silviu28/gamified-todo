@@ -1,11 +1,11 @@
 import { FunctionComponent, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
-import AddSkillForm from "../AddSkillForm";
+import AddSkillForm from "../forms/AddSkillForm";
 import { useNavigate } from "react-router-native";
 import { Skill } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchFunction, State } from "@/app/store";
-import { addSkill } from "@/app/skillsSlice";
+import { addSkill, removeSkill } from "@/app/skillsSlice";
 import SkillContainer from "../SkillContainer";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
@@ -36,17 +36,22 @@ const AddSkillPage: FunctionComponent = () => {
           <Text style={style.heading}>
             Start by adding any skill (e.g. drawing, programming, doing dishes)
           </Text>
-          <AddSkillForm onSubmit={onSubmit} />
+          <AddSkillForm onSubmit={onSubmit} style={style} />
 
           <FlatList
             data={skills}
             scrollEnabled={false}
             keyExtractor={skill => skill.name}
             renderItem={({ item }) =>
-              <>
-                <SkillContainer skill={item} removable />
+              <View>
+                <SkillContainer
+                  style={style}
+                  skill={item}
+                  onRemove={() => dispatch(removeSkill(item))}
+                />
                 <Text style={style.p}>You selected priority {item.priority} for this skill.</Text>
-              </>}
+              </View>
+            }
           />
 
           <Pressable onPress={() => navigate('/addTask')}>

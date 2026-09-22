@@ -17,7 +17,7 @@ const StatsSummary: FC = () => {
         keyExtractor={skill => skill.name}
         scrollEnabled={false}
         renderItem={({ item }) => 
-          <SkillContainer skill={item} />}
+          <SkillContainer style={style} skill={item} />}
       />
     </View>
   );

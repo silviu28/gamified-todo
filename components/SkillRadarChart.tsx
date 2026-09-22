@@ -1,17 +1,12 @@
-import { State } from "@/app/store";
 import { sub } from "@/constants/styles";
-import { FC } from "react";
+import { Skill } from "@/types";
 import { View, Text as _Text  } from "react-native";
 import Svg, { Circle, Polygon, Text } from "react-native-svg";
-import { useSelector } from "react-redux";
 
 // a radar chart is a fancy and meaningful way of showing statistics and emphasizing higher values.
 // you draw a polygon with as many edges as you have data points,
 // with each edge going further away from the center as its value rises.
-const SkillRadarChart: FC = () => {
-  const skills = useSelector((state: State) => state.skills.skills);
-  const { accent } = useSelector((state: State) => state.preferences);
-
+const SkillRadarChart = ({ skills, accent }: { skills: Skill[], accent: string }) => {
   if (skills.length === 0) {
     return <_Text style={sub}>no datapoints.</_Text>;
   }

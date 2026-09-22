@@ -8,8 +8,13 @@ import ThemeContext from "@/app/context/ThemeContext";
 
 const MeCard: FC = () => {
   const style = useContext(ThemeContext);
-  const prefs = useSelector((state: State) => state.preferences);
-  const tier = useSelector((state: State) => state.tier);
+  const { prefs, tier, skills, accent } = useSelector((state: State) => ({
+    prefs: state.preferences,
+    tier: state.tier,
+    skills: state.skills.skills,
+    accent: state.preferences.accent
+  }));
+  const defaultImage = require("../../assets/images/partial-react-logo.png")
 
   return (
     <View style={[style.bg]}>
@@ -25,7 +30,7 @@ const MeCard: FC = () => {
           source={
             prefs.thumbnail
               ? { uri: prefs.thumbnail }
-              : require("../assets/images/partial-react-logo.png")
+              : defaultImage
           }
         />
 
@@ -42,7 +47,7 @@ const MeCard: FC = () => {
             source={
               prefs.profilePicture
                 ? { uri: prefs.profilePicture }
-                : require("../assets/images/icon.png")
+                : defaultImage
             }
           />
 
@@ -57,7 +62,7 @@ const MeCard: FC = () => {
 
         {/* Radar Chart */}
         <View style={[style.container, { marginTop: 20 }]}>
-          <SkillRadarChart />
+          <SkillRadarChart skills={skills} accent={accent} />
         </View>
 
         <Text style={[style.sub, { textAlign: "center", marginTop: 10 }]}>

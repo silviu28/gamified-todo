@@ -14,9 +14,13 @@ import ThemeContext from "@/app/context/ThemeContext";
 
 const MePage: FC = () => {
   const style = useContext(ThemeContext);
-  const prefs = useSelector((state: State) => state.preferences);
+  const { prefs, skills } = useSelector((state: State) => ({
+    skills: state.skills.skills,
+    prefs: state.preferences
+  }));
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const defaultImage = require('../../assets/images/partial-react-logo.png');
 
   const [editingName, setEditingName] = useState<boolean>(false);
   const [writtenUsername, setWrittenUsername] = useState<string>(prefs.username);
@@ -24,8 +28,10 @@ const MePage: FC = () => {
   const pickImageFor = async (target: "profilePicture" | "thumbnail" ) => {
     const { status } = await imgPick.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      Alert.alert("Error", 
-        "Please grant required permissions for this operation.");
+      Alert.alert(
+        "Error", 
+        "Please grant required permissions for this operation."
+      );
     }
 
     const img = await imgPick.launchImageLibraryAsync({
@@ -78,7 +84,7 @@ const MePage: FC = () => {
                 style={{height: 200}}
                 source={prefs.thumbnail 
                   ? { uri: prefs.thumbnail } 
-                  : require('../assets/images/partial-react-logo.png')} 
+                  : defaultImage} 
               />
             </Pressable>
             <Pressable onPress={() => pickImageFor("profilePicture")}>
@@ -86,12 +92,12 @@ const MePage: FC = () => {
                 style={{width: 80, height: 80, top: -30, alignSelf: "center", borderRadius: 50}}
                 source={prefs.profilePicture 
                   ? { uri: prefs.profilePicture } 
-                  : require('../assets/images/icon.png')}
+                  : defaultImage}
               />
             </Pressable>
           </View>
 
-          { editingName
+          {editingName
             ? (
               <View>
                 <TextInput
@@ -102,20 +108,22 @@ const MePage: FC = () => {
                 <Pressable onPress={() => saveUsername()}>
                   <Text style={style.highlight}>save</Text>
                 </Pressable>
-              </View>)
+              </View>
+            )
             : (
               <Pressable onPress={() => setEditingName(true)}>
                 <Text style={[style.heading, {alignSelf: "center", top: -20}]}>
                   {prefs.username}
                 </Text>
-              </Pressable>)}
+              </Pressable>
+          )}
 
         <StatsSummary />
 
         <Text />
 
         <View style={style.container}>
-          <SkillRadarChart />
+          <SkillRadarChart skills={skills} accent={prefs.accent} />
         </View>
 
       </ScrollView>

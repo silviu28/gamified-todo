@@ -1,14 +1,9 @@
-import React, { FC, useContext, useState } from "react";
+import React, { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import Selection from "./Selection";
-import ThemeContext from "@/app/context/ThemeContext";
+import Selection from "../Selection";
+import { Theme } from "@/types";
 
-type AddSkillFormProps = {
-  onSubmit: (name: string, priority: number) => void,
-}
-
-const AddSkillForm: FC<AddSkillFormProps> = ({ onSubmit }) => {
-  const style = useContext(ThemeContext);
+const AddSkillForm = ({ style, onSubmit }: { style: Theme, onSubmit: (name: string, priority: number) => void }) => {
   const [name, setName] = useState<string>('');
   const [priority, setPriority] = useState<number>(1);
 
@@ -24,16 +19,19 @@ const AddSkillForm: FC<AddSkillFormProps> = ({ onSubmit }) => {
         
         <View style={style.rowFlex}>
           <Selection
+            style={style}
             value={priority === 1}
             onSelect={() => setPriority(1)} 
             text="low"
           />
           <Selection
+            style={style}
             value={priority === 2}
             onSelect={() => setPriority(2)} 
             text="average"
           />
           <Selection
+            style={style}
             value={priority === 3}
             onSelect={() => setPriority(3)} 
             text="high"

@@ -54,7 +54,7 @@ const ToDoTask: FC<ToDoTaskProps> = ({ task, completed }) => {
     )}
 
     <View style={{ flexShrink: 0 }}>
-      <CheckBox onCheck={complete} />
+      <CheckBox style={style} onCheck={complete} />
     </View>
   </View>
   );

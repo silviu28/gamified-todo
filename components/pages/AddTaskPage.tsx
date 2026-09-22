@@ -1,14 +1,15 @@
 import { FunctionComponent, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
-import AddTaskForm from "../AddTaskForm";
+import AddTaskForm from "../forms/AddTaskForm";
 import { useNavigate } from "react-router-native";
 import { Frequency, Priority, Skill, Task } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
-import { addTask } from "@/app/skillsSlice";
+import { addTask, removeTask } from "@/app/skillsSlice";
 import TaskContainer from "../TaskContainer";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
+import { assignTask } from "@/app/tasksSlice";
 
 const AddTaskPage: FunctionComponent = () => {
   const style = useContext(ThemeContext);
@@ -55,14 +56,23 @@ const AddTaskPage: FunctionComponent = () => {
           <Text style={style.heading}>
             Now add some tasks that you need to do:
           </Text>
-          <AddTaskForm onSubmit={addNewTask} />
+          <AddTaskForm
+            skills={skills}
+            style={style}
+            onSubmit={addNewTask}
+          />
 
           <FlatList
             data={allTasks}
             scrollEnabled={false}
             keyExtractor={task => task.name}
             renderItem={({ item }) => 
-              <TaskContainer task={item} removable />}
+              <TaskContainer
+                task={item}
+                onAssign={(task) => dispatch(assignTask(task))}
+                onRemove={(task) => dispatch(removeTask({ skill: task.skill, task }))}
+              />
+            }
           />
 
           <Pressable onPress={() => navigate('/main')}>

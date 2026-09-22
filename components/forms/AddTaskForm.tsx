@@ -1,13 +1,12 @@
-import { State } from "@/app/store";
-import { Frequency, Priority, Skill } from "@/types";
+import { Frequency, Priority, Skill, Theme } from "@/types";
 import { Text } from "@react-navigation/elements";
-import { FunctionComponent, useContext, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { Pressable, TextInput, View } from "react-native";
-import { useSelector } from "react-redux";
-import Selection from "./Selection";
-import ThemeContext from "@/app/context/ThemeContext";
+import Selection from "../Selection";
 
 type AddTaskFormProps = {
+  skills: Skill[],
+  style: Theme,
   onSubmit: (
     task: string,
     priority: Priority,
@@ -16,10 +15,7 @@ type AddTaskFormProps = {
   ) => void,
 };
 
-const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
-  const style = useContext(ThemeContext);
-  const skills = useSelector((state: State) => state.skills.skills);
-
+const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ skills, style, onSubmit }) => {
   const [task, setTask] = useState<string>('');
   const [priority, setPriority] = useState<Priority>('low');
   const [frequency, setFrequency] = useState<Frequency>('one-time');
@@ -39,6 +35,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
       <View style={style.rowFlex}>
         {skills.map(sk => 
           <Selection
+            style={style}
             value={sk === skill}
             key={sk.name}
             onSelect={() => setSkill(sk)}
@@ -52,16 +49,19 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
       </Text>
       <View style={style.rowFlex}>
         <Selection
+          style={style}
           value={priority === "low"}
           onSelect={() => setPriority("low")}
           text="low"
         />
         <Selection
+          style={style}
           value={priority === "average"}
           onSelect={() => setPriority("average")}
           text="average"
         />
         <Selection
+          style={style}
           value={priority === "high"}
           onSelect={() => setPriority("high")}
           text="high"
@@ -76,26 +76,31 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ onSubmit }) => {
       <Text style={style.p}>set a frequency for this task:</Text>
       <View style={style.rowFlex}>
         <Selection
+          style={style}
           value={frequency === "one-time"}
           onSelect={() => setFrequency("one-time")}
           text={"one-time"}
         />
         <Selection
+          style={style}
           value={frequency === "daily"}
           onSelect={() => setFrequency("daily")}
           text={"daily"}
         />
         <Selection
+          style={style}
           value={frequency === "weekly"}
           onSelect={() => setFrequency("weekly")}
           text={"weekly"}
         />
         <Selection
+          style={style}
           value={frequency === "monthly"}
           onSelect={() => setFrequency("monthly")}
           text={"monthly"}
         />
         <Selection
+          style={style}
           value={frequency === "yearly"}
           onSelect={() => setFrequency("yearly")}
           text={"yearly"}

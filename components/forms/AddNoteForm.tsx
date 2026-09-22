@@ -1,7 +1,7 @@
 import ThemeContext from "@/app/context/ThemeContext";
 import { FC, useContext, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import FadeInWrapper from "./FadeInWrapper";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface AddNoteFormProps {
   onSubmit: (title: string, content: string) => void;
