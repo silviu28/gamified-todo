@@ -3,16 +3,16 @@ import useDynamicTheme from "@/hooks/useDynamicTheme";
 import { View } from "react-native";
 import { NativeRouter, Route, Routes } from "react-router-native";
 import BackButtonHandler from "@/components/BackButtonHandler";
-import HomePage from "@/components/HomePage";
-import AddSkillPage from "@/components/AddSkillPage";
-import AddTaskPage from "@/components/AddTaskPage";
-import SettingsPage from "@/components/SettingsPage";
-import MePage from "@/components/MePage";
-import MeCard from "@/components/MeCard";
-import MainPage from "@/components/MainPage";
+import HomePage from "@/components/pages/HomePage";
+import AddSkillPage from "@/components/pages/AddSkillPage";
+import AddTaskPage from "@/components/pages/AddTaskPage";
+import SettingsPage from "@/components/pages/SettingsPage";
+import MePage from "@/components/pages/MePage";
+import MeCard from "@/components/pages/MeCard";
+import MainPage from "@/components/pages/MainPage";
 import ThemeContext from "./context/ThemeContext";
 import PersistentBackButton from "@/components/PersistentBackButton";
-import SuggestThingsPage from "@/components/SuggestThingsPage";
+import SuggestThingsPage from "@/components/pages/SuggestThingsPage";
 
 const AppRouter = () => {
   // uncomment this is case the store breaks the app

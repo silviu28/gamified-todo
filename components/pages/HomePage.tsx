@@ -1,11 +1,11 @@
 import { FC, useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Link } from "react-router-native";
-import CheckboxIcon from "./icons/CheckboxIcon";
-import UpArrowIcon from "./icons/UpArrowIcon";
-import FadeInWrapper from "./FadeInWrapper";
+import CheckboxIcon from "../icons/CheckboxIcon";
+import UpArrowIcon from "../icons/UpArrowIcon";
+import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
-import SmileyIcon from "./icons/SmileyIcon";
+import SmileyIcon from "../icons/SmileyIcon";
 
 const HomePage: FC = () => {
   const style = useContext(ThemeContext);

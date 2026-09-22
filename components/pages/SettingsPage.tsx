@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
-import SettingsOption from "./SettingsOption";
+import SettingsOption from "../SettingsOption";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
-import Selection from "./Selection";
+import Selection from "../Selection";
 import { changeAccent, changeTheme } from "@/app/preferencesSlice";
 import { useNavigate } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";

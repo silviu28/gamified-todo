@@ -1,13 +1,13 @@
 import { FunctionComponent, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
-import AddTaskForm from "./AddTaskForm";
+import AddTaskForm from "../AddTaskForm";
 import { useNavigate } from "react-router-native";
 import { Frequency, Priority, Skill, Task } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { addTask } from "@/app/skillsSlice";
-import TaskContainer from "./TaskContainer";
-import FadeInWrapper from "./FadeInWrapper";
+import TaskContainer from "../TaskContainer";
+import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
 
 const AddTaskPage: FunctionComponent = () => {

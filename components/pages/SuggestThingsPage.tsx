@@ -1,6 +1,6 @@
 import { FC, useContext, useState } from "react";
-import FadeInWrapper from "./FadeInWrapper";
-import GradientBackground from "./GradientBackground";
+import FadeInWrapper from "../FadeInWrapper";
+import GradientBackground from "../GradientBackground";
 import { Pressable, Text, View } from "react-native";
 import ThemeContext from "@/app/context/ThemeContext";
 import getSuggestion from "@/utils/getSuggestion";

@@ -1,13 +1,13 @@
 import { FC, useContext, useState } from "react";
 import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
-import GradientBackground from "./GradientBackground";
+import GradientBackground from "../GradientBackground";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
-import ShareIcon from "./icons/ShareIcon";
-import PencilIcon from "./icons/PencilIcon";
-import StatsSummary from "./StatsSummary";
+import ShareIcon from "../icons/ShareIcon";
+import PencilIcon from "../icons/PencilIcon";
+import StatsSummary from "../StatsSummary";
 import { useNavigate } from "react-router-native";
-import SkillRadarChart from "./SkillRadarChart";
+import SkillRadarChart from "../SkillRadarChart";
 import * as imgPick from "expo-image-picker";
 import { setProfilePicture, setThumbnail, setUsername } from "@/app/preferencesSlice";
 import ThemeContext from "@/app/context/ThemeContext";

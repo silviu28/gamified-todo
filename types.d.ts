@@ -1,3 +1,7 @@
+import useDynamicTheme from "./hooks/useDynamicTheme";
+
+export type Theme = ReturnType<typeof useDynamicTheme>;
+
 export type Skill = {
   xp: number,
   name: string,

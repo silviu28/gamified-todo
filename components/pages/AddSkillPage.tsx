@@ -1,13 +1,13 @@
 import { FunctionComponent, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
-import AddSkillForm from "./AddSkillForm";
+import AddSkillForm from "../AddSkillForm";
 import { useNavigate } from "react-router-native";
 import { Skill } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchFunction, State } from "@/app/store";
 import { addSkill } from "@/app/skillsSlice";
-import SkillContainer from "./SkillContainer";
-import FadeInWrapper from "./FadeInWrapper";
+import SkillContainer from "../SkillContainer";
+import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
 
 const AddSkillPage: FunctionComponent = () => {
