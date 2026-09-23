@@ -1,6 +1,5 @@
-import ThemeContext from "@/app/context/ThemeContext";
 import { Theme } from "@/types";
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
 import { Pressable } from "react-native";
 
 interface CheckBoxProps {

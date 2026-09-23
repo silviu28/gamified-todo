@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import ShareIcon from "../icons/ShareIcon";
 import PencilIcon from "../icons/PencilIcon";
-import StatsSummary from "../StatsSummary";
+import StatsSummary from "../atoms/StatsSummary";
 import { useNavigate } from "react-router-native";
-import SkillRadarChart from "../SkillRadarChart";
+import SkillRadarChart from "../atoms/SkillRadarChart";
 import * as imgPick from "expo-image-picker";
 import { setProfilePicture, setThumbnail, setUsername } from "@/app/preferencesSlice";
 import ThemeContext from "@/app/context/ThemeContext";
@@ -65,7 +65,7 @@ const MePage: FC = () => {
   };
 
   return (
-    <GradientBackground>
+    <GradientBackground prefs={prefs}>
       <View style={{ position: "absolute", top: 60, right: 20, zIndex: 10 }}>
         <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
           <Pressable>

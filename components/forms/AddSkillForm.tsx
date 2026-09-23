@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import Selection from "../Selection";
+import Selection from "../atoms/Selection";
 import { Theme } from "@/types";
 
 const AddSkillForm = ({ style, onSubmit }: { style: Theme, onSubmit: (name: string, priority: number) => void }) => {

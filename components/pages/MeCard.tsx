@@ -3,7 +3,7 @@ import { FC, useContext } from "react";
 import { Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import TrophyIcon from "../icons/TrophyIcon";
-import SkillRadarChart from "../SkillRadarChart";
+import SkillRadarChart from "../atoms/SkillRadarChart";
 import ThemeContext from "@/app/context/ThemeContext";
 
 const MeCard: FC = () => {

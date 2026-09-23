@@ -1,16 +1,10 @@
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { bgStyle } from "@/constants/styles";
-import { useSelector } from "react-redux";
 import { State } from "@/app/store";
 
-interface HasChildren {
-  children?: ReactNode | ReactNode[];
-};
-
-const GradientBackground: FC<HasChildren> = ({ children }) => {
-  const { theme, accent } = useSelector((state: State) => state.preferences);
-
+const GradientBackground = ({ prefs, children }: { prefs: State["preferences"], children: ReactNode }) => {
+  const { theme, accent } = prefs;
   return (
     <LinearGradient
       colors={ theme === "dark" 

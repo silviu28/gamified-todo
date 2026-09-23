@@ -1,15 +1,15 @@
 import { FC, useContext, useState } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
-import TaskContainer from "../TaskContainer";
+import TaskContainer from "../atoms/TaskContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { useNavigate } from "react-router-native";
-import SkillContainer from "../SkillContainer";
+import SkillContainer from "../atoms/SkillContainer";
 import BottomBar from "../BottomBar";
-import ToDoTask from "../ToDoTask";
-import StatsContainer from "../StatsContainer";
-import Modal from "../Modal";
-import TierContainer from "../TierContainer";
+import ToDoTask from "../atoms/ToDoTask";
+import StatsContainer from "../atoms/StatsContainer";
+import Modal from "../atoms/Modal";
+import TierContainer from "../atoms/TierContainer";
 import SettingsIcon from "../icons/SettingsIcon";
 import GradientBackground from "../GradientBackground";
 import CheckboxIcon from "../icons/CheckboxIcon";
@@ -19,11 +19,12 @@ import PersonIcon from "../icons/PersonIcon";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
 import PencilIcon from "../icons/PencilIcon";
-import NoteView from "../Note";
+import NoteView from "../atoms/Note";
 import AddNoteForm from "../forms/AddNoteForm";
 import { addNote } from "@/app/notesSlice";
-import { assignTask } from "@/app/tasksSlice";
-import { removeTask } from "@/app/skillsSlice";
+import { assignTask, dismissOrCompleteTask } from "@/app/tasksSlice";
+import { levelSkill, removeTask } from "@/app/skillsSlice";
+import { addStats } from "@/app/tierSlice";
 
 const MainPage: FC = () => {
   const style = useContext(ThemeContext);
@@ -32,6 +33,7 @@ const MainPage: FC = () => {
   const skills = useSelector((state: State) => state.skills.skills);
   const notes = useSelector((state: State) => state.notes.notes);
   const tier = useSelector((state: State) => state.tier);
+  const preferences = useSelector((state: State) => state.preferences);
   const dispatch = useDispatch();
 
   const [showNoteForm, setShowNoteForm] = useState<boolean>(false);
@@ -40,7 +42,7 @@ const MainPage: FC = () => {
 
   return (
     <FadeInWrapper>
-      <GradientBackground>
+      <GradientBackground prefs={preferences}>
 
         <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
           <View style={{display: "flex", flexDirection: "row", gap: 10 }}>
@@ -68,13 +70,28 @@ const MainPage: FC = () => {
                   <FlatList
                     data={tasksToDo}
                     keyExtractor={task => task.name}
-                    renderItem={({ item }) => <ToDoTask task={item} />}
+                    renderItem={({ item }) => 
+                      <ToDoTask
+                        style={style}
+                        task={item}
+                        onCompletion={(task) => {
+                          dispatch(dismissOrCompleteTask({ task }));
+                          dispatch(levelSkill({ skill: task.skill, xp: task.xp }));
+                          dispatch(addStats({ taskCount: 1, xp: task.xp }));
+                        }}
+                      />
+                    }
                     scrollEnabled={false}
                   />
                   <FlatList
                     data={completedTasks}
                     keyExtractor={task => task.name}
-                    renderItem={({ item }) => <ToDoTask task={item} completed />}
+                    renderItem={({ item }) => 
+                    <ToDoTask
+                      style={style}
+                      task={item}
+                      completed
+                    />}
                     scrollEnabled={false}
                   />
                 </>
@@ -123,6 +140,7 @@ const MainPage: FC = () => {
               scrollEnabled={false}
               renderItem={({ item }) =>
                 <TaskContainer
+                  style={style}
                   task={item}
                   onAssign={(task) => dispatch(assignTask(task))}
                   onRemove={(task) => dispatch(removeTask({ skill: task.skill, task }))}

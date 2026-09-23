@@ -6,7 +6,7 @@ import { Skill } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchFunction, State } from "@/app/store";
 import { addSkill, removeSkill } from "@/app/skillsSlice";
-import SkillContainer from "../SkillContainer";
+import SkillContainer from "../atoms/SkillContainer";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
 

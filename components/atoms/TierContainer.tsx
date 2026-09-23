@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Alert, Text, View } from "react-native";
-import TrophyIcon from "./icons/TrophyIcon";
+import TrophyIcon from "../icons/TrophyIcon";
 import computeTier from "@/utils/computeTier";
 import { Theme } from "@/types";
 

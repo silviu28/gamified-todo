@@ -6,7 +6,7 @@ import { Frequency, Priority, Skill, Task } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import { addTask, removeTask } from "@/app/skillsSlice";
-import TaskContainer from "../TaskContainer";
+import TaskContainer from "../atoms/TaskContainer";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
 import { assignTask } from "@/app/tasksSlice";

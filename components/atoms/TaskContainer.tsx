@@ -1,10 +1,17 @@
-import { Task } from "@/types";
-import { useContext } from "react";
+import { Task, Theme } from "@/types";
 import { Pressable, Text, View } from "react-native";
-import ThemeContext from "@/app/context/ThemeContext";
 
-const TaskContainer = ({ task, onAssign, onRemove }: { task: Task, onAssign?: (task: Task) => void, onRemove?: (task: Task) => void }) => {
-  const style = useContext(ThemeContext);
+const TaskContainer = ({
+    style,
+    task,
+    onAssign,
+    onRemove
+  }: {
+    style: Theme, 
+    task: Task, 
+    onAssign?: (task: Task) => void, 
+    onRemove?: (task: Task) => void 
+  }) => {
 
   return (
     <View style={style.flexContainer}>
