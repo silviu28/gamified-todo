@@ -10,21 +10,16 @@ import ToDoTask from "../atoms/ToDoTask";
 import StatsContainer from "../atoms/StatsContainer";
 import Modal from "../atoms/Modal";
 import TierContainer from "../atoms/TierContainer";
-import SettingsIcon from "../icons/SettingsIcon";
 import GradientBackground from "../GradientBackground";
-import CheckboxIcon from "../icons/CheckboxIcon";
-import InfoIcon from "../icons/InfoIcon";
-import UpArrowIcon from "../icons/UpArrowIcon";
-import PersonIcon from "../icons/PersonIcon";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
-import PencilIcon from "../icons/PencilIcon";
 import NoteView from "../atoms/Note";
 import AddNoteForm from "../forms/AddNoteForm";
 import { addNote } from "@/app/notesSlice";
 import { assignTask, dismissOrCompleteTask } from "@/app/tasksSlice";
 import { levelSkill, removeTask } from "@/app/skillsSlice";
 import { addStats } from "@/app/tierSlice";
+import Icon from "../icons";
 
 const MainPage: FC = () => {
   const style = useContext(ThemeContext);
@@ -47,10 +42,10 @@ const MainPage: FC = () => {
         <View style={{ position: 'absolute', top: 60, right: 20, zIndex: 10, }}>
           <View style={{display: "flex", flexDirection: "row", gap: 10 }}>
             <Pressable onPress={() => navigate("/me")}>
-              <PersonIcon />
+              <Icon.Person />
             </Pressable>
             <Pressable onPress={() => navigate("/settings")}>
-              <SettingsIcon />
+              <Icon.Settings />
             </Pressable>
           </View>
         </View>
@@ -62,7 +57,7 @@ const MainPage: FC = () => {
           
           <View style={style.container}>
             <Text style={style.heading}>
-              <CheckboxIcon /> Quest list
+              <Icon.Checkbox /> Quest list
             </Text>
             <Text/>
             {tasksToDo.length > 0 || completedTasks.length > 0
@@ -100,7 +95,7 @@ const MainPage: FC = () => {
 
           <View style={style.container}>
             <Text style={style.heading}>
-              <PencilIcon /> Notes 
+              <Icon.Pencil /> Notes 
             </Text>
               {showNoteForm &&
                 <>
@@ -131,7 +126,7 @@ const MainPage: FC = () => {
 
           <View style={style.container}>
             <Text style={style.heading}>
-              <InfoIcon /> Add quests
+              <Icon.Info /> Add quests
             </Text>
             <Text />
             <FlatList
@@ -151,7 +146,7 @@ const MainPage: FC = () => {
 
           <View style={style.container}>
             <Text style={style.heading}>
-              <UpArrowIcon /> Your skills:
+              <Icon.UpArrow /> Your skills:
             </Text>
             {skills.map(skill => 
               <SkillContainer key={skill.name} skill={skill} style={style} />)}

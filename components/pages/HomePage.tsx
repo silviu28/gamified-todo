@@ -1,11 +1,9 @@
 import { FC, useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Link } from "react-router-native";
-import CheckboxIcon from "../icons/CheckboxIcon";
-import UpArrowIcon from "../icons/UpArrowIcon";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
-import SmileyIcon from "../icons/SmileyIcon";
+import Icon from "../icons";
 
 const HomePage: FC = () => {
   const style = useContext(ThemeContext);
@@ -21,17 +19,17 @@ const HomePage: FC = () => {
           <Text />
           <View style={[style.rowFlex, { alignSelf: "center", justifyContent: "center", width: "95%" }]}>
             <View style={{ flex: 1 }}>
-              <Text style={style.p}><CheckboxIcon /> Track your tasks</Text>
+              <Text style={style.p}><Icon.Checkbox /> Track your tasks</Text>
               <Text style={style.sub}>{`Keep yourself productive and organized by using a to-do list that updates on your preferences.`}</Text>
             </View>
             
             <View style={{ flex: 1 }}>
-              <Text style={style.p}><UpArrowIcon /> Level up</Text>
+              <Text style={style.p}><Icon.UpArrow /> Level up</Text>
               <Text style={style.sub}>{`Remain motivated by setting yourself skill caps you want to achieve.`}</Text>
             </View>
 
             <View style={{ flex: 1 }}>
-              <Text style={style.p}><SmileyIcon /> Motivate yourself</Text>
+              <Text style={style.p}><Icon.Smiley /> Motivate yourself</Text>
               <Text style={style.sub}>{`See yourself progress in a tangible way. Share your progress using personalized stat cards.`}</Text>
             </View>
           </View>

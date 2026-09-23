@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Alert, Text, View } from "react-native";
-import TrophyIcon from "../icons/TrophyIcon";
+import Icon from "../icons";
 import computeTier from "@/utils/computeTier";
 import { Theme } from "@/types";
 
@@ -27,7 +27,7 @@ const TierContainer = ({ style, tier }: {
 
   return (
     <View style={style.container}>
-      <Text style={style.heading}><TrophyIcon /> Your tier:</Text>
+      <Text style={style.heading}><Icon.Trophy /> Your tier:</Text>
       <View style={style.rowFlex}>
         <View style={style.circularProgress}>
           <Text style={style.heading}>

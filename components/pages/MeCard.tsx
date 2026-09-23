@@ -2,9 +2,9 @@ import { State } from "@/app/store";
 import { FC, useContext } from "react";
 import { Image, Text, View } from "react-native";
 import { useSelector } from "react-redux";
-import TrophyIcon from "../icons/TrophyIcon";
 import SkillRadarChart from "../atoms/SkillRadarChart";
 import ThemeContext from "@/app/context/ThemeContext";
+import Icon from "../icons";
 
 const MeCard: FC = () => {
   const style = useContext(ThemeContext);
@@ -56,7 +56,7 @@ const MeCard: FC = () => {
           </Text>
 
           <Text style={[style.sub, { fontSize: 18, marginTop: 4 }]}>
-            <TrophyIcon /> Tier {tier.tier}
+            <Icon.Trophy /> Tier {tier.tier}
           </Text>
         </View>
 

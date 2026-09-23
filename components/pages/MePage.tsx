@@ -3,8 +3,7 @@ import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from "reac
 import GradientBackground from "../GradientBackground";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
-import ShareIcon from "../icons/ShareIcon";
-import PencilIcon from "../icons/PencilIcon";
+import Icon from "../icons";
 import StatsSummary from "../atoms/StatsSummary";
 import { useNavigate } from "react-router-native";
 import SkillRadarChart from "../atoms/SkillRadarChart";
@@ -69,10 +68,10 @@ const MePage: FC = () => {
       <View style={{ position: "absolute", top: 60, right: 20, zIndex: 10 }}>
         <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
           <Pressable>
-            <PencilIcon />
+            <Icon.Pencil />
           </Pressable>
           <Pressable onPress={() => navigate("/share")}>
-            <ShareIcon />
+            <Icon.Share />
           </Pressable>
         </View>
       </View>
