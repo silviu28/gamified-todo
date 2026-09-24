@@ -68,6 +68,7 @@ const AddTaskPage: FunctionComponent = () => {
             keyExtractor={task => task.name}
             renderItem={({ item }) => 
               <TaskContainer
+                style={style}
                 task={item}
                 onAssign={(task) => dispatch(assignTask(task))}
                 onRemove={(task) => dispatch(removeTask({ skill: task.skill, task }))}

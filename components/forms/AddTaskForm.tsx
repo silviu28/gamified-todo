@@ -1,7 +1,6 @@
 import { Frequency, Priority, Skill, Theme } from "@/types";
-import { Text } from "@react-navigation/elements";
 import { FunctionComponent, useState } from "react";
-import { Pressable, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import Selection from "../atoms/Selection";
 
 type AddTaskFormProps = {

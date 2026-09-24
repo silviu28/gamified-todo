@@ -100,15 +100,15 @@ const CheckboxIcon: FC<IconProps> = ({ darkVariant }) => {
 };
 
 export default class Icon {
-  static Pencil = ({ darkVariant }: { darkVariant?: boolean }) => <Pencil darkVariant />;
-  static Info = ({ darkVariant }: { darkVariant?: boolean }) => <InfoIcon darkVariant />;
-  static LeftArrow = ({ darkVariant }: { darkVariant?: boolean }) => <LeftArrowIcon darkVariant />;
-  static UpArrow = ({ darkVariant }: { darkVariant?: boolean }) => <UpArrowIcon darkVariant />;
-  static Person = ({ darkVariant }: { darkVariant?: boolean }) => <PersonIcon darkVariant />;
-  static Settings = ({ darkVariant }: { darkVariant?: boolean }) => <SettingsIcon darkVariant />;
-  static Share = ({ darkVariant }: { darkVariant?: boolean }) => <ShareIcon darkVariant />;
-  static Smiley = ({ darkVariant }: { darkVariant?: boolean }) => <SmileyIcon darkVariant />;
-  static Stats = ({ darkVariant }: { darkVariant?: boolean }) => <StatsIcon darkVariant />;
-  static Trophy = ({ darkVariant }: { darkVariant?: boolean }) => <TrophyIcon darkVariant />;
-  static Checkbox = ({ darkVariant }: { darkVariant?: boolean }) => <CheckboxIcon darkVariant />;
+  static Pencil = ({ darkVariant }: { darkVariant?: boolean }) => <Pencil darkVariant={darkVariant} />;
+  static Info = ({ darkVariant }: { darkVariant?: boolean }) => <InfoIcon darkVariant={darkVariant} />;
+  static LeftArrow = ({ darkVariant }: { darkVariant?: boolean }) => <LeftArrowIcon darkVariant={darkVariant} />;
+  static UpArrow = ({ darkVariant }: { darkVariant?: boolean }) => <UpArrowIcon darkVariant={darkVariant} />;
+  static Person = ({ darkVariant }: { darkVariant?: boolean }) => <PersonIcon darkVariant={darkVariant} />;
+  static Settings = ({ darkVariant }: { darkVariant?: boolean }) => <SettingsIcon darkVariant={darkVariant} />;
+  static Share = ({ darkVariant }: { darkVariant?: boolean }) => <ShareIcon darkVariant={darkVariant} />;
+  static Smiley = ({ darkVariant }: { darkVariant?: boolean }) => <SmileyIcon darkVariant={darkVariant} />;
+  static Stats = ({ darkVariant }: { darkVariant?: boolean }) => <StatsIcon darkVariant={darkVariant} />;
+  static Trophy = ({ darkVariant }: { darkVariant?: boolean }) => <TrophyIcon darkVariant={darkVariant} />;
+  static Checkbox = ({ darkVariant }: { darkVariant?: boolean }) => <CheckboxIcon darkVariant={darkVariant} />;
 };
