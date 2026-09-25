@@ -1,12 +1,19 @@
 import { Note } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const noteSlice = createSlice({
   name: "notes",
   initialState: {
     notes: [] as Note[],
+    loaded: false
   },
   reducers: {
+    hydrateNotes: (state, action: PayloadAction<Note[]>) => {
+      state = {
+        notes: action.payload,
+        loaded: true
+      };
+    },
     addNote: (state, action) => {
       const { title, content, creationDate } = action.payload;
       const note: Note = { title, content, creationDate };
@@ -23,5 +30,5 @@ const noteSlice = createSlice({
   },
 });
 
-export const { addNote, removeNote } = noteSlice.actions;
+export const { hydrateNotes, addNote, removeNote } = noteSlice.actions;
 export default noteSlice.reducer;

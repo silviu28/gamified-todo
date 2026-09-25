@@ -8,9 +8,16 @@ const tasksSlice = createSlice({
     // and a list of tasks that have to be done right now
     tasksToDo: [] as Task[],
     completedTasks: [] as Task[],
+    loaded: false,
   },
   // same as the skills slice, define logic to manage the tasks here
   reducers: {
+    hydrateTasks(state, action: PayloadAction<{ tasksToDo: Task[], completedTasks: Task[] }>) {
+      state = {
+        ...action.payload,
+        loaded: true
+      };
+    },
     assignTask: (state, action: PayloadAction<Task>) => {
       const task = action.payload;
       if (!state.tasksToDo.find(t => t.name === task.name)) {
@@ -37,5 +44,5 @@ const tasksSlice = createSlice({
   }
 });
 
-export const { assignTask, dismissOrCompleteTask, dismissAllTasks, pruneCompletedTasks } = tasksSlice.actions;
+export const { hydrateTasks, assignTask, dismissOrCompleteTask, dismissAllTasks, pruneCompletedTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;

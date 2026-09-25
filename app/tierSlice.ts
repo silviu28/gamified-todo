@@ -1,5 +1,5 @@
 import computeTier from "@/utils/computeTier";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const tierSlice = createSlice({
   name: "tier",
@@ -7,8 +7,20 @@ const tierSlice = createSlice({
     tier: 0,
     tasksCount: 0,
     consolidatedXp: 0,
+    loaded: false
   },
   reducers: {
+    hydrateTier: (state, action: PayloadAction<{
+      tier: number,
+      tasksCount: number,
+      consolidatedPts: 0,
+    }>) => {
+      state = {
+        ...action.payload,
+        consolidatedXp: action.payload.consolidatedPts,
+        loaded: true
+      };
+    },
     increaseTier: (state, _action) => {
       ++state.tier;
     },
@@ -37,5 +49,5 @@ const tierSlice = createSlice({
   }
 });
 
-export const { increaseTier, decreaseTier, addStats, decayTier, clearTier } = tierSlice.actions;
+export const { hydrateTier, increaseTier, decreaseTier, addStats, decayTier, clearTier } = tierSlice.actions;
 export default tierSlice.reducer;

@@ -1,13 +1,20 @@
 import { Skill } from "@/types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // because each task is a child of its skill, task integrity is managed in this slice.
 const skillsSlice = createSlice({
   name: "skills",
   initialState: {
-    skills: [] as Skill[]
+    skills: [] as Skill[],
+    loaded: false
   },
   reducers: {
+    hydrateSkills: (state, action: PayloadAction<Skill[]>) => {
+      state = {
+        skills: action.payload,
+        loaded: true
+      };
+    },
     addSkill: (state, action) => {
       const skill = action.payload as Skill;
       if (!state.skills.find(sk => sk.name === skill.name)) { 
@@ -67,6 +74,6 @@ const skillsSlice = createSlice({
   }
 });
 
-export const { addSkill, removeSkill, modifySkill, levelSkill, addTask, removeTask, modifyTask, removeAllSkills } = skillsSlice.actions;
+export const { hydrateSkills, addSkill, removeSkill, modifySkill, levelSkill, addTask, removeTask, modifyTask, removeAllSkills } = skillsSlice.actions;
 export default skillsSlice.reducer;
 

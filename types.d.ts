@@ -9,6 +9,15 @@ export type Skill = {
   tasks: Task[],
 };
 
+export type Preferences = {
+  showStart: boolean,
+  accent: string,
+  theme: "dark" | "light",
+  thumbnail: string,
+  profilePicture: string,
+  username: string,
+};
+
 export type Frequency = 'one-time' | 'daily' | 'weekly' | 'monthly' | 'yearly';
 
 export type Priority = 'low' | 'average' | 'high';
