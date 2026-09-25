@@ -40,3 +40,8 @@ export type BoredAPIResponse = {
   link: string,
   key: string,
 };
+
+declare module "*.sql" {
+  const value: string;
+  export default value;
+}
