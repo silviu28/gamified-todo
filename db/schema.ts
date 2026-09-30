@@ -44,6 +44,9 @@ export const tasks = sqliteTable('tasks', {
     .default(3600000),
 
   creationDate: integer('creation_date', { mode: 'timestamp' }),
+
+  manuallyAssigned: integer('manually_assigned', { mode: 'boolean' })
+    .default(false)
 });
 
 export const skillTasks = sqliteTable('skill_tasks', {
@@ -138,3 +141,10 @@ export const tier = sqliteTable('tier', {
     .notNull()
     .default(0),
 });
+
+export const myRelations = {
+  completedTasksRelations,
+  skillsRelations,
+  tasksRelations,
+  skillTasksRelations
+};
