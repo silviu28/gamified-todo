@@ -13,37 +13,37 @@ const preferencesSlice = createSlice({
     loaded: false,
   },
   reducers: {
-    hydratePreferences: (state, action: PayloadAction<Preferences>) => {
+    hydratePreferences(state, action: PayloadAction<Preferences>) {
       state = {
         ...action.payload,
         loaded: true
       };
     },
-    changeAccent: (state, action) => {
+    changeAccent(state, action: PayloadAction<{ accent: string }>) {
       const { accent } = action.payload;
       state.accent = accent;
     },
-    skipStart: (state) => {
+    skipStart(state) {
       state.showStart = !state.showStart;
     },
-    changeTheme: (state, action) => {
+    changeTheme(state, action: PayloadAction<{ theme: string }>) {
       const { theme } = action.payload;
       state.theme = theme;
     },
-    resetPreferences: (state) => {
+    resetPreferences (state) {
       state.showStart = true;
       state.accent = "lime";
       state.theme = "dark";
     },
-    setProfilePicture: (state, action) => {
+    setProfilePicture(state, action: PayloadAction<{ profilePicture: string }>) {
       const { profilePicture } = action.payload;
       state.profilePicture = profilePicture;
     },
-    setThumbnail: (state, action) => {
+    setThumbnail(state, action: PayloadAction<{ thumbnail: string }>) {
       const { thumbnail } = action.payload;
       state.thumbnail = thumbnail;
     },
-    setUsername: (state, action) => {
+    setUsername(state, action: PayloadAction<{ username: string }>) {
       const { username } = action.payload;
       state.username = username;
     },

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-native";
 
 const SuggestThingsPage: FC = () => {
   const style = useContext(ThemeContext);
-  const [suggestedSkill, setSuggestedSkill] = useState<Skill>();
+  const [suggestedSkill, setSuggestedSkill] = useState<Omit<Skill, "id">>();
   const [outputMessage, setOutputMessage] = useState<string>("");
   const [errorOccured, setErrorOccured] = useState<boolean>(false);
 
@@ -19,12 +19,9 @@ const SuggestThingsPage: FC = () => {
 
   const addSuggestdSkill = (onlySkill = true) => {
     if (onlySkill) {
-      setSuggestedSkill({
-        ... suggestedSkill,
-        tasks: []
-      });
+      setSuggestedSkill(suggestedSkill);
     }
-    dispatch(addSkill(suggestedSkill));
+    // dispatch(addSkill(suggestedSkill));
     navigate("/main");
   };
 
@@ -49,19 +46,19 @@ const SuggestThingsPage: FC = () => {
         .concat("Importance: ", response.duration === "minutes" ? "low" : "average");
 
       const suggestedSkill = {
-        xp: 0,
+        pts: 0,
         name: response.type,
         priority: response.accessibility === "Major challenges" ? 3 : 2,
         tasks: [],
       };
       suggestedSkill.tasks = [
         {
-            name: response.activity,
-            frequency: "one-time",
-            creationDate: new Date(),
-            priority: response.duration === "minutes" ? "low" : "average",
-            xp: 0,
-          }
+          name: response.activity,
+          frequency: "one-time",
+          creationDate: new Date(),
+          priority: response.duration === "minutes" ? "low" : "average",
+          pts: 0,
+        }
       ];
 
       setSuggestedSkill(suggestedSkill);

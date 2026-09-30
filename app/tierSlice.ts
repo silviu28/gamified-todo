@@ -10,38 +10,38 @@ const tierSlice = createSlice({
     loaded: false
   },
   reducers: {
-    hydrateTier: (state, action: PayloadAction<{
+    hydrateTier(state, action: PayloadAction<{
       tier: number,
       tasksCount: number,
       consolidatedPts: 0,
-    }>) => {
+    }>) {
       state = {
         ...action.payload,
         consolidatedXp: action.payload.consolidatedPts,
         loaded: true
       };
     },
-    increaseTier: (state, _action) => {
+    increaseTier(state) {
       ++state.tier;
     },
-    decreaseTier: (state, _action) => {
+    decreaseTier(state) {
       --state.tier;
     },
-    addStats: (state, action) => {
-      const { taskCount, xp } = action.payload;
+    addStats(state, action: PayloadAction<{ taskCount: number, pts: number }>) {
+      const { taskCount, pts } = action.payload;
       state.tasksCount += taskCount;
-      state.consolidatedXp += xp;
+      state.consolidatedXp += pts;
     },
-    decayTier: (state, action) => {
+    decayTier: (state, action: PayloadAction<{ taskCountDecay: number, ptsDecay: number }>) => {
       // after some time, decay consolidated stats to demote player for inactivity
-      const { taskCountDecay, xpDecay } = action.payload;
+      const { taskCountDecay, ptsDecay } = action.payload;
       state.tasksCount -= taskCountDecay;
-      state.consolidatedXp -= xpDecay;
+      state.consolidatedXp -= ptsDecay;
 
       const [tier] = computeTier(state.tasksCount, state.consolidatedXp);
       state.tier = tier;
     },
-    clearTier: (state) => {
+    clearTier(state) {
       state.tier = 0;
       state.consolidatedXp = 0;
       state.tier = 0;

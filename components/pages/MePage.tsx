@@ -14,7 +14,7 @@ import ThemeContext from "@/app/context/ThemeContext";
 const MePage: FC = () => {
   const style = useContext(ThemeContext);
   const { prefs, skills } = useSelector((state: State) => ({
-    skills: state.skills.skills,
+    skills: state.skills.allSkills,
     prefs: state.preferences
   }));
   const dispatch = useDispatch();

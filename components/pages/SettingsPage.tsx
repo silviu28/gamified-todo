@@ -106,7 +106,7 @@ const SettingsPage: FC = () => {
             <Selection
               style={style}
               value={prefs.accent === "light"}
-              onSelect={() => dispatch(changeTheme({ accent: "light" }))}
+              onSelect={() => dispatch(changeTheme({ theme: "light" }))}
               text="light"
             />
           </View>

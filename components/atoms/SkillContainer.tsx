@@ -5,7 +5,7 @@ import ProgressBar from "./ProgressBar";
 import computeLevel from "@/utils/computeLevel";
 
 const SkillContainer = ({ style, skill, onRemove }: { style: Theme, skill: Skill, onRemove?: () => void }) => {
-  const [level, currentXp, requiredXp] = computeLevel(skill.xp);
+  const [level, currentXp, requiredXp] = computeLevel(skill.pts);
 
   // track the previous level using a ref (a value that persists between renders)
   const previousLevelRef = useRef<number>(level);

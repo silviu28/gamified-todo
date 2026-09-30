@@ -11,7 +11,7 @@ const MeCard: FC = () => {
   const { prefs, tier, skills, accent } = useSelector((state: State) => ({
     prefs: state.preferences,
     tier: state.tier,
-    skills: state.skills.skills,
+    skills: state.skills.allSkills,
     accent: state.preferences.accent
   }));
   const defaultImage = require("../../assets/images/partial-react-logo.png")

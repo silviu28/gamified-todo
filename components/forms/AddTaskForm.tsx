@@ -1,4 +1,4 @@
-import { Frequency, Priority, Skill, Theme } from "@/types";
+import { Frequency, Skill, Theme } from "@/types";
 import { FunctionComponent, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import Selection from "../atoms/Selection";
@@ -8,7 +8,7 @@ type AddTaskFormProps = {
   style: Theme,
   onSubmit: (
     task: string,
-    priority: Priority,
+    priority: number,
     frequency: Frequency,
     skill: Skill
   ) => void,
@@ -16,7 +16,7 @@ type AddTaskFormProps = {
 
 const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ skills, style, onSubmit }) => {
   const [task, setTask] = useState<string>('');
-  const [priority, setPriority] = useState<Priority>('low');
+  const [priority, setPriority] = useState(1);
   const [frequency, setFrequency] = useState<Frequency>('one-time');
   const [skill, setSkill] = useState<Skill>(skills[0]);
 
@@ -49,20 +49,20 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ skills, style, onSub
       <View style={style.rowFlex}>
         <Selection
           style={style}
-          value={priority === "low"}
-          onSelect={() => setPriority("low")}
+          value={priority === 1}
+          onSelect={() => setPriority(1)}
           text="low"
         />
         <Selection
           style={style}
-          value={priority === "average"}
-          onSelect={() => setPriority("average")}
+          value={priority === 2}
+          onSelect={() => setPriority(2)}
           text="average"
         />
         <Selection
           style={style}
-          value={priority === "high"}
-          onSelect={() => setPriority("high")}
+          value={priority === 3}
+          onSelect={() => setPriority(3)}
           text="high"
         />
       </View>

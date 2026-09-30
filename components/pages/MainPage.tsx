@@ -16,8 +16,8 @@ import ThemeContext from "@/app/context/ThemeContext";
 import NoteView from "../atoms/Note";
 import AddNoteForm from "../forms/AddNoteForm";
 import { addNote } from "@/app/notesSlice";
-import { assignTask, dismissOrCompleteTask } from "@/app/tasksSlice";
-import { levelSkill, removeTask } from "@/app/skillsSlice";
+import { assignTask, dismissOrCompleteTask, removeTask } from "@/app/tasksSlice";
+import { levelSkill } from "@/app/skillsSlice";
 import { addStats } from "@/app/tierSlice";
 import Icon from "../icons";
 
@@ -25,15 +25,19 @@ const MainPage: FC = () => {
   const style = useContext(ThemeContext);
   const navigate = useNavigate();
   const { tasksToDo, completedTasks } = useSelector((state: State) => state.tasks);
-  const skills = useSelector((state: State) => state.skills.skills);
-  const notes = useSelector((state: State) => state.notes.notes);
+  const skills = useSelector((state: State) => state.skills.allSkills);
+  const notes = useSelector((state: State) => state.notes.allNotes);
   const tier = useSelector((state: State) => state.tier);
   const preferences = useSelector((state: State) => state.preferences);
   const dispatch = useDispatch();
 
   const [showNoteForm, setShowNoteForm] = useState<boolean>(false);
 
-  const allTasks = skills.flatMap(skill => skill.tasks);
+  const completeTask = (task) => {
+    dispatch(dismissOrCompleteTask(task));
+    dispatch(levelSkill({ skill: task.skill, pts: task.xp }));
+    dispatch(addStats({ taskCount: 1, pts: task.xp }));
+  }; // TODO
 
   return (
     <FadeInWrapper>
@@ -69,11 +73,7 @@ const MainPage: FC = () => {
                       <ToDoTask
                         style={style}
                         task={item}
-                        onCompletion={(task) => {
-                          dispatch(dismissOrCompleteTask({ task }));
-                          dispatch(levelSkill({ skill: task.skill, xp: task.xp }));
-                          dispatch(addStats({ taskCount: 1, xp: task.xp }));
-                        }}
+                        onCompletion={completeTask}
                       />
                     }
                     scrollEnabled={false}
@@ -101,9 +101,9 @@ const MainPage: FC = () => {
                 <>
                   <AddNoteForm
                     onSubmit={(title, content) => {
-                      dispatch(
-                        addNote({ title, content, creationDate: new Date() })
-                      );
+                      // dispatch(
+                      //   addNote({ title, content, creationDate: new Date() })
+                      // );
                       setShowNoteForm(false);
                     }}
                   />
@@ -130,7 +130,7 @@ const MainPage: FC = () => {
             </Text>
             <Text />
             <FlatList
-              data={allTasks}
+              data={tasksToDo}
               keyExtractor={(task) => task.name}
               scrollEnabled={false}
               renderItem={({ item }) =>
@@ -138,7 +138,7 @@ const MainPage: FC = () => {
                   style={style}
                   task={item}
                   onAssign={(task) => dispatch(assignTask(task))}
-                  onRemove={(task) => dispatch(removeTask({ skill: task.skill, task }))}
+                  onRemove={(task) => dispatch(removeTask(task))}
                 />
               }
             />
