@@ -10,6 +10,9 @@ import SkillRadarChart from "../atoms/SkillRadarChart";
 import * as imgPick from "expo-image-picker";
 import { setProfilePicture, setThumbnail, setUsername } from "@/app/preferencesSlice";
 import ThemeContext from "@/app/context/ThemeContext";
+import { db } from "@/db";
+import { preferences } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 const MePage: FC = () => {
   const style = useContext(ThemeContext);
@@ -44,20 +47,32 @@ const MePage: FC = () => {
     if (!img.canceled) {
       const base64Img = `data:image/jpeg;base64,${img.assets[0].base64}`;
       if (target === "profilePicture") {
-        dispatch(
-          setProfilePicture({ profilePicture: base64Img })
+        await db.update(preferences)
+          .set({ profilePicture: base64Img })
+          .where(eq(preferences._id, 1));
+        
+        dispatch (
+          setProfilePicture(base64Img)
         );
       } else {
-        dispatch(
-          setThumbnail({ thumbnail: base64Img })
+        await db.update(preferences)
+          .set({ thumbnail: base64Img })
+          .where(eq(preferences._id, 1));
+
+        dispatch (
+          setThumbnail(base64Img)
         );
       }
       console.log("your base64 image kind sire", prefs.profilePicture);
     }
   };
 
-  const saveUsername = () => {
-    dispatch(
+  const saveUsername = async () => {
+    await db.update(preferences)
+      .set({ username: writtenUsername })
+      .where(eq(preferences._id, 1))
+      
+    dispatch (
       setUsername({ username: writtenUsername })
     );
     setEditingName(false);

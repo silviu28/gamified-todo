@@ -8,12 +8,25 @@ import { changeAccent, changeTheme } from "@/app/preferencesSlice";
 import { useNavigate } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useDynamicTheme from "@/hooks/useDynamicTheme";
+import { db } from "@/db";
+import { preferences } from "@/db/schema";
+import { eq } from "drizzle-orm";
+
+const COLORS = ["lime", "purple", "indigo", "red", "orange", "navy", "teal", "hotpink"];
 
 const SettingsPage: FC = () => {
   const style = useDynamicTheme();
   const prefs = useSelector((state: State) => state.preferences);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const onAccentChange = async (color: string) => {
+    await db.update(preferences)
+      .set({ accent: color })
+      .where(eq(preferences._id, 1));
+    
+    dispatch(changeAccent(color));
+  };
 
   const promptWiping = () => {
     Alert.alert("Wipe everything",
@@ -42,54 +55,15 @@ const SettingsPage: FC = () => {
           <Text style={style.highlight}>Color palette</Text>
           <Text style={style.sub}>Pick another accent color.</Text>
           <View style={{ gap: 1 }}>
-            <Selection
-              style={style}
-              value={prefs.accent === "lime"}
-              onSelect={() => dispatch(changeAccent({ accent: "lime" }))}
-              text="lime"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "purple"}
-              onSelect={() => dispatch(changeAccent({ accent: "purple" }))}
-              text="purple"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "indigo"}
-              onSelect={() => dispatch(changeAccent({ accent: "indigo" }))}
-              text="indigo"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "red"}
-              onSelect={() => dispatch(changeAccent({ accent: "red" }))}
-              text="red"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "orange"}
-              onSelect={() => dispatch(changeAccent({ accent: "orange" }))}
-              text="orange"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "navy"}
-              onSelect={() => dispatch(changeAccent({ accent: "navy" }))}
-              text="navy"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "teal"}
-              onSelect={() => dispatch(changeAccent({ accent: "teal" }))}
-              text="teal"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "hotpink"}
-              onSelect={() => dispatch(changeAccent({ accent: "hotpink" }))}
-              text="hot_pink"
-            />
+            {COLORS.map((color) => 
+                <Selection
+                  key={color}
+                  style={style}
+                  value={prefs.accent === color}
+                  onSelect={() => onAccentChange(color)}
+                  text={color}
+                />
+            )}
           </View>
         </View>
 
@@ -100,13 +74,13 @@ const SettingsPage: FC = () => {
             <Selection
               style={style}
               value={prefs.theme === "dark"}
-              onSelect={() => dispatch(changeTheme({ theme: "dark" }))}
+              onSelect={() => dispatch(changeTheme("dark"))}
               text="dark"
             />
             <Selection
               style={style}
               value={prefs.accent === "light"}
-              onSelect={() => dispatch(changeTheme({ theme: "light" }))}
+              onSelect={() => dispatch(changeTheme("light"))}
               text="light"
             />
           </View>

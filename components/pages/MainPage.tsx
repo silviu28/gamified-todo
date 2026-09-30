@@ -22,7 +22,7 @@ import { addStats } from "@/app/tierSlice";
 import Icon from "../icons";
 import { Task } from "@/types";
 import { db } from "@/db";
-import { tasks, completedTasks as completedTasksTable, skillTasks } from "@/db/schema";
+import { tasks, completedTasks as completedTasksTable, skillTasks, notes as notesTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const MainPage: FC = () => {
@@ -69,6 +69,15 @@ const MainPage: FC = () => {
       })
     ));
     dispatch(addStats({ taskCount: 1, pts: totalPts }));
+  };
+
+  const onAddNote = async (title: string, content: string) => {
+    const [note] = await db.insert(notesTable)
+      .values({ title, content })
+      .returning();
+      
+    dispatch(addNote(note));
+    setShowNoteForm(false);
   };
 
   return (
@@ -132,12 +141,7 @@ const MainPage: FC = () => {
               {showNoteForm &&
                 <>
                   <AddNoteForm
-                    onSubmit={(title, content) => {
-                      // dispatch(
-                      //   addNote({ title, content, creationDate: new Date() })
-                      // );
-                      setShowNoteForm(false);
-                    }}
+                    onSubmit={onAddNote}
                   />
                   <Pressable onPress={() => setShowNoteForm(false)}>
                     <Text style={style.sub}>cancel</Text>
