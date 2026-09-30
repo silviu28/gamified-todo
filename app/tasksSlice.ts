@@ -6,13 +6,14 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
     // and a list of tasks that have to be done right now
+    allTasks: [] as Task[],
     tasksToDo: [] as Task[],
     completedTasks: [] as Task[],
     loaded: false,
   },
   // same as the skills slice, define logic to manage the tasks here
   reducers: {
-    hydrateTasks(state, action: PayloadAction<{ tasksToDo: Task[], completedTasks: Task[] }>) {
+    hydrateTasks(state, action: PayloadAction<{ allTasks: Task[], tasksToDo: Task[], completedTasks: Task[] }>) {
       state = {
         ...action.payload,
         loaded: true

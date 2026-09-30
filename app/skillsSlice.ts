@@ -28,13 +28,14 @@ const skillsSlice = createSlice({
       state.allSkills = state.allSkills
         .map(skill => skill.name === newSkill.name ? newSkill : skill);
     },
-    levelSkill(state, action: PayloadAction<{ skill: Skill, pts: number }>) {
-      const { skill, pts } = action.payload;
-      console.log("leveling skill by", pts);
-      const existingSkill = state.allSkills
-        .find(s => s.id === skill.id);
-      if (existingSkill) {
-        existingSkill.pts += pts;
+    levelSkills(state, action: PayloadAction<{ skill: Skill, pts: number }[]>) {
+      for (let { skill, pts } of action.payload) {
+        console.log("leveling skill by", pts);
+        const existingSkill = state.allSkills
+          .find((s) => s.id === skill.id);
+        if (existingSkill) {
+          existingSkill.pts += pts;
+        }
       }
     },
     removeAllSkills(state) {
@@ -43,6 +44,6 @@ const skillsSlice = createSlice({
   }
 });
 
-export const { hydrateSkills, addSkill, removeSkill, modifySkill, levelSkill, removeAllSkills } = skillsSlice.actions;
+export const { hydrateSkills, addSkill, removeSkill, modifySkill, levelSkills, removeAllSkills } = skillsSlice.actions;
 export default skillsSlice.reducer;
 

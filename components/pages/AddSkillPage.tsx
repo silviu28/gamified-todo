@@ -3,7 +3,7 @@ import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import AddSkillForm from "../forms/AddSkillForm";
 import { useNavigate } from "react-router-native";
 import { useDispatch, useSelector } from "react-redux";
-import { DispatchFunction, State } from "@/app/store";
+import { State } from "@/app/store";
 import { addSkill, removeSkill } from "@/app/skillsSlice";
 import SkillContainer from "../atoms/SkillContainer";
 import FadeInWrapper from "../FadeInWrapper";
@@ -16,7 +16,7 @@ import { eq } from "drizzle-orm";
 const AddSkillPage: FunctionComponent = () => {
   const style = useContext(ThemeContext);
   const skills = useSelector((state: State) => state.skills.allSkills);
-  const dispatch: DispatchFunction = useDispatch();
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 

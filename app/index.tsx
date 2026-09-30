@@ -30,9 +30,11 @@ export default function Page() {
       console.log("Migration succesful");
 
       (async () => {
-        const [allSkills, allTasks, allCompletedTasks, allNotes] = await Promise.all([
+        const [allSkills, allTasks, tasksToDo, allCompletedTasks, allNotes] = await Promise.all([
           db.select().from(skills),
           db.select().from(tasks),
+          db.select().from(tasks)
+            .where(eq(tasks.manuallyAssigned, true)),
           db.select({
               id: tasks.id,
               name: tasks.name,
@@ -47,7 +49,8 @@ export default function Page() {
         ]);
         store.dispatch(hydrateSkills(allSkills));
         store.dispatch(hydrateTasks({
-          tasksToDo: allTasks,
+          allTasks,
+          tasksToDo,
           completedTasks: allCompletedTasks
         }));
         store.dispatch(hydrateNotes(allNotes));

@@ -11,6 +11,7 @@ import ThemeContext from "@/app/context/ThemeContext";
 import { addTask, assignTask, removeTask } from "@/app/tasksSlice";
 import { db } from "@/db";
 import { skillTasks, tasks } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 const AddTaskPage: FunctionComponent = () => {
   const style = useContext(ThemeContext);
@@ -49,6 +50,22 @@ const AddTaskPage: FunctionComponent = () => {
       });
   };
 
+  const onAssignTask = (task) => {
+    dispatch(assignTask(task));
+    db.update(tasks)
+      .set({ manuallyAssigned: true })
+      .where(eq(tasks.id, task.id))
+      .then((_) => { /* something */ });
+  };
+
+  const onRemoveTask = (task) => {
+    dispatch(removeTask(task));
+    db.update(tasks)
+      .set({ manuallyAssigned: false })
+      .where(eq(tasks.id, task.id))
+      .then((_) => { /* something */ });
+  };
+
   return (
     <FadeInWrapper>
       <ScrollView
@@ -72,8 +89,8 @@ const AddTaskPage: FunctionComponent = () => {
               <TaskContainer
                 style={style}
                 task={item}
-                onAssign={(task) => dispatch(assignTask(task))} // TODO
-                onRemove={(task) => dispatch(removeTask(task))} // TODO
+                onAssign={onAssignTask}
+                onRemove={onRemoveTask}
               />
             }
           />

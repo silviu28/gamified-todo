@@ -17,9 +17,13 @@ import NoteView from "../atoms/Note";
 import AddNoteForm from "../forms/AddNoteForm";
 import { addNote } from "@/app/notesSlice";
 import { assignTask, dismissOrCompleteTask, removeTask } from "@/app/tasksSlice";
-import { levelSkill } from "@/app/skillsSlice";
+import { levelSkills } from "@/app/skillsSlice";
 import { addStats } from "@/app/tierSlice";
 import Icon from "../icons";
+import { Task } from "@/types";
+import { db } from "@/db";
+import { tasks, completedTasks as completedTasksTable, skillTasks } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 const MainPage: FC = () => {
   const style = useContext(ThemeContext);
@@ -33,11 +37,39 @@ const MainPage: FC = () => {
 
   const [showNoteForm, setShowNoteForm] = useState<boolean>(false);
 
-  const completeTask = (task) => {
+  const completeTask = async (task: Task) => {
+    // retrieve all skills parents of task
+    const affectedSkillTasks = await db
+      .select()
+      .from(skillTasks)
+      .where(eq(skillTasks.taskId, task.id));
+
+    db.transaction((tx) => {
+      // if manually assigned then it repeats on schedule
+      tx.update(tasks)
+        .set({ manuallyAssigned: false })
+        .where(eq(tasks.id, task.id));
+
+      // set as complete
+      tx.insert(completedTasksTable).values({
+        taskId: task.id,
+        multiplier: 1,
+        completionDate: new Date(),
+      });
+    });
+
+    const totalPts = affectedSkillTasks.reduce((sum, st) => sum + st.pts, 0);
+
+    // update store state
     dispatch(dismissOrCompleteTask(task));
-    dispatch(levelSkill({ skill: task.skill, pts: task.xp }));
-    dispatch(addStats({ taskCount: 1, pts: task.xp }));
-  }; // TODO
+    dispatch(levelSkills(
+      affectedSkillTasks.flatMap((st) => {
+        const skill = skills.find((s) => s.id === st.skillId);
+        return skill ? [{ skill, pts: st.pts }] : [];
+      })
+    ));
+    dispatch(addStats({ taskCount: 1, pts: totalPts }));
+  };
 
   return (
     <FadeInWrapper>
