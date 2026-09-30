@@ -107,8 +107,10 @@ const SuggestThingsPage: FC = () => {
   // );
   return (
     <FadeInWrapper>
-      <h1>Work in progress</h1>
-      <p>We are working on making this feature as best as possible.</p>
+      <View style={[style.bg, style.padding]}>
+        <Text style={style.heading}>Work in progress</Text>
+        <Text style={style.p}>We are working on making this feature in order to make it the best.</Text>
+      </View>
     </FadeInWrapper>
   );
 };
