@@ -1,13 +1,17 @@
 import { Provider } from "react-redux";
-import store, { persistor } from "./store";
 import AppRouter from "./AppRouter";
-import { PersistGate } from "redux-persist/integration/react";
 import { useFonts } from "expo-font";
 import { Text, View } from "react-native";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { db } from "@/db";
 import migrations from "@/drizzle/migrations";
 import { useEffect } from "react";
+import store from "./store";
+import { completedTasks, notes, skills, tasks } from "@/db/schema";
+import { hydrateSkills } from "./skillsSlice";
+import { hydrateTasks } from "./tasksSlice";
+import { hydrateNotes } from "./notesSlice";
+import { eq } from "drizzle-orm";
 
 export default function Page() {
   const [fontsLoaded] = useFonts({
@@ -15,7 +19,8 @@ export default function Page() {
     ["Lilex-Regular"]: require("../assets/fonts/lilex/Lilex-Regular.ttf"),
   });
 
-  const { success, error } = useMigrations(db, migrations);
+  // migrations run as expected, used 'any' to stop TS check
+  const { success, error } = useMigrations(db, migrations as any);
 
   useEffect(() => {
     if (error) {
@@ -23,8 +28,32 @@ export default function Page() {
     }
     if (success) {
       console.log("Migration succesful");
+
+      (async () => {
+        const [allSkills, allTasks, allCompletedTasks, allNotes] = await Promise.all([
+          db.select().from(skills),
+          db.select().from(tasks),
+          db.select({
+              id: tasks.id,
+              name: tasks.name,
+              priority: tasks.priority,
+              frequency: tasks.frequency,
+              creationDate: tasks.creationDate,
+            })
+            .from(completedTasks)
+            .innerJoin(tasks, eq(completedTasks.taskId, tasks.id))
+            .groupBy(tasks.id),
+          db.select().from(notes),
+        ]);
+        store.dispatch(hydrateSkills(allSkills));
+        store.dispatch(hydrateTasks({
+          tasksToDo: allTasks,
+          completedTasks: allCompletedTasks
+        }));
+        store.dispatch(hydrateNotes(allNotes));
+      })();
     }
-  }, [success, error]);
+  }, [success]);
 
   if (!fontsLoaded) {
     return <Text>Loading fonts...</Text>;
@@ -50,9 +79,7 @@ export default function Page() {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppRouter />
-      </PersistGate>
+      <AppRouter />
     </Provider>
   );
 };
