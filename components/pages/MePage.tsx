@@ -1,10 +1,9 @@
 import { FC, useContext, useState } from "react";
 import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import GradientBackground from "../GradientBackground";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import Icon from "../icons";
-import StatsSummary from "../atoms/StatsSummary";
 import { useNavigate } from "react-router-native";
 import SkillRadarChart from "../atoms/SkillRadarChart";
 import * as imgPick from "expo-image-picker";
@@ -13,13 +12,14 @@ import ThemeContext from "@/app/context/ThemeContext";
 import { db } from "@/db";
 import { preferences } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import StatsSummary from "../atoms/StatsSummary";
 
 const MePage: FC = () => {
   const style = useContext(ThemeContext);
   const { prefs, skills } = useSelector((state: State) => ({
     skills: state.skills.allSkills,
     prefs: state.preferences
-  }));
+  }), shallowEqual);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const defaultImage = require('../../assets/images/partial-react-logo.png');
@@ -132,7 +132,7 @@ const MePage: FC = () => {
               </Pressable>
           )}
 
-        <StatsSummary />
+        <StatsSummary style={style} skills={skills} />
 
         <Text />
 
@@ -141,10 +141,7 @@ const MePage: FC = () => {
         </View>
 
       </ScrollView>
-
       <Text />
-
-
     </GradientBackground>
   );
 };

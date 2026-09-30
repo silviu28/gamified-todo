@@ -4,7 +4,7 @@ import { Skill, Theme } from "@/types";
 import Icon from "../icons";
 
 const StatsContainer = ({ style, skills }: { style: Theme, skills: Skill[] }) => {
-  const totalXp = skills.reduce((total, skill) => total + skill.xp, 0);
+  const totalXp = skills.reduce((total, skill) => total + skill.pts, 0);
   const [totalLevels] = computeLevel(totalXp);
 
   return (

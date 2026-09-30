@@ -13,10 +13,10 @@ const preferencesSlice = createSlice({
     loaded: false,
   },
   reducers: {
-    hydratePreferences(state, action: PayloadAction<Preferences>) {
-      state = {
+    hydratePreferences(_state, action: PayloadAction<Preferences>) {
+      return {
         ...action.payload,
-        loaded: true
+        loaded: true,
       };
     },
     changeAccent(state, action: PayloadAction<string>) {

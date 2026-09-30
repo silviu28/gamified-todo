@@ -8,10 +8,10 @@ const skillsSlice = createSlice({
     loaded: false
   },
   reducers: {
-    hydrateSkills(state, action: PayloadAction<Skill[]>) {
-      state = {
+    hydrateSkills(_state, action: PayloadAction<Skill[]>) {
+      return {
         allSkills: action.payload,
-        loaded: true
+        loaded: true,
       };
     },
     addSkill(state, action: PayloadAction<Skill>) {

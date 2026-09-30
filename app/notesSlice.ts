@@ -8,10 +8,10 @@ const noteSlice = createSlice({
     loaded: false
   },
   reducers: {
-    hydrateNotes(state, action: PayloadAction<Note[]>) {
-      state = {
+    hydrateNotes(_state, action: PayloadAction<Note[]>) {
+      return {
         allNotes: action.payload,
-        loaded: true
+        loaded: true,
       };
     },
     addNote(state, action: PayloadAction<Note>) {

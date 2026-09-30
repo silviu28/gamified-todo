@@ -16,7 +16,7 @@ const SkillRadarChart = ({ skills, accent }: { skills: Skill[], accent: string }
   const center = size / 2;
   const radius = size * 0.4;
 
-  let maxValue = 100;
+  const maxValue = Math.max(100, ...skills.map((skill) => skill.pts));
 
   // compute the position where the edge of the polygon should go
   // the higher the value, the further the point should be from the center of the chart.
@@ -30,12 +30,7 @@ const SkillRadarChart = ({ skills, accent }: { skills: Skill[], accent: string }
     };
   };
 
-  const points = skills.map((skill, index) => {
-      // additionally compute the max value in the chart to avoid another pass in the array
-      maxValue = Math.max(maxValue, skill.xp);
-      return getPoint(index, skill.xp);
-    }
-  );
+  const points = skills.map((skill, index) => getPoint(index, skill.pts));
 
   // map the points to readable coordinates for the <Polygon /> component
   const polygonPoints = points.map(point => `${point.x},${point.y}`).join(' ');

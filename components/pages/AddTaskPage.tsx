@@ -3,7 +3,7 @@ import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import AddTaskForm from "../forms/AddTaskForm";
 import { useNavigate } from "react-router-native";
 import { Frequency, Skill } from "@/types";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { State } from "@/app/store";
 import TaskContainer from "../atoms/TaskContainer";
 import FadeInWrapper from "../FadeInWrapper";
@@ -18,7 +18,7 @@ const AddTaskPage: FunctionComponent = () => {
   const { skills, allTasks } = useSelector((state: State) => ({
     skills: state.skills.allSkills,
     allTasks: state.tasks.tasksToDo
-  }));
+  }), shallowEqual);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

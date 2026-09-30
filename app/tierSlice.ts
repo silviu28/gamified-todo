@@ -10,15 +10,16 @@ const tierSlice = createSlice({
     loaded: false
   },
   reducers: {
-    hydrateTier(state, action: PayloadAction<{
+    hydrateTier(_state, action: PayloadAction<{
       tier: number,
       tasksCount: number,
       consolidatedPts: 0,
     }>) {
-      state = {
-        ...action.payload,
+      return {
+        tier: action.payload.tier,
+        tasksCount: action.payload.tasksCount,
         consolidatedXp: action.payload.consolidatedPts,
-        loaded: true
+        loaded: true,
       };
     },
     increaseTier(state) {
