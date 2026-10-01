@@ -122,6 +122,13 @@ export const preferences = sqliteTable('preferences', {
   username: text("username")
     .notNull()
     .default("user"),
+
+  showStart: integer("show_start", { mode: "boolean" })
+    .default(true),
+
+  theme: text("theme")
+    .notNull()
+    .default("dark"),
 });
 
 export const tier = sqliteTable('tier', {
