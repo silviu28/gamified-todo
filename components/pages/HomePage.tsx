@@ -1,52 +1,89 @@
-import { FC, useContext } from "react";
-import { Pressable, Text, View } from "react-native";
+/* eslint-disable react/no-unescaped-entities */
+import { FC } from "react";
+import { Pressable } from "react-native";
 import { Link } from "react-router-native";
 import FadeInWrapper from "../FadeInWrapper";
-import ThemeContext from "@/app/context/ThemeContext";
 import Icon from "../icons";
+import { useSelector } from "react-redux";
+import { State } from "@/app/store";
+import { Background, Content, Intro, Headline, Lede, FeatureList, FeatureRow, FeatureIconWrap, FeatureText, FeatureTitle, FeatureSub, Actions, PrimaryButton, PrimaryButtonText, SkipButton, SkipButtonText } from "../atoms";
 
 const HomePage: FC = () => {
-  const style = useContext(ThemeContext);
+  const accent = useSelector((state: State) => state.preferences.accent);
 
   return (
     <FadeInWrapper>
-      <View style={style.bg}>
-        <View style={style.padding}>
-          <Text style={style.heading}>welcome</Text>
-          <Text style={style.p}>Bored of doing your daily mundane activities? Spice the process up by introducing rewards in experience, leveling and more using this app.</Text>
-          <Pressable>
-
-          <Text />
-          <View style={[style.rowFlex, { alignSelf: "center", justifyContent: "center", width: "95%" }]}>
-            <View style={{ flex: 1 }}>
-              <Text style={style.p}><Icon.Checkbox /> Track your tasks</Text>
-              <Text style={style.sub}>{`Keep yourself productive and organized by using a to-do list that updates on your preferences.`}</Text>
-            </View>
-            
-            <View style={{ flex: 1 }}>
-              <Text style={style.p}><Icon.UpArrow /> Level up</Text>
-              <Text style={style.sub}>{`Remain motivated by setting yourself skill caps you want to achieve.`}</Text>
-            </View>
-
-            <View style={{ flex: 1 }}>
-              <Text style={style.p}><Icon.Smiley /> Motivate yourself</Text>
-              <Text style={style.sub}>{`See yourself progress in a tangible way. Share your progress using personalized stat cards.`}</Text>
-            </View>
-          </View>
-          <Text />
-
-          <Link to='/addSkill'>
-            <Text style={style.heading}>let&apos;s go</Text>
-          </Link>
-          </Pressable>
-          <Pressable>
-            <Link to='/main'>
-              <Text style={style.heading}>skip</Text>
+      <Background>
+        <Content>
+          <Intro>
+            <Headline>welcome</Headline>
+            <Lede>
+              Bored of doing your daily mundane activities? Spice the process up by introducing rewards in experience, leveling and more using this app.
+            </Lede>
+ 
+            <FeatureList>
+              <FeatureRow>
+                <FeatureIconWrap>
+                  <Icon.Checkbox />
+                </FeatureIconWrap>
+                <FeatureText>
+                  <FeatureTitle>Track your tasks</FeatureTitle>
+                  <FeatureSub>
+                    Stay organized with a to-do list that adapts to your
+                    preferences.
+                  </FeatureSub>
+                </FeatureText>
+              </FeatureRow>
+ 
+              <FeatureRow>
+                <FeatureIconWrap>
+                  <Icon.UpArrow />
+                </FeatureIconWrap>
+                <FeatureText>
+                  <FeatureTitle>Level up</FeatureTitle>
+                  <FeatureSub>
+                    Set skill caps for yourself and stay motivated as you
+                    close in on them.
+                  </FeatureSub>
+                </FeatureText>
+              </FeatureRow>
+ 
+              <FeatureRow>
+                <FeatureIconWrap>
+                  <Icon.Smiley />
+                </FeatureIconWrap>
+                <FeatureText>
+                  <FeatureTitle>Motivate yourself</FeatureTitle>
+                  <FeatureSub>
+                    See your progress in a tangible way, and share it with
+                    personalized stat cards.
+                  </FeatureSub>
+                </FeatureText>
+              </FeatureRow>
+            </FeatureList>
+          </Intro>
+ 
+          <Actions>
+            <Link to="/addSkill">
+              <Pressable>
+                <PrimaryButton $accent={accent}>
+                  <PrimaryButtonText>Let's go</PrimaryButtonText>
+                </PrimaryButton>
+              </Pressable>
             </Link>
-          </Pressable>
-        </View>
-      </View>
-      </FadeInWrapper>
+ 
+            <Link to="/main">
+              <Pressable>
+                <SkipButton>
+                  <SkipButtonText>Skip for now</SkipButtonText>
+                </SkipButton>
+              </Pressable>
+            </Link>
+          </Actions>
+        </Content>
+      </Background>
+    </FadeInWrapper>
+
   );
 };
 
