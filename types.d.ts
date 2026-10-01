@@ -3,16 +3,15 @@ import useDynamicTheme from "./hooks/useDynamicTheme";
 export type Theme = ReturnType<typeof useDynamicTheme>;
 
 export type Skill = {
-  xp: number,
+  id: number,
+  pts: number,
   name: string,
-  priority: number,
-  tasks: Task[],
 };
 
 export type Preferences = {
   showStart: boolean,
   accent: string,
-  theme: "dark" | "light",
+  theme: string,
   thumbnail: string,
   profilePicture: string,
   username: string,
@@ -23,15 +22,15 @@ export type Frequency = 'one-time' | 'daily' | 'weekly' | 'monthly' | 'yearly';
 export type Priority = 'low' | 'average' | 'high';
 
 export type Task = {
+  id: number,
   name: string,
-  priority: string,
-  frequency: string,
-  xp: number,
+  priority: number,
+  frequency: number,
   creationDate: Date,
-  skill: Skill,
 };
 
 export type Note = {
+  id: number,
   title: string,
   content: string,
   creationDate: Date,

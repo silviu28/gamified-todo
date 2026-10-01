@@ -44,6 +44,9 @@ export const tasks = sqliteTable('tasks', {
     .default(3600000),
 
   creationDate: integer('creation_date', { mode: 'timestamp' }),
+
+  manuallyAssigned: integer('manually_assigned', { mode: 'boolean' })
+    .default(false)
 });
 
 export const skillTasks = sqliteTable('skill_tasks', {
@@ -119,6 +122,13 @@ export const preferences = sqliteTable('preferences', {
   username: text("username")
     .notNull()
     .default("user"),
+
+  showStart: integer("show_start", { mode: "boolean" })
+    .default(true),
+
+  theme: text("theme")
+    .notNull()
+    .default("dark"),
 });
 
 export const tier = sqliteTable('tier', {
@@ -138,3 +148,10 @@ export const tier = sqliteTable('tier', {
     .notNull()
     .default(0),
 });
+
+export const myRelations = {
+  completedTasksRelations,
+  skillsRelations,
+  tasksRelations,
+  skillTasksRelations
+};

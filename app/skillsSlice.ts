@@ -1,79 +1,49 @@
 import { Skill } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// because each task is a child of its skill, task integrity is managed in this slice.
 const skillsSlice = createSlice({
   name: "skills",
   initialState: {
-    skills: [] as Skill[],
+    allSkills: [] as Skill[],
     loaded: false
   },
   reducers: {
-    hydrateSkills: (state, action: PayloadAction<Skill[]>) => {
-      state = {
-        skills: action.payload,
-        loaded: true
+    hydrateSkills(_state, action: PayloadAction<Skill[]>) {
+      return {
+        allSkills: action.payload,
+        loaded: true,
       };
     },
-    addSkill: (state, action) => {
+    addSkill(state, action: PayloadAction<Skill>) {
       const skill = action.payload as Skill;
-      if (!state.skills.find(sk => sk.name === skill.name)) { 
-        state.skills.push(skill);
-      }
+      state.allSkills.push(skill)
     },
-    removeSkill: (state, action) => {
-      const { name } = action.payload as Skill;
-      state.skills = state.skills
-        .filter(skill => skill.name !== name);
+    removeSkill(state, action: PayloadAction<Skill>) {
+      const { id } = action.payload;
+      state.allSkills = state.allSkills
+        .filter((skill) => skill.id !== id);
     },
-    modifySkill: (state, action) => {
-      const newSkill = action.payload as Skill;
-      state.skills = state.skills
+    modifySkill(state, action: PayloadAction<Skill>) {
+      const newSkill = action.payload;
+      state.allSkills = state.allSkills
         .map(skill => skill.name === newSkill.name ? newSkill : skill);
     },
-    levelSkill: (state, action) => {
-      const { skill, xp } = action.payload;
-      console.log("leveling skill by", xp);
-      const existingSkill = state.skills
-        .find(s => s.name === skill.name);
-      if (existingSkill) {
-        existingSkill.xp += xp;
-      }
-    },
-    addTask: (state, action) => {
-      const { skill, task } = action.payload;
-      const existingSkill = state.skills
-        .find(s => s.name === skill.name);
-      if (existingSkill) {
-        if (!existingSkill.tasks.find(t => t.name === task.name)) {
-          existingSkill.tasks.push(task);
+    levelSkills(state, action: PayloadAction<{ skill: Skill, pts: number }[]>) {
+      for (let { skill, pts } of action.payload) {
+        console.log("leveling skill by", pts);
+        const existingSkill = state.allSkills
+          .find((s) => s.id === skill.id);
+        if (existingSkill) {
+          existingSkill.pts += pts;
         }
       }
     },
-    removeTask: (state, action) => {
-      const { skill, task } = action.payload;
-      const existingSkill = state.skills
-        .find(s => s.name === skill.name);
-      if (existingSkill) {
-        existingSkill.tasks = existingSkill.tasks
-          .filter(t => t.name !== task.name);
-      }
-    },
-    modifyTask: (state, action) => {
-      const { skill, task } = action.payload;
-      const existingSkill = state.skills
-        .find(s => s.name === skill.name);
-      if (existingSkill) {
-        existingSkill.tasks = existingSkill.tasks
-          .map(t => t.name === task.name ? task : t);
-      }
-    },
-    removeAllSkills: (state) => {
-      state.skills = [];
+    removeAllSkills(state) {
+      state.allSkills = [];
     },
   }
 });
 
-export const { hydrateSkills, addSkill, removeSkill, modifySkill, levelSkill, addTask, removeTask, modifyTask, removeAllSkills } = skillsSlice.actions;
+export const { hydrateSkills, addSkill, removeSkill, modifySkill, levelSkills, removeAllSkills } = skillsSlice.actions;
 export default skillsSlice.reducer;
 

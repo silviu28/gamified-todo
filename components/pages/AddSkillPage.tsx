@@ -2,29 +2,36 @@ import { FunctionComponent, useContext } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import AddSkillForm from "../forms/AddSkillForm";
 import { useNavigate } from "react-router-native";
-import { Skill } from "@/types";
 import { useDispatch, useSelector } from "react-redux";
-import { DispatchFunction, State } from "@/app/store";
+import { State } from "@/app/store";
 import { addSkill, removeSkill } from "@/app/skillsSlice";
 import SkillContainer from "../atoms/SkillContainer";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
+import { skills as skillsTable } from "@/db/schema";
+import { db } from "@/db";
+import { Skill } from "@/types";
+import { eq } from "drizzle-orm";
 
 const AddSkillPage: FunctionComponent = () => {
   const style = useContext(ThemeContext);
-  const skills = useSelector((state: State) => state.skills.skills);
-  const dispatch: DispatchFunction = useDispatch();
+  const skills = useSelector((state: State) => state.skills.allSkills);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const onSubmit = (name: string, priority: number) => {
-    const newSkill: Skill = {
-      name,
-      priority,
-      xp: 0,
-      tasks: [],
-    };
-    dispatch(addSkill(newSkill));
+  const onSubmit = (name: string) => {
+    db.insert(skillsTable)
+      .values({ name, pts: 0 })
+      .returning()
+      .then(([ins]) => dispatch(addSkill(ins)));
+  };
+
+  const onRemove = (item: Skill) => {
+    db.delete(skillsTable)
+      .where(eq(skillsTable.id, item.id))
+      .returning()
+      .then(([rem]) => dispatch(removeSkill(rem)));
   };
 
   return (
@@ -47,9 +54,8 @@ const AddSkillPage: FunctionComponent = () => {
                 <SkillContainer
                   style={style}
                   skill={item}
-                  onRemove={() => dispatch(removeSkill(item))}
+                  onRemove={() => onRemove(item)}
                 />
-                <Text style={style.p}>You selected priority {item.priority} for this skill.</Text>
               </View>
             }
           />

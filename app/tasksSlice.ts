@@ -6,43 +6,50 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
     // and a list of tasks that have to be done right now
+    allTasks: [] as Task[],
     tasksToDo: [] as Task[],
     completedTasks: [] as Task[],
     loaded: false,
   },
   // same as the skills slice, define logic to manage the tasks here
   reducers: {
-    hydrateTasks(state, action: PayloadAction<{ tasksToDo: Task[], completedTasks: Task[] }>) {
-      state = {
+    hydrateTasks(_state, action: PayloadAction<{ allTasks: Task[], tasksToDo: Task[], completedTasks: Task[] }>) {
+      return {
         ...action.payload,
-        loaded: true
+        loaded: true,
       };
     },
-    assignTask: (state, action: PayloadAction<Task>) => {
+    addTask(state, action: PayloadAction<Task>) {
+      state.tasksToDo.push(action.payload);
+    },
+    removeTask(state, action: PayloadAction<Task>) {
+      state.tasksToDo = state.tasksToDo.filter((task) => task.id !== action.payload.id);
+    },
+    assignTask(state, action: PayloadAction<Task>) {
       const task = action.payload;
-      if (!state.tasksToDo.find(t => t.name === task.name)) {
+      if (!state.tasksToDo.find((t) => t.id === task.id)) {
         state.tasksToDo.push(task);
       }
     },
-    dismissOrCompleteTask: (state, action) => {
-      const { task } = action.payload;
+    dismissOrCompleteTask(state, action: PayloadAction<Task>) {
+      const task = action.payload;
       const completedTask = state.tasksToDo
-        .find(t => task.name === t.name);
+        .find((t) => task.id === t.id);
       if (completedTask) {
         state.completedTasks.push(completedTask);
         state.tasksToDo = state.tasksToDo
-          .filter(task => task.name !== completedTask.name);
+          .filter((task) => task.name !== completedTask.name);
       }
     },
-    dismissAllTasks: (state) => {
+    dismissAllTasks(state) {
       state.completedTasks = [... state.tasksToDo];
       state.tasksToDo = [];
     },
-    pruneCompletedTasks: (state) => {
+    pruneCompletedTasks(state) {
       state.completedTasks = [];
     },
   }
 });
 
-export const { hydrateTasks, assignTask, dismissOrCompleteTask, dismissAllTasks, pruneCompletedTasks } = tasksSlice.actions;
+export const { hydrateTasks, addTask, removeTask, assignTask, dismissOrCompleteTask, dismissAllTasks, pruneCompletedTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;

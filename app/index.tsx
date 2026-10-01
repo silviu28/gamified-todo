@@ -1,13 +1,18 @@
 import { Provider } from "react-redux";
-import store, { persistor } from "./store";
 import AppRouter from "./AppRouter";
-import { PersistGate } from "redux-persist/integration/react";
 import { useFonts } from "expo-font";
 import { Text, View } from "react-native";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { db } from "@/db";
 import migrations from "@/drizzle/migrations";
 import { useEffect } from "react";
+import store from "./store";
+import { completedTasks, notes, preferences as preferencesTable, skills, tasks } from "@/db/schema";
+import { hydrateSkills } from "./skillsSlice";
+import { hydrateTasks } from "./tasksSlice";
+import { hydrateNotes } from "./notesSlice";
+import { eq } from "drizzle-orm";
+import { hydratePreferences } from "./preferencesSlice";
 
 export default function Page() {
   const [fontsLoaded] = useFonts({
@@ -15,7 +20,8 @@ export default function Page() {
     ["Lilex-Regular"]: require("../assets/fonts/lilex/Lilex-Regular.ttf"),
   });
 
-  const { success, error } = useMigrations(db, migrations);
+  // migrations run as expected, used 'any' to stop TS check
+  const { success, error } = useMigrations(db, migrations as any);
 
   useEffect(() => {
     if (error) {
@@ -23,8 +29,49 @@ export default function Page() {
     }
     if (success) {
       console.log("Migration succesful");
+      (async () => {
+        let [allSkills, allTasks, tasksToDo, allCompletedTasks, allNotes, [preferences]] = await Promise.all([
+          db.select().from(skills),
+          db.select().from(tasks),
+          db.select().from(tasks)
+            .where(eq(tasks.manuallyAssigned, true)),
+          db.select({
+              id: tasks.id,
+              name: tasks.name,
+              priority: tasks.priority,
+              frequency: tasks.frequency,
+              creationDate: tasks.creationDate,
+            })
+            .from(completedTasks)
+            .innerJoin(tasks, eq(completedTasks.taskId, tasks.id))
+            .groupBy(tasks.id),
+          db.select().from(notes),
+          db.select({
+            thumbnail: preferencesTable.thumbnail,
+            accent: preferencesTable.accent,
+            profilePicture: preferencesTable.profilePicture,
+            username: preferencesTable.username,
+            showStart: preferencesTable.showStart,
+            theme: preferencesTable.theme
+          })
+            .from(preferencesTable)
+        ]);
+        store.dispatch(hydrateSkills(allSkills));
+        store.dispatch(hydrateTasks({
+          allTasks,
+          tasksToDo,
+          completedTasks: allCompletedTasks
+        }));
+        store.dispatch(hydrateNotes(allNotes));
+        if (!preferences) {
+          [preferences] = await db.insert(preferencesTable)
+            .values({ })
+            .returning(); // write defaults
+        }
+        store.dispatch(hydratePreferences(preferences));
+      })();
     }
-  }, [success, error]);
+  }, [success]);
 
   if (!fontsLoaded) {
     return <Text>Loading fonts...</Text>;
@@ -50,9 +97,7 @@ export default function Page() {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppRouter />
-      </PersistGate>
+      <AppRouter />
     </Provider>
   );
 };

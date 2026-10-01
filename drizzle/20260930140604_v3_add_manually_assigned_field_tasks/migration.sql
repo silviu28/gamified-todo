@@ -1,0 +1,1 @@
+ALTER TABLE `tasks` ADD `manually_assigned` integer DEFAULT false;

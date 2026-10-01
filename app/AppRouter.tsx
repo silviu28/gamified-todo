@@ -23,7 +23,12 @@ const AppRouter = () => {
     <UserPreferencesContext.Provider value={{ isFirstBoot: false }}>
       <ThemeContext.Provider value={style}>
         <View style={{ flex: 1, backgroundColor: "black" }}>
-          <NativeRouter>
+          <NativeRouter
+            future={{
+              v7_startTransition: true,
+              v7_relativeSplatPath: true
+            }}
+            >
             <BackButtonHandler />
             <PersistentBackButton />
             <Routes>

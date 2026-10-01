@@ -8,6 +8,11 @@ import { changeAccent, changeTheme } from "@/app/preferencesSlice";
 import { useNavigate } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useDynamicTheme from "@/hooks/useDynamicTheme";
+import { db } from "@/db";
+import { completedTasks, notes, preferences, skills, tasks } from "@/db/schema";
+import { eq } from "drizzle-orm";
+
+const COLORS = ["lime", "purple", "indigo", "red", "orange", "navy", "teal", "hotpink"];
 
 const SettingsPage: FC = () => {
   const style = useDynamicTheme();
@@ -15,13 +20,42 @@ const SettingsPage: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onAccentChange = async (color: string) => {
+    await db.update(preferences)
+      .set({ accent: color })
+      .where(eq(preferences._id, 1));
+    
+    dispatch(changeAccent(color));
+  };
+
+  const onWipeAll = async () => {
+   await Promise.all([
+      db.delete(skills),
+      db.delete(tasks),
+      db.delete(tasks)
+        .where(eq(tasks.manuallyAssigned, true)),
+      db.select({
+          id: tasks.id,
+          name: tasks.name,
+          priority: tasks.priority,
+          frequency: tasks.frequency,
+          creationDate: tasks.creationDate,
+        })
+        .from(completedTasks)
+        .innerJoin(tasks, eq(completedTasks.taskId, tasks.id))
+        .groupBy(tasks.id),
+      db.delete(notes),
+      db.delete(preferences)
+    ]);
+  }
+
   const promptWiping = () => {
     Alert.alert("Wipe everything",
       "Are you really sure you want to do this? This process is irreversible.", [
       {
         text: "Yes",
         onPress: () => {
-          AsyncStorage.clear()
+          onWipeAll()
             .then(() => navigate("*"))
             .then(() => Alert.alert("Data erase", "Wipe successful. Please open and close the app."));
         }
@@ -42,54 +76,15 @@ const SettingsPage: FC = () => {
           <Text style={style.highlight}>Color palette</Text>
           <Text style={style.sub}>Pick another accent color.</Text>
           <View style={{ gap: 1 }}>
-            <Selection
-              style={style}
-              value={prefs.accent === "lime"}
-              onSelect={() => dispatch(changeAccent({ accent: "lime" }))}
-              text="lime"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "purple"}
-              onSelect={() => dispatch(changeAccent({ accent: "purple" }))}
-              text="purple"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "indigo"}
-              onSelect={() => dispatch(changeAccent({ accent: "indigo" }))}
-              text="indigo"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "red"}
-              onSelect={() => dispatch(changeAccent({ accent: "red" }))}
-              text="red"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "orange"}
-              onSelect={() => dispatch(changeAccent({ accent: "orange" }))}
-              text="orange"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "navy"}
-              onSelect={() => dispatch(changeAccent({ accent: "navy" }))}
-              text="navy"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "teal"}
-              onSelect={() => dispatch(changeAccent({ accent: "teal" }))}
-              text="teal"
-            />
-            <Selection
-              style={style}
-              value={prefs.accent === "hotpink"}
-              onSelect={() => dispatch(changeAccent({ accent: "hotpink" }))}
-              text="hot_pink"
-            />
+            {COLORS.map((color) => 
+                <Selection
+                  key={color}
+                  style={style}
+                  value={prefs.accent === color}
+                  onSelect={() => onAccentChange(color)}
+                  text={color}
+                />
+            )}
           </View>
         </View>
 
@@ -100,13 +95,13 @@ const SettingsPage: FC = () => {
             <Selection
               style={style}
               value={prefs.theme === "dark"}
-              onSelect={() => dispatch(changeTheme({ theme: "dark" }))}
+              onSelect={() => dispatch(changeTheme("dark"))}
               text="dark"
             />
             <Selection
               style={style}
               value={prefs.accent === "light"}
-              onSelect={() => dispatch(changeTheme({ accent: "light" }))}
+              onSelect={() => dispatch(changeTheme("light"))}
               text="light"
             />
           </View>
