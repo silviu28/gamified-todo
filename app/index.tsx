@@ -7,11 +7,12 @@ import { db } from "@/db";
 import migrations from "@/drizzle/migrations";
 import { useEffect } from "react";
 import store from "./store";
-import { completedTasks, notes, skills, tasks } from "@/db/schema";
+import { completedTasks, notes, preferences as preferencesTable, skills, tasks } from "@/db/schema";
 import { hydrateSkills } from "./skillsSlice";
 import { hydrateTasks } from "./tasksSlice";
 import { hydrateNotes } from "./notesSlice";
 import { eq } from "drizzle-orm";
+import { hydratePreferences } from "./preferencesSlice";
 
 export default function Page() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +31,7 @@ export default function Page() {
       console.log("Migration succesful");
 
       (async () => {
-        const [allSkills, allTasks, tasksToDo, allCompletedTasks, allNotes] = await Promise.all([
+        let [allSkills, allTasks, tasksToDo, allCompletedTasks, allNotes, [preferences]] = await Promise.all([
           db.select().from(skills),
           db.select().from(tasks),
           db.select().from(tasks)
@@ -46,6 +47,15 @@ export default function Page() {
             .innerJoin(tasks, eq(completedTasks.taskId, tasks.id))
             .groupBy(tasks.id),
           db.select().from(notes),
+          db.select({
+            thumbnail: preferencesTable.thumbnail,
+            accent: preferencesTable.accent,
+            profilePicture: preferencesTable.profilePicture,
+            username: preferencesTable.username,
+            showStart: preferencesTable.showStart,
+            theme: preferencesTable.theme
+          })
+            .from(preferencesTable)
         ]);
         store.dispatch(hydrateSkills(allSkills));
         store.dispatch(hydrateTasks({
@@ -54,6 +64,10 @@ export default function Page() {
           completedTasks: allCompletedTasks
         }));
         store.dispatch(hydrateNotes(allNotes));
+        if (!preferences) {
+          await db.insert(preferencesTable).values({ }); // write defaults
+        }
+        store.dispatch(hydratePreferences(preferences));
       })();
     }
   }, [success]);

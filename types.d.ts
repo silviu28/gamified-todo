@@ -11,7 +11,7 @@ export type Skill = {
 export type Preferences = {
   showStart: boolean,
   accent: string,
-  theme: "dark" | "light",
+  theme: string,
   thumbnail: string,
   profilePicture: string,
   username: string,
