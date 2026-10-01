@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useDynamicTheme from "@/hooks/useDynamicTheme";
 import { db } from "@/db";
-import { preferences } from "@/db/schema";
+import { completedTasks, notes, preferences, skills, tasks } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 const COLORS = ["lime", "purple", "indigo", "red", "orange", "navy", "teal", "hotpink"];
@@ -28,13 +28,34 @@ const SettingsPage: FC = () => {
     dispatch(changeAccent(color));
   };
 
+  const onWipeAll = async () => {
+   await Promise.all([
+      db.delete(skills),
+      db.delete(tasks),
+      db.delete(tasks)
+        .where(eq(tasks.manuallyAssigned, true)),
+      db.select({
+          id: tasks.id,
+          name: tasks.name,
+          priority: tasks.priority,
+          frequency: tasks.frequency,
+          creationDate: tasks.creationDate,
+        })
+        .from(completedTasks)
+        .innerJoin(tasks, eq(completedTasks.taskId, tasks.id))
+        .groupBy(tasks.id),
+      db.delete(notes),
+      db.delete(preferences)
+    ]);
+  }
+
   const promptWiping = () => {
     Alert.alert("Wipe everything",
       "Are you really sure you want to do this? This process is irreversible.", [
       {
         text: "Yes",
         onPress: () => {
-          AsyncStorage.clear()
+          onWipeAll()
             .then(() => navigate("*"))
             .then(() => Alert.alert("Data erase", "Wipe successful. Please open and close the app."));
         }

@@ -29,7 +29,6 @@ export default function Page() {
     }
     if (success) {
       console.log("Migration succesful");
-
       (async () => {
         let [allSkills, allTasks, tasksToDo, allCompletedTasks, allNotes, [preferences]] = await Promise.all([
           db.select().from(skills),
@@ -65,7 +64,9 @@ export default function Page() {
         }));
         store.dispatch(hydrateNotes(allNotes));
         if (!preferences) {
-          await db.insert(preferencesTable).values({ }); // write defaults
+          [preferences] = await db.insert(preferencesTable)
+            .values({ })
+            .returning(); // write defaults
         }
         store.dispatch(hydratePreferences(preferences));
       })();
