@@ -1,10 +1,10 @@
 import { FunctionComponent, useContext } from "react";
-import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import { FlatList, Pressable, View } from "react-native";
 import AddTaskForm from "../forms/AddTaskForm";
 import { useNavigate } from "react-router-native";
 import { Frequency, Skill } from "@/types";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { State } from "@/app/store";
+import { State, useStateSelector } from "@/app/store";
 import TaskContainer from "../atoms/TaskContainer";
 import FadeInWrapper from "../FadeInWrapper";
 import ThemeContext from "@/app/context/ThemeContext";
@@ -12,6 +12,8 @@ import { addTask, assignTask, removeTask } from "@/app/tasksSlice";
 import { db } from "@/db";
 import { skillTasks, tasks } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { Scroll, Content, Headline, Lede, SkillList, EmptyState, SkillRow, Actions, PrimaryButton, PrimaryButtonText, SecondaryButton, SecondaryButtonText } from "../atoms";
+import SkillContainer from "../atoms/SkillContainer";
 
 const AddTaskPage: FunctionComponent = () => {
   const style = useContext(ThemeContext);
@@ -19,6 +21,10 @@ const AddTaskPage: FunctionComponent = () => {
     skills: state.skills.allSkills,
     allTasks: state.tasks.tasksToDo
   }), shallowEqual);
+  const [theme, accent] = useStateSelector((state) => [
+    state.preferences.theme,
+    state.preferences.accent
+  ], shallowEqual);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,17 +74,19 @@ const AddTaskPage: FunctionComponent = () => {
 
   return (
     <FadeInWrapper>
-      <ScrollView
-        style={style.bg}
-        showsVerticalScrollIndicator={false}>
-        <View style={style.padding}>
-          <Text style={style.heading}>
-            Now add some tasks that you need to do:
-          </Text>
+      <Scroll showsVerticalScrollIndicator={false}>
+        <Content>
+          <View style={{ padding: 54 }}></View>
+          <Headline>2.</Headline>
+          <Lede>
+            Now add some tasks
+          </Lede>
+ 
           <AddTaskForm
             skills={skills}
-            style={style}
-            onSubmit={addNewTask}
+            theme={theme}
+            accent={accent}
+            onSubmit={addNewTask} 
           />
 
           <FlatList
@@ -87,22 +95,48 @@ const AddTaskPage: FunctionComponent = () => {
             keyExtractor={task => task.name}
             renderItem={({ item }) => 
               <TaskContainer
-                style={style}
+                accent={accent}
                 task={item}
                 onAssign={onAssignTask}
                 onRemove={onRemoveTask}
               />
             }
           />
-
-          <Pressable onPress={() => navigate('/main')}>
-            <Text style={style.highlight}>done</Text>
-          </Pressable>
-          <Pressable onPress={() => navigate('/suggest')}>
-            <Text style={style.highlight}>need help?</Text>
-          </Pressable>
-        </View>
-      </ScrollView>
+ 
+          <SkillList>
+            {skills.length === 0
+              ? <EmptyState>No skills added yet.</EmptyState>
+              : (
+              <FlatList
+                data={skills}
+                scrollEnabled={false}
+                keyExtractor={(skill) => skill.name}
+                renderItem={({ item }) => (
+                  <SkillRow>
+                    <SkillContainer
+                      style={style}
+                      skill={item}
+                      onRemove={() => onRemoveTask(item)}
+                    />
+                  </SkillRow>
+                )}
+              />
+            )}
+          </SkillList>
+ 
+          <Actions>
+            <PrimaryButton onPress={() => navigate("/main")} $accent={accent}>
+              <PrimaryButtonText>Done</PrimaryButtonText>
+            </PrimaryButton>
+ 
+            <Pressable onPress={() => navigate("/suggest")}>
+              <SecondaryButton>
+                <SecondaryButtonText>Need help?</SecondaryButtonText>
+              </SecondaryButton>
+            </Pressable>
+          </Actions>
+        </Content>
+      </Scroll>
     </FadeInWrapper>
   )
 };

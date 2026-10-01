@@ -168,3 +168,66 @@ export const AddButtonText = styled.Text`
   font-weight: 600;
   line-height: 28px;
 `;
+
+export const HelperText = styled.Text`
+  color: #8a8d94;
+  font-size: 13px;
+  margin-top: 6px;
+  margin-bottom: 22px;
+`;
+ 
+export const OptionRow = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
+ 
+export const PointHints = styled.View`
+  margin-bottom: 22px;
+`;
+ 
+export const PointHint = styled.Text`
+  color: #8a8d94;
+  font-size: 13px;
+  line-height: 19px;
+`;
+
+export const Row = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+ 
+export const Info = styled.View`
+  flex: 1;
+  padding-right: 12px;
+`;
+ 
+export const Name = styled.Text`
+  color: #f4f2ed;
+  font-size: 15px;
+  margin-bottom: 3px;
+`;
+ 
+export const Meta = styled.Text`
+  color: #8a8d94;
+  font-size: 13px;
+`;
+ 
+export const ActionButton = styled.Pressable<{ $variant: "remove" | "assign", $accent: string }>`
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ $variant, $accent }) =>
+    $variant === "remove" ? "rgba(244, 242, 237, 0.08)" : $accent};
+`;
+ 
+export const ActionButtonText = styled.Text<{ $variant: "remove" | "assign" }>`
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
+  color: ${({ $variant }) => ($variant === "remove" ? "#8a8d94" : "#16181d")};
+`;

@@ -2,7 +2,7 @@ import { FC, useContext, useState } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import TaskContainer from "../atoms/TaskContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "@/app/store";
+import { State, useStateSelector } from "@/app/store";
 import { useNavigate } from "react-router-native";
 import SkillContainer from "../atoms/SkillContainer";
 import BottomBar from "../BottomBar";
@@ -33,6 +33,7 @@ const MainPage: FC = () => {
   const notes = useSelector((state: State) => state.notes.allNotes);
   const tier = useSelector((state: State) => state.tier);
   const preferences = useSelector((state: State) => state.preferences);
+  const accent = useStateSelector((state) => state.preferences.accent);
   const dispatch = useDispatch();
 
   const [showNoteForm, setShowNoteForm] = useState<boolean>(false);
@@ -171,7 +172,7 @@ const MainPage: FC = () => {
               scrollEnabled={false}
               renderItem={({ item }) =>
                 <TaskContainer
-                  style={style}
+                  accent={accent}
                   task={item}
                   onAssign={(task) => dispatch(assignTask(task))}
                   onRemove={(task) => dispatch(removeTask(task))}

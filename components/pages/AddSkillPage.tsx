@@ -90,7 +90,6 @@ const AddSkillPage: FunctionComponent = () => {
         </Content>
       </Scroll>
     </FadeInWrapper>
-
   );
 };
 
