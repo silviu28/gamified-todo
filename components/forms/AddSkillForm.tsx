@@ -1,50 +1,41 @@
-import React, { useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { useState } from "react";
 import Selection from "../atoms/Selection";
-import { Theme } from "@/types";
+import { Label } from "expo-router";
+import { Form, NameInput, PriorityRow, AddButton, AddButtonText } from "../atoms";
 
-const AddSkillForm = ({ style, onSubmit }: { style: Theme, onSubmit: (name: string, priority: number) => void }) => {
-  const [name, setName] = useState<string>('');
-  const [priority, setPriority] = useState<number>(1);
-
+const AddSkillForm = ({ theme, accent, onSubmit }: { theme: string, accent: string, onSubmit: (name: string, priority: number) => void }) => {
+  const [name, setName] = useState("");
+  const [priority, setPriority] = useState(1);
+ 
+  const handleSubmit = () => {
+    if (!name.trim()) return;
+    onSubmit(name.trim(), priority);
+    setName("");
+    setPriority(1);
+  };
+ 
   return (
-    <View>
-      <View>
-        <Text style={style.p}>skill name: </Text>
-        <TextInput style={style.textInput} onChangeText={t => setName(t)} />
-
-        <Text style={style.p}>
-          priority (how important this skill is to you):
-        </Text>
-        
-        <View style={style.rowFlex}>
-          <Selection
-            style={style}
-            value={priority === 1}
-            onSelect={() => setPriority(1)} 
-            text="low"
-          />
-          <Selection
-            style={style}
-            value={priority === 2}
-            onSelect={() => setPriority(2)} 
-            text="average"
-          />
-          <Selection
-            style={style}
-            value={priority === 3}
-            onSelect={() => setPriority(3)} 
-            text="high"
-          />
-        </View>
-
-        <Pressable onPress={() => onSubmit(name, priority)}>
-          <Text style={[style.highlight, { fontSize: 30 }]}>
-            +
-          </Text>
-        </Pressable>
-      </View>
-    </View>
+    <Form>
+      <Label>Skill name</Label>
+      <NameInput
+        value={name}
+        onChangeText={setName}
+        placeholder="e.g. Drawing"
+        returnKeyType="done"
+        onSubmitEditing={handleSubmit}
+      />
+ 
+      <Label>Priority — how important this skill is to you</Label>
+      <PriorityRow>
+        <Selection theme={theme} accent={accent} value={priority === 1} onSelect={() => setPriority(1)} text="Low" />
+        <Selection theme={theme} accent={accent} value={priority === 2} onSelect={() => setPriority(2)} text="Average" />
+        <Selection theme={theme} accent={accent} value={priority === 3} onSelect={() => setPriority(3)} text="High" />
+      </PriorityRow>
+ 
+      <AddButton onPress={handleSubmit} $accent={accent}>
+        <AddButtonText>+</AddButtonText>
+      </AddButton>
+    </Form>
   );
 };
 

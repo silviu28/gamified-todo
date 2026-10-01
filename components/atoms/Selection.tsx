@@ -1,20 +1,29 @@
-import { Theme } from "@/types";
 import { FC } from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable } from "react-native";
+import{ styled }from "styled-components/native";
 
 interface SelectionProps {
-  style: Theme,
+  theme: string;
+  accent: string;
   value: boolean;
   text: string;
   onSelect: () => void;
 };
 
-const Selection: FC<SelectionProps> = ({ style, value, text, onSelect }) => {
+const SelectText = styled.Text<{ $theme: string, $accent: string, $selected: boolean }>`
+  color: ${({ $theme, $accent, $selected }) =>
+    $selected
+      ? ($theme === "dark" ? "#fff" : "#000")
+      : $accent
+  };
+`;
+
+const Selection: FC<SelectionProps> = ({ theme, accent, value, text, onSelect }) => {
   return (
     <Pressable onPress={onSelect}>
-      <Text style={value ? style.selectionSelected : style.selectionUnselected}>
+      <SelectText $theme={theme} $accent={accent} $selected={value}>
         {text}
-      </Text>
+      </SelectText>
     </Pressable>
   );
 };

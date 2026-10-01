@@ -1,19 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 import { FC } from "react";
 import { Pressable } from "react-native";
-import { Link } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 import FadeInWrapper from "../FadeInWrapper";
 import Icon from "../icons";
-import { useSelector } from "react-redux";
-import { State } from "@/app/store";
+import { shallowEqual } from "react-redux";
+import { useStateSelector } from "@/app/store";
 import { Background, Content, Intro, Headline, Lede, FeatureList, FeatureRow, FeatureIconWrap, FeatureText, FeatureTitle, FeatureSub, Actions, PrimaryButton, PrimaryButtonText, SkipButton, SkipButtonText } from "../atoms";
 
 const HomePage: FC = () => {
-  const accent = useSelector((state: State) => state.preferences.accent);
+  const [accent, theme] = useStateSelector((state) => [
+    state.preferences.accent,
+    state.preferences.theme
+  ], shallowEqual);
+  const navigate = useNavigate();
 
   return (
     <FadeInWrapper>
-      <Background>
+      <Background $theme={theme}>
         <Content>
           <Intro>
             <Headline>welcome</Headline>
@@ -64,26 +68,24 @@ const HomePage: FC = () => {
           </Intro>
  
           <Actions>
-            <Link to="/addSkill">
-              <Pressable>
-                <PrimaryButton $accent={accent}>
-                  <PrimaryButtonText>Let's go</PrimaryButtonText>
-                </PrimaryButton>
-              </Pressable>
-            </Link>
+            <Pressable>
+              <PrimaryButton 
+                $accent={accent}
+                onPress={() => navigate("/addSkill")}
+              >
+                <PrimaryButtonText>Let's go</PrimaryButtonText>
+              </PrimaryButton>
+            </Pressable>
  
-            <Link to="/main">
-              <Pressable>
-                <SkipButton>
-                  <SkipButtonText>Skip for now</SkipButtonText>
-                </SkipButton>
-              </Pressable>
-            </Link>
+            <Pressable>
+              <SkipButton onPress={() => navigate("/main")}>
+                <SkipButtonText>Skip for now</SkipButtonText>
+              </SkipButton>
+            </Pressable>
           </Actions>
         </Content>
       </Background>
     </FadeInWrapper>
-
   );
 };
 
