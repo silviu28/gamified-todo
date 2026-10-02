@@ -36,6 +36,14 @@ const SettingsPage: FC = () => {
     dispatch(changeAccent(color));
   };
 
+  const onThemeChange = async (theme: string) => {
+    await db.update(preferences)
+      .set({ theme })
+      .where(eq(preferences._id, 1));
+
+    dispatch(changeTheme(theme));
+  };
+
   const onWipeAll = async () => {
    await Promise.all([
       db.delete(skills),
@@ -103,14 +111,14 @@ const SettingsPage: FC = () => {
           <OptionRow>
             <Selection
               value={prefs.theme === "dark"}
-              onSelect={() => dispatch(changeTheme("dark"))}
+              onSelect={() => onThemeChange("dark")}
               text="dark"
               theme={theme}
               accent={accent}
             />
             <Selection
               value={prefs.theme === "light"}
-              onSelect={() => dispatch(changeTheme("light"))}
+              onSelect={() => onThemeChange("light")}
               text="light"
               theme={theme}
               accent={accent}
