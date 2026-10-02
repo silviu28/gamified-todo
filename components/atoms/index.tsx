@@ -8,7 +8,6 @@ export const Background = styled.View<{ $theme: string }>`
 export const Content = styled.View`
   flex: 1;
   padding: 28px 24px 32px;
-  justify-content: space-between;
 `;
  
 export const Intro = styled.View`
@@ -369,8 +368,51 @@ export const RequirementText = styled.Text`
   font-size: 13px;
 `;
  
-export const Bullet = styled.Text`
-  color: #e8a33d;
+export const Group = styled.View`
+  margin-bottom: 10px;
+`;
+ 
+export const GroupTitle = styled.Text`
+  color: #f4f2ed;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 4px;
+`;
+ 
+export const GroupSub = styled.Text`
+  color: #8a8d94;
   font-size: 13px;
+  margin-bottom: 14px;
+`;
+ 
+export const DangerZone = styled.View`
+  border-top-width: 1px;
+  border-top-color: rgba(244, 242, 237, 0.1);
+  padding-top: 24px;
+  gap: 18px;
 `;
 
+export const Title = styled.Text`
+  color: #f4f2ed;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
+`;
+ 
+export const Description = styled.Text`
+  color: #8a8d94;
+  font-size: 13px;
+  line-height: 18px;
+`;
+ 
+export const ActionText = styled.Text<{ $accent: string }>`
+  color: ${({ $accent }) => $accent};
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+export const IntroText = styled.Text`
+  color: #8a8d94;
+  font-size: 14px;
+  margin-bottom: 30px;
+`;

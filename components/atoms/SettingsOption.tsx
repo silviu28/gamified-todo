@@ -1,9 +1,10 @@
 import { Theme } from "@/types";
 import { FC } from "react";
 import { Pressable, Text, View } from "react-native";
+import { Row, Info, ActionText, Description, Title } from ".";
 
 interface SettingsOptionProps {
-  style: Theme,
+  accent: string,
   title: string,
   description: string,
   actionName?: string
@@ -11,7 +12,7 @@ interface SettingsOptionProps {
 };
 
 const SettingsOption: FC<SettingsOptionProps> = ({
-  style,
+  accent,
   title,
   description,
   actionName = "Execute",
@@ -19,15 +20,15 @@ const SettingsOption: FC<SettingsOptionProps> = ({
 }) => {
 
   return (
-    <View style={[style.rowFlex, { width: "90%", justifyContent: "space-between" }]}>
-      <View style={[style.colFlex, { flex: 1 }]}>
-        <Text style={style.highlight}>{title}</Text>
-        <Text style={style.sub}>{description}</Text>
-      </View>
+    <Row>
+      <Info>
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+      </Info>
       <Pressable onPress={onPress}>
-        <Text style={style.highlight}>{actionName}</Text>
+        <ActionText $accent={accent}>{actionName}</ActionText>
       </Pressable>
-    </View>
+    </Row>
   );
 };
 
