@@ -75,9 +75,9 @@ const AddTaskPage: FunctionComponent = () => {
   return (
     <FadeInWrapper>
       <Scroll showsVerticalScrollIndicator={false}>
-        <Content>
+        <Content $theme={theme}>
           <View style={{ padding: 54 }}></View>
-          <Headline>2.</Headline>
+          <Headline $theme={theme}>2.</Headline>
           <Lede>
             Now add some tasks
           </Lede>
@@ -95,6 +95,7 @@ const AddTaskPage: FunctionComponent = () => {
             keyExtractor={task => task.name}
             renderItem={({ item }) => 
               <TaskContainer
+                theme={theme}
                 accent={accent}
                 task={item}
                 onAssign={onAssignTask}
@@ -114,7 +115,7 @@ const AddTaskPage: FunctionComponent = () => {
                 renderItem={({ item }) => (
                   <SkillRow>
                     <SkillContainer
-                      style={style}
+                      theme={theme}
                       skill={item}
                       onRemove={() => onRemoveTask(item)}
                     />

@@ -1,7 +1,7 @@
 import { FC, useContext, useState } from "react";
 import { FlatList, Pressable, View } from "react-native";
 import TaskContainer from "../atoms/TaskContainer";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { State, useStateSelector } from "@/app/store";
 import { useNavigate } from "react-router-native";
 import SkillContainer from "../atoms/SkillContainer";
@@ -34,7 +34,10 @@ const MainPage: FC = () => {
   const notes = useSelector((state: State) => state.notes.allNotes);
   const tier = useSelector((state: State) => state.tier);
   const preferences = useSelector((state: State) => state.preferences);
-  const accent = useStateSelector((state) => state.preferences.accent);
+  const [theme, accent] = useStateSelector((state) => [
+    state.preferences.theme,
+    state.preferences.accent
+  ], shallowEqual);
   const dispatch = useDispatch();
 
   const [showNoteForm, setShowNoteForm] = useState<boolean>(false);
@@ -87,21 +90,21 @@ const MainPage: FC = () => {
       <GradientBackground prefs={preferences}>
         <TopBar>
           <Pressable onPress={() => navigate("/me")}>
-            <Icon.Person />
+            <Icon.Person darkVariant={theme === "light"} />
           </Pressable>
           <Pressable onPress={() => navigate("/settings")}>
-            <Icon.Settings />
+            <Icon.Settings darkVariant={theme === "light"} />
           </Pressable>
         </TopBar>
  
         <Scroll showsVerticalScrollIndicator={false}>
-          <Content>
+          <Content $theme={theme}>
             <View style={{ marginTop: 64 }}></View>
             {/* Quest list */}
             <Section>
               <SectionHeading>
                 <Icon.Checkbox />
-                <SectionTitle>Quest list</SectionTitle>
+                <SectionTitle $theme={theme}>Quest list</SectionTitle>
               </SectionHeading>
  
               {tasksToDo.length > 0 || completedTasks.length > 0 ? (
@@ -131,7 +134,7 @@ const MainPage: FC = () => {
             <Section>
               <SectionHeading>
                 <Icon.Pencil />
-                <SectionTitle>Notes</SectionTitle>
+                <SectionTitle $theme={theme}>Notes</SectionTitle>
               </SectionHeading>
  
               {showNoteForm && (
@@ -167,7 +170,7 @@ const MainPage: FC = () => {
             <Section>
               <SectionHeading>
                 <Icon.Info />
-                <SectionTitle>Add quests</SectionTitle>
+                <SectionTitle $theme={theme}>Add quests</SectionTitle>
               </SectionHeading>
  
               {tasksToDo.length > 0 ? (
@@ -177,6 +180,7 @@ const MainPage: FC = () => {
                   scrollEnabled={false}
                   renderItem={({ item }) => (
                     <TaskContainer
+                      theme={theme}
                       accent={accent}
                       task={item}
                       onAssign={(task) => dispatch(assignTask(task))}
@@ -193,18 +197,18 @@ const MainPage: FC = () => {
             <Section>
               <SectionHeading>
                 <Icon.UpArrow />
-                <SectionTitle>Your skills</SectionTitle>
+                <SectionTitle $theme={theme}>Your skills</SectionTitle>
               </SectionHeading>
  
               <SkillStack>
                 {skills.map((skill) => (
-                  <SkillContainer style={style} key={skill.name} skill={skill} />
+                  <SkillContainer theme={theme} key={skill.name} skill={skill} />
                 ))}
               </SkillStack>
             </Section>
  
-            <StatsContainer accent={accent} skills={skills} />
-            <TierContainer accent={accent} tier={tier} />
+            <StatsContainer theme={theme} accent={accent} skills={skills} />
+            <TierContainer theme={theme} accent={accent} tier={tier} />
           </Content>
         </Scroll>
  

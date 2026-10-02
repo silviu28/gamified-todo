@@ -3,8 +3,9 @@ import { useEffect, useRef } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
 import ProgressBar from "./ProgressBar";
 import computeLevel from "@/utils/computeLevel";
+import { TContainer, TopRow, LevelTag, BottomRow, XpText, RemoveText, Name } from ".";
 
-const SkillContainer = ({ style, skill, onRemove }: { style: Theme, skill: Skill, onRemove?: () => void }) => {
+const SkillContainer = ({ theme, skill, onRemove }: { theme: string, skill: Skill, onRemove?: () => void }) => {
   const [level, currentXp, requiredXp] = computeLevel(skill.pts);
 
   // track the previous level using a ref (a value that persists between renders)
@@ -22,16 +23,25 @@ const SkillContainer = ({ style, skill, onRemove }: { style: Theme, skill: Skill
 
   const percent = 100 * currentXp / requiredXp;
   return (
-    <View style={{ padding: 2 }}>
-      <Text style={style.p}>{skill.name}, Level {level}</Text>
+    <TContainer $theme={theme}>
+      <TopRow>
+        <Name $theme={theme}>{skill.name}</Name>
+        <LevelTag>Level {level}</LevelTag>
+      </TopRow>
+ 
       <ProgressBar percent={percent} />
-      <Text style={style.sub}>{currentXp}/{requiredXp}</Text>
-      {onRemove && (
-        <Pressable onPress={onRemove}>
-          <Text style={style.sub}>remove</Text>
-        </Pressable>
-      )}
-    </View>
+ 
+      <BottomRow>
+        <XpText>
+          {currentXp}/{requiredXp} XP
+        </XpText>
+        {onRemove && (
+          <Pressable onPress={onRemove}>
+            <RemoveText>Remove</RemoveText>
+          </Pressable>
+        )}
+      </BottomRow>
+    </TContainer>
   );
 };
 

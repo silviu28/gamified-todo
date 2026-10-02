@@ -9,21 +9,23 @@ const frequencyLabel = (frequency: number) =>
   `once every ${Math.floor(frequency / (24 * 1000 * 3600))} days`
 
 const TaskContainer = ({
-    accent,
-    task,
-    onAssign,
-    onRemove
-  }: {
-    accent: string, 
-    task: Task, 
-    onAssign?: (task: Task) => void, 
-    onRemove?: (task: Task) => void 
-  }) => {
+  theme,
+  accent,
+  task,
+  onAssign,
+  onRemove
+}: {
+  theme: string,
+  accent: string, 
+  task: Task, 
+  onAssign?: (task: Task) => void, 
+  onRemove?: (task: Task) => void 
+}) => {
 
   return (
-    <Row style={{ padding: 20 }}>
+    <Row $theme={theme} style={{ padding: 20 }}>
       <Info>
-        <Name>{task.name}</Name>
+        <Name $theme={theme}>{task.name}</Name>
         <Meta>
           {frequencyLabel(task.frequency)} · {priorityLabel(task.priority)} priority
         </Meta>

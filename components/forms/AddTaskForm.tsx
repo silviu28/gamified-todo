@@ -25,14 +25,15 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ skills, theme, accen
 
   return (
     <Form>
-      <Label>Task</Label>
+      <Label $theme={theme}>Task</Label>
       <NameInput
+        $theme={theme}
         value={task}
         onChangeText={setTask}
         placeholder="e.g. Practice for 20 minutes"
       />
  
-      <Label>Belonging to skill</Label>
+      <Label $theme={theme}>Belonging to skill</Label>
       <OptionRow>
         {skills.map((sk) => (
           <Selection
@@ -49,7 +50,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ skills, theme, accen
         <HelperText>Add a skill first so you have something to link this task to.</HelperText>
       )}
  
-      <Label>How rewarding should this task be?</Label>
+      <Label $theme={theme}>How rewarding should this task be?</Label>
       <OptionRow>
         <Selection theme={theme} accent={accent} value={priority === 1} onSelect={() => setPriority(1)} text="Low" />
         <Selection theme={theme} accent={accent} value={priority === 2} onSelect={() => setPriority(2)} text="Average" />
@@ -61,7 +62,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ skills, theme, accen
         <PointHint>High - 30 pts</PointHint>
       </PointHints>
  
-      <Label>Set a frequency for this task</Label>
+      <Label $theme={theme}>Set a frequency for this task</Label>
       <OptionRow>
         <Selection theme={theme} accent={accent} value={frequency === "one-time"} onSelect={() => setFrequency("one-time")} text="One-time" />
         <Selection theme={theme} accent={accent} value={frequency === "daily"} onSelect={() => setFrequency("daily")} text="Daily" />

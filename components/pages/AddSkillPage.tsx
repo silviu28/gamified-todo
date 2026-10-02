@@ -12,7 +12,7 @@ import { skills as skillsTable } from "@/db/schema";
 import { db } from "@/db";
 import { Skill } from "@/types";
 import { eq } from "drizzle-orm";
-import { Content, Headline, Actions, PrimaryButton, PrimaryButtonText, EmptyState, Scroll, SecondaryButton, SecondaryButtonText, SkillList, SkillRow, Lede } from "../atoms";
+import { Content, Headline, Actions, PrimaryButton, PrimaryButtonText, EmptyState, Scroll, SecondaryButton, SecondaryButtonText, SkillList, SkillRow, Lede, Background } from "../atoms";
 
 const AddSkillPage: FunctionComponent = () => {
   const style = useContext(ThemeContext);
@@ -41,9 +41,9 @@ const AddSkillPage: FunctionComponent = () => {
   return (
     <FadeInWrapper>
       <Scroll showsVerticalScrollIndicator={false}>
-        <Content>
+        <Content $theme={theme}>
           <View style={{ padding: 54 }}></View>
-          <Headline>1.</Headline>
+          <Headline $theme={theme}>1.</Headline>
           <Lede>
             Start by adding any skill: drawing, programming, doing dishes,
             whatever you want to grow.
@@ -66,7 +66,7 @@ const AddSkillPage: FunctionComponent = () => {
                 renderItem={({ item }) => (
                   <SkillRow>
                     <SkillContainer
-                      style={style}
+                      theme={theme}
                       skill={item}
                       onRemove={() => onRemove(item)}
                     />

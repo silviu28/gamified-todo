@@ -4,7 +4,7 @@ import { Skill, Theme } from "@/types";
 import Icon from "../icons";
 import { Container, SectionHeading, SectionTitle, StatRow, StatCard, StatValue, StatLabel } from ".";
 
-const StatsContainer = ({ accent, skills }: { accent: string, skills: Skill[] }) => {
+const StatsContainer = ({ theme, accent, skills }: { theme: string, accent: string, skills: Skill[] }) => {
   const totalXp = skills.reduce((total, skill) => total + skill.pts, 0);
   const [totalLevels] = computeLevel(totalXp);
 
@@ -12,7 +12,7 @@ const StatsContainer = ({ accent, skills }: { accent: string, skills: Skill[] })
     <Container>
       <SectionHeading>
         <Icon.Stats />
-        <SectionTitle>Your overall stats</SectionTitle>
+        <SectionTitle $theme={theme}>Your overall stats</SectionTitle>
       </SectionHeading>
  
       <StatRow>

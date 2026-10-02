@@ -2,20 +2,21 @@ import { styled } from "styled-components/native";
 
 export const Background = styled.View<{ $theme: string }>`
   flex: 1;
-  background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : "#fff" } ;
+  background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : "#fff"};
 `;
 
-export const Content = styled.View`
+export const Content = styled.View<{ $theme: string }>`
   flex: 1;
   padding: 28px 24px 32px;
+  background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : "#fff"};
 `;
  
 export const Intro = styled.View`
   padding-top: 56px;
 `;
  
-export const Headline = styled.Text`
-  color: #f4f2ed;
+export const Headline = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000"};
   font-size: 34px;
   line-height: 40px;
   margin-bottom: 14px;
@@ -33,12 +34,12 @@ export const FeatureList = styled.View`
   margin-top: 36px;
 `;
  
-export const FeatureRow = styled.View`
+export const FeatureRow = styled.View<{ $theme: string }>`
   flex-direction: row;
   align-items: flex-start;
   padding: 18px 0;
   border-top-width: 1px;
-  border-top-color: rgba(244, 242, 237, 0.1);
+  border-top-color: ${({ $theme }) => $theme === "dark " ? "rgba(244, 242, 237, 0.1)" : "black"};
 `;
  
 export const FeatureIconWrap = styled.View`
@@ -52,8 +53,8 @@ export const FeatureText = styled.View`
   margin-left: 14px;
 `;
  
-export const FeatureTitle = styled.Text`
-  color: #f4f2ed;
+export const FeatureTitle = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000"};
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -128,16 +129,16 @@ export const Form = styled.View`
   padding-top: 10px;
 `;
  
-export const Label = styled.Text`
-  color: #f4f2ed;
+export const Label = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
   font-size: 15px;
   margin-bottom: 8px;
 `;
  
 export const NameInput = styled.TextInput.attrs({
   placeholderTextColor: "#8a8d94",
-})`
-  color: #f4f2ed;
+})<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
   background-color: rgba(244, 242, 237, 0.06);
   border-radius: 10px;
   padding: 13px 14px;
@@ -192,10 +193,13 @@ export const PointHint = styled.Text`
   line-height: 19px;
 `;
 
-export const Row = styled.View`
+export const Row = styled.View<{ $theme: string }>`
+  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(244, 242, 237, 0.047)"};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  border-radius: 14px;
+  padding: 14px 16px;
 `;
  
 export const Info = styled.View`
@@ -203,8 +207,8 @@ export const Info = styled.View`
   padding-right: 12px;
 `;
  
-export const Name = styled.Text`
-  color: #f4f2ed;
+export const Name = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000"};
   font-size: 15px;
   margin-bottom: 3px;
 `;
@@ -251,8 +255,8 @@ export const SectionHeading = styled.View`
   margin-bottom: 14px;
 `;
  
-export const SectionTitle = styled.Text`
-  color: #f4f2ed;
+export const SectionTitle = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
   font-size: 19px;
 `;
  
@@ -350,8 +354,8 @@ export const Requirements = styled.View`
   margin-left: 10px;
 `;
  
-export const RequirementsLabel = styled.Text`
-  color: #f4f2ed;
+export const RequirementsLabel = styled.Text<{$theme: string}>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
   font-size: 14px;
   margin-bottom: 8px;
 `;
@@ -372,8 +376,8 @@ export const Group = styled.View`
   margin-bottom: 10px;
 `;
  
-export const GroupTitle = styled.Text`
-  color: #f4f2ed;
+export const GroupTitle = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
   font-size: 17px;
   font-weight: 600;
   margin-bottom: 4px;
@@ -392,15 +396,15 @@ export const DangerZone = styled.View`
   gap: 18px;
 `;
 
-export const Title = styled.Text`
-  color: #f4f2ed;
+export const Title = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 3px;
 `;
  
-export const Description = styled.Text`
-  color: #8a8d94;
+export const Description = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
   font-size: 13px;
   line-height: 18px;
 `;
@@ -416,3 +420,42 @@ export const IntroText = styled.Text`
   font-size: 14px;
   margin-bottom: 30px;
 `;
+
+export const TContainer = styled.View<{ $theme: string }>`
+  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(244, 242, 237, 0.244)"};
+  border-radius: 14px;
+  padding: 14px 16px;
+`;
+ 
+export const TopRow = styled.View`
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+ 
+ 
+export const LevelTag = styled.Text`
+  color: #e8a33d;
+  font-size: 13px;
+  font-weight: 600;
+`;
+ 
+export const BottomRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+`;
+ 
+export const XpText = styled.Text`
+  color: #8a8d94;
+  font-size: 12px;
+`;
+ 
+export const RemoveText = styled.Text`
+  color: #8a8d94;
+  font-size: 12px;
+  text-decoration-line: underline;
+`;
+

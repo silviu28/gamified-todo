@@ -89,7 +89,7 @@ const SettingsPage: FC = () => {
         <IntroText>This is the settings page.</IntroText>
   
         <Group>
-          <GroupTitle>Color palette</GroupTitle>
+          <GroupTitle $theme={theme}>Color palette</GroupTitle>
           <GroupSub>Pick another accent color.</GroupSub>
           <OptionRow>
             {COLORS.map((color) => (
@@ -106,7 +106,7 @@ const SettingsPage: FC = () => {
         </Group>
   
         <Group>
-          <GroupTitle>Theme</GroupTitle>
+          <GroupTitle $theme={theme}>Theme</GroupTitle>
           <GroupSub>Pick dark or light theme.</GroupSub>
           <OptionRow>
             <Selection
@@ -128,12 +128,14 @@ const SettingsPage: FC = () => {
   
         <DangerZone>
           <SettingsOption
+            theme={theme}
             title="Wipe everything"
             description="This will delete everything you have done on this app."
             onPress={promptWiping}
             accent={accent}
           />
           <SettingsOption
+            theme={theme}
             title="Optimize storage"
             description="Clear some things that might make the experience worse."
             onPress={() => { } }

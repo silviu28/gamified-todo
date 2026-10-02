@@ -4,6 +4,7 @@ import { Pressable, Text, View } from "react-native";
 import { Row, Info, ActionText, Description, Title } from ".";
 
 interface SettingsOptionProps {
+  theme: string,
   accent: string,
   title: string,
   description: string,
@@ -12,18 +13,18 @@ interface SettingsOptionProps {
 };
 
 const SettingsOption: FC<SettingsOptionProps> = ({
+  theme,
   accent,
   title,
   description,
   actionName = "Execute",
   onPress
 }) => {
-
   return (
-    <Row>
+    <Row $theme={theme}>
       <Info>
-        <Title>{title}</Title>
-        <Description>{description}</Description>
+        <Title $theme={theme}>{title}</Title>
+        <Description $theme={theme}>{description}</Description>
       </Info>
       <Pressable onPress={onPress}>
         <ActionText $accent={accent}>{actionName}</ActionText>

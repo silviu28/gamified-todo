@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { FC } from "react";
 import { Pressable } from "react-native";
-import { Link, useNavigate } from "react-router-native";
+import {  useNavigate } from "react-router-native";
 import FadeInWrapper from "../FadeInWrapper";
 import Icon from "../icons";
 import { shallowEqual } from "react-redux";
@@ -18,20 +18,20 @@ const HomePage: FC = () => {
   return (
     <FadeInWrapper>
       <Background $theme={theme}>
-        <Content>
+        <Content $theme={theme}>
           <Intro>
-            <Headline>welcome</Headline>
+            <Headline $theme={theme}>welcome</Headline>
             <Lede>
               Bored of doing your daily mundane activities? Spice the process up by introducing rewards in experience, leveling and more using this app.
             </Lede>
  
             <FeatureList>
-              <FeatureRow>
+              <FeatureRow $theme={theme}>
                 <FeatureIconWrap>
-                  <Icon.Checkbox />
+                  <Icon.Checkbox darkVariant={theme === "light"} />
                 </FeatureIconWrap>
                 <FeatureText>
-                  <FeatureTitle>Track your tasks</FeatureTitle>
+                  <FeatureTitle $theme={theme}>Track your tasks</FeatureTitle>
                   <FeatureSub>
                     Stay organized with a to-do list that adapts to your
                     preferences.
@@ -39,12 +39,12 @@ const HomePage: FC = () => {
                 </FeatureText>
               </FeatureRow>
  
-              <FeatureRow>
+              <FeatureRow $theme={theme}>
                 <FeatureIconWrap>
-                  <Icon.UpArrow />
+                  <Icon.UpArrow darkVariant={theme === "light"} />
                 </FeatureIconWrap>
                 <FeatureText>
-                  <FeatureTitle>Level up</FeatureTitle>
+                  <FeatureTitle $theme={theme}>Level up</FeatureTitle>
                   <FeatureSub>
                     Set skill caps for yourself and stay motivated as you
                     close in on them.
@@ -52,12 +52,12 @@ const HomePage: FC = () => {
                 </FeatureText>
               </FeatureRow>
  
-              <FeatureRow>
+              <FeatureRow $theme={theme}>
                 <FeatureIconWrap>
-                  <Icon.Smiley />
+                  <Icon.Smiley darkVariant={theme === "light"} />
                 </FeatureIconWrap>
                 <FeatureText>
-                  <FeatureTitle>Motivate yourself</FeatureTitle>
+                  <FeatureTitle $theme={theme}>Motivate yourself</FeatureTitle>
                   <FeatureSub>
                     See your progress in a tangible way, and share it with
                     personalized stat cards.

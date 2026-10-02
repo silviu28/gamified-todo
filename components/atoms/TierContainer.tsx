@@ -4,7 +4,8 @@ import Icon from "../icons";
 import computeTier from "@/utils/computeTier";
 import { Container, RequirementRow, Requirements, RequirementsLabel, RequirementText, Row, SectionHeading, SectionTitle, TierBadge, TierBadgeText } from ".";
 
-const TierContainer = ({ accent, tier }: {
+const TierContainer = ({ theme, accent, tier }: {
+  theme: string,
   accent: string,
   tier: {
     tier: number;
@@ -29,16 +30,16 @@ const TierContainer = ({ accent, tier }: {
     <Container>
       <SectionHeading>
         <Icon.Trophy />
-        <SectionTitle>Your tier</SectionTitle>
+        <SectionTitle $theme={theme}>Your tier</SectionTitle>
       </SectionHeading>
  
-      <Row>
+      <Row $theme={theme}>
         <TierBadge $accent={accent}>
           <TierBadgeText $accent={accent}>{currentTier}</TierBadgeText>
         </TierBadge>
  
         <Requirements>
-          <RequirementsLabel>To raise your tier, you must:</RequirementsLabel>
+          <RequirementsLabel $theme={theme}>To raise your tier, you must:</RequirementsLabel>
           <RequirementRow>
             <RequirementText>{">"} Complete {requiredTaskCount} tasks</RequirementText>
           </RequirementRow>
