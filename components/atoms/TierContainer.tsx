@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert } from "react-native";
 import Icon from "../icons";
 import computeTier from "@/utils/computeTier";
-import { Theme } from "@/types";
+import { Container, RequirementRow, Requirements, RequirementsLabel, RequirementText, Row, SectionHeading, SectionTitle, TierBadge, TierBadgeText } from ".";
 
-const TierContainer = ({ style, tier }: {
-  style: Theme,
-   tier: {
+const TierContainer = ({ accent, tier }: {
+  accent: string,
+  tier: {
     tier: number;
     tasksCount: number;
     consolidatedXp: number;
@@ -26,21 +26,29 @@ const TierContainer = ({ style, tier }: {
   const [currentTier, requiredTaskCount, requiredXpCount] = computeTier(tier.tasksCount, tier.consolidatedXp);
 
   return (
-    <View style={style.container}>
-      <Text style={style.heading}><Icon.Trophy /> Your tier:</Text>
-      <View style={style.rowFlex}>
-        <View style={style.circularProgress}>
-          <Text style={style.heading}>
-            {currentTier}
-          </Text>
-        </View>
-        <Text style={style.highlight}>
-          {`To raise your tier, you must:
-          > complete ${requiredTaskCount} tasks
-          > acquire ${requiredXpCount} xp.`}
-        </Text>
-      </View>
-    </View>
+    <Container>
+      <SectionHeading>
+        <Icon.Trophy />
+        <SectionTitle>Your tier</SectionTitle>
+      </SectionHeading>
+ 
+      <Row>
+        <TierBadge $accent={accent}>
+          <TierBadgeText $accent={accent}>{currentTier}</TierBadgeText>
+        </TierBadge>
+ 
+        <Requirements>
+          <RequirementsLabel>To raise your tier, you must:</RequirementsLabel>
+          <RequirementRow>
+            <RequirementText>{">"} Complete {requiredTaskCount} tasks</RequirementText>
+          </RequirementRow>
+          <RequirementRow>
+            <RequirementText>{">"} Acquire {requiredXpCount} XP</RequirementText>
+          </RequirementRow>
+        </Requirements>
+      </Row>
+    </Container>
+
   );
 };
 

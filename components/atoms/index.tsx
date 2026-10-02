@@ -231,3 +231,146 @@ export const ActionButtonText = styled.Text<{ $variant: "remove" | "assign" }>`
   line-height: 20px;
   color: ${({ $variant }) => ($variant === "remove" ? "#8a8d94" : "#16181d")};
 `;
+
+export const TopBar = styled.View`
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  z-index: 10;
+  flex-direction: row;
+  gap: 14px;
+`;
+ 
+export const Section = styled.View`
+  margin-bottom: 34px;
+`;
+ 
+export const SectionHeading = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+`;
+ 
+export const SectionTitle = styled.Text`
+  color: #f4f2ed;
+  font-size: 19px;
+`;
+ 
+export const Divider = styled.View`
+  border-top-width: 1px;
+  border-top-color: rgba(244, 242, 237, 0.08);
+  margin: 4px 0;
+`;
+ 
+export const CancelText = styled.Text`
+  color: #8a8d94;
+  font-size: 14px;
+  margin-top: 10px;
+`;
+ 
+export const AddNoteButton = styled.Pressable<{ $accent: string }>`
+  align-self: flex-start;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: ${({ $accent }) => $accent};
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+`;
+ 
+export const AddNoteButtonText = styled.Text`
+  color: #16181d;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 24px;
+`;
+ 
+export const SkillStack = styled.View`
+  gap: 10px;
+`;
+ 
+export const RevisionBar = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+`;
+ 
+export const RevisionText = styled.Text<{ $accent: string }>`
+  color: ${({ $accent }) => $accent};
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+export const Container = styled.View`
+  margin-bottom: 34px;
+`;
+ 
+export const StatRow = styled.View`
+  flex-direction: row;
+  gap: 12px;
+`;
+ 
+export const StatCard = styled.View`
+  flex: 1;
+  background-color: rgba(244, 242, 237, 0.06);
+  border-radius: 14px;
+  padding: 16px;
+`;
+ 
+export const StatValue = styled.Text<{ $accent: string }>`
+  color: ${({ $accent }) => $accent};
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+`;
+ 
+export const StatLabel = styled.Text`
+  color: #8a8d94;
+  font-size: 13px;
+`;
+ 
+export const TierBadge = styled.View<{ $accent: string }>`
+  width: 72px;
+  height: 72px;
+  border-radius: 36px;
+  border-width: 2px;
+  border-color: ${({ $accent }) => $accent};
+  align-items: center;
+  justify-content: center;
+`;
+ 
+export const TierBadgeText = styled.Text<{ $accent: string }>`
+  color: ${({ $accent }) => $accent};
+  font-size: 22px;
+  font-weight: 700;
+`;
+ 
+export const Requirements = styled.View`
+  flex: 1;
+  margin-left: 10px;
+`;
+ 
+export const RequirementsLabel = styled.Text`
+  color: #f4f2ed;
+  font-size: 14px;
+  margin-bottom: 8px;
+`;
+ 
+export const RequirementRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+`;
+ 
+export const RequirementText = styled.Text`
+  color: #8a8d94;
+  font-size: 13px;
+`;
+ 
+export const Bullet = styled.Text`
+  color: #e8a33d;
+  font-size: 13px;
+`;
+
