@@ -1,37 +1,51 @@
-import { Task, Theme } from "@/types";
-import { Pressable, Text, View } from "react-native";
+import { Task } from "@/types";
+import { Pressable } from "react-native";
+import { Row, Info, Meta, ActionButton, ActionButtonText, Name } from ".";
+
+const priorityLabel = (priority: number) =>
+  priority === 1 ? "low" : priority === 2 ? "average" : "high";
+
+const frequencyLabel = (frequency: number) =>
+  `once every ${Math.floor(frequency / (24 * 1000 * 3600))} days`
 
 const TaskContainer = ({
-    style,
-    task,
-    onAssign,
-    onRemove
-  }: {
-    style: Theme, 
-    task: Task, 
-    onAssign?: (task: Task) => void, 
-    onRemove?: (task: Task) => void 
-  }) => {
+  theme,
+  accent,
+  task,
+  onAssign,
+  onRemove
+}: {
+  theme: string,
+  accent: string, 
+  task: Task, 
+  onAssign?: (task: Task) => void, 
+  onRemove?: (task: Task) => void 
+}) => {
 
   return (
-    <View style={style.flexContainer}>
-      <View style={[style.colFlex, { width: "80%" }]}>
-        <Text style={style.p}>{task.name}</Text>
-        <Text style={style.sub}>{task.frequency}, {task.priority}</Text>
-      </View>
-      <View style={style.colFlex}>
-        {onAssign && (
-          <Pressable onPress={() => onRemove(task)}>
-            <Text style={style.raisedHighlight}>x</Text>
-          </Pressable>
-        )}
-        {onRemove && (
-          <Pressable onPress={() => onAssign(task)}>
-            <Text style={style.raisedHighlight}>+</Text>
-          </Pressable>
-        )}
-      </View>
-    </View>
+    <Row $theme={theme} style={{ padding: 20 }}>
+      <Info>
+        <Name $theme={theme}>{task.name}</Name>
+        <Meta>
+          {frequencyLabel(task.frequency)} · {priorityLabel(task.priority)} priority
+        </Meta>
+      </Info>
+ 
+      {onRemove && (
+        <Pressable onPress={() => onRemove(task)}>
+          <ActionButton $variant="remove" $accent={accent}>
+            <ActionButtonText $variant="remove">×</ActionButtonText>
+          </ActionButton>
+        </Pressable>
+      )}
+ 
+      {onAssign && (
+        <ActionButton onPress={() => onAssign(task)} $variant="assign" $accent={accent}>
+          <ActionButtonText $variant="assign">+</ActionButtonText>
+        </ActionButton>
+      )}
+    </Row>
+
   );
 };
 

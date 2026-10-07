@@ -29,7 +29,7 @@ const NoteView: FC<NoteViewProps> = ({ note, removable }) => {
       </View>
       <View style={style.colFlex}>
         {removable &&
-          <Pressable onPress={() => dispatch(removeNote({ note }))}>
+          <Pressable onPress={() => dispatch(removeNote(note))}>
             <Text style={style.raisedHighlight}>x</Text>
           </Pressable>}
       </View>

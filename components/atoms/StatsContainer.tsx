@@ -1,18 +1,31 @@
-import { Text, View } from "react-native";
 import computeLevel from "@/utils/computeLevel";
-import { Skill, Theme } from "@/types";
+import { Skill } from "@/types";
 import Icon from "../icons";
+import { Container, SectionHeading, SectionTitle, StatRow, StatCard, StatValue, StatLabel } from ".";
 
-const StatsContainer = ({ style, skills }: { style: Theme, skills: Skill[] }) => {
+const StatsContainer = ({ theme, accent, skills }: { theme: string, accent: string, skills: Skill[] }) => {
   const totalXp = skills.reduce((total, skill) => total + skill.pts, 0);
   const [totalLevels] = computeLevel(totalXp);
 
   return (
-    <View style={style.container}>
-      <Text style={style.heading}><Icon.Stats /> Your overall stats:</Text>
-      <Text style={style.p}>Total XP: {totalXp}</Text>
-      <Text style={style.p}>Total level: {totalLevels}</Text>
-    </View>
+    <Container>
+      <SectionHeading>
+        <Icon.Stats darkVariant={theme === "light"} />
+        <SectionTitle $theme={theme}>Your overall stats</SectionTitle>
+      </SectionHeading>
+ 
+      <StatRow>
+        <StatCard $theme={theme}>
+          <StatValue $accent={accent}>{totalXp}</StatValue>
+          <StatLabel>Total XP</StatLabel>
+        </StatCard>
+        <StatCard $theme={theme}>
+          <StatValue $accent={accent}>{totalLevels}</StatValue>
+          <StatLabel>Total level</StatLabel>
+        </StatCard>
+      </StatRow>
+    </Container>
+
   );
 };
 

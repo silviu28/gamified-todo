@@ -1,21 +1,29 @@
 import { FC } from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert } from "react-native";
 import SettingsOption from "../atoms/SettingsOption";
-import { useDispatch, useSelector } from "react-redux";
-import { State } from "@/app/store";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { State, useStateSelector } from "@/app/store";
 import Selection from "../atoms/Selection";
 import { changeAccent, changeTheme } from "@/app/preferencesSlice";
 import { useNavigate } from "react-router-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useDynamicTheme from "@/hooks/useDynamicTheme";
 import { db } from "@/db";
 import { completedTasks, notes, preferences, skills, tasks } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { Background, Content, DangerZone, Group, GroupSub, GroupTitle, Intro, IntroText, OptionRow } from "../atoms";
+import{ styled }from "styled-components/native";
 
 const COLORS = ["lime", "purple", "indigo", "red", "orange", "navy", "teal", "hotpink"];
 
+const _Content = styled.View`
+  padding: 24px;
+  margin-top: 72px;
+`;
+
 const SettingsPage: FC = () => {
-  const style = useDynamicTheme();
+  const [theme, accent] = useStateSelector((state) => [
+    state.preferences.theme,
+    state.preferences.accent
+  ], shallowEqual);
   const prefs = useSelector((state: State) => state.preferences);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,6 +34,14 @@ const SettingsPage: FC = () => {
       .where(eq(preferences._id, 1));
     
     dispatch(changeAccent(color));
+  };
+
+  const onThemeChange = async (theme: string) => {
+    await db.update(preferences)
+      .set({ theme })
+      .where(eq(preferences._id, 1));
+
+    dispatch(changeTheme(theme));
   };
 
   const onWipeAll = async () => {
@@ -68,58 +84,66 @@ const SettingsPage: FC = () => {
   };
 
   return (
-    <View style={style.bg}>
-      <View style={style.padding}>
-        <Text style={style.p}>This is the settings page</Text>
-        
-        <View style={style.colFlex}>
-          <Text style={style.highlight}>Color palette</Text>
-          <Text style={style.sub}>Pick another accent color.</Text>
-          <View style={{ gap: 1 }}>
-            {COLORS.map((color) => 
-                <Selection
-                  key={color}
-                  style={style}
-                  value={prefs.accent === color}
-                  onSelect={() => onAccentChange(color)}
-                  text={color}
-                />
-            )}
-          </View>
-        </View>
-
-        <View style={style.colFlex}>
-          <Text style={style.highlight}>Theme</Text>
-          <Text style={style.sub}>Pick dark or light theme.</Text>
-          <View style={style.rowFlex}>
+    <Background $theme={theme}>
+      <_Content>
+        <IntroText>This is the settings page.</IntroText>
+  
+        <Group>
+          <GroupTitle $theme={theme}>Color palette</GroupTitle>
+          <GroupSub>Pick another accent color.</GroupSub>
+          <OptionRow>
+            {COLORS.map((color) => (
+              <Selection
+                key={color}
+                value={prefs.accent === color}
+                onSelect={() => onAccentChange(color)}
+                text={color}
+                theme={theme}
+                accent={accent}
+              />
+            ))}
+          </OptionRow>
+        </Group>
+  
+        <Group>
+          <GroupTitle $theme={theme}>Theme</GroupTitle>
+          <GroupSub>Pick dark or light theme.</GroupSub>
+          <OptionRow>
             <Selection
-              style={style}
               value={prefs.theme === "dark"}
-              onSelect={() => dispatch(changeTheme("dark"))}
+              onSelect={() => onThemeChange("dark")}
               text="dark"
+              theme={theme}
+              accent={accent}
             />
             <Selection
-              style={style}
-              value={prefs.accent === "light"}
-              onSelect={() => dispatch(changeTheme("light"))}
+              value={prefs.theme === "light"}
+              onSelect={() => onThemeChange("light")}
               text="light"
+              theme={theme}
+              accent={accent}
             />
-          </View>
-        </View>
-
-        <SettingsOption
-          style={style}
-          title="Wipe everything"
-          description="This will delete everything you have done on this app"
-          onPress={promptWiping}
-        />
-        <SettingsOption
-          style={style}
-          title="Optimize storing"
-          description="Clear some things that might make the experience worse."
-          onPress={() => {}}/>
-      </View>
-    </View>
+          </OptionRow>
+        </Group>
+  
+        <DangerZone>
+          <SettingsOption
+            theme={theme}
+            title="Wipe everything"
+            description="This will delete everything you have done on this app."
+            onPress={promptWiping}
+            accent={accent}
+          />
+          <SettingsOption
+            theme={theme}
+            title="Optimize storage"
+            description="Clear some things that might make the experience worse."
+            onPress={() => { } }
+            accent={accent}
+          />
+        </DangerZone>
+      </_Content>
+    </Background>
   );
 };
 

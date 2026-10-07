@@ -13,11 +13,13 @@ import MainPage from "@/components/pages/MainPage";
 import ThemeContext from "./context/ThemeContext";
 import PersistentBackButton from "@/components/PersistentBackButton";
 import SuggestThingsPage from "@/components/pages/SuggestThingsPage";
+import { useStateSelector } from "./store";
 
 const AppRouter = () => {
   // uncomment this is case the store breaks the app
   // AsyncStorage.clear();
   const style = useDynamicTheme();
+  const theme = useStateSelector((state) => state.preferences.theme);
 
   return (
     <UserPreferencesContext.Provider value={{ isFirstBoot: false }}>
@@ -30,7 +32,7 @@ const AppRouter = () => {
             }}
             >
             <BackButtonHandler />
-            <PersistentBackButton />
+            <PersistentBackButton theme={theme} />
             <Routes>
               <Route path='*' element={<HomePage />} />
               <Route path='/addSkill' element={<AddSkillPage />} />
