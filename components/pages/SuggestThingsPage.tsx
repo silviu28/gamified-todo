@@ -1,12 +1,7 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext } from "react";
 import FadeInWrapper from "../FadeInWrapper";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import ThemeContext from "@/app/context/ThemeContext";
-import getSuggestion from "@/utils/getSuggestion";
-import { useDispatch } from "react-redux";
-import { addSkill } from "@/app/skillsSlice";
-import { Skill } from "@/types";
-import { useNavigate } from "react-router-native";
 
 const SuggestThingsPage: FC = () => {
   const style = useContext(ThemeContext);

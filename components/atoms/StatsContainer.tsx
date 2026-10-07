@@ -1,6 +1,5 @@
-import { Text, View } from "react-native";
 import computeLevel from "@/utils/computeLevel";
-import { Skill, Theme } from "@/types";
+import { Skill } from "@/types";
 import Icon from "../icons";
 import { Container, SectionHeading, SectionTitle, StatRow, StatCard, StatValue, StatLabel } from ".";
 

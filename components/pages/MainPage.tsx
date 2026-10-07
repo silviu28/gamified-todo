@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
 import { FlatList, Pressable, View } from "react-native";
 import TaskContainer from "../atoms/TaskContainer";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -8,11 +8,9 @@ import SkillContainer from "../atoms/SkillContainer";
 import BottomBar from "../BottomBar";
 import ToDoTask from "../atoms/ToDoTask";
 import StatsContainer from "../atoms/StatsContainer";
-import Modal from "../atoms/Modal";
 import TierContainer from "../atoms/TierContainer";
 import GradientBackground from "../GradientBackground";
 import FadeInWrapper from "../FadeInWrapper";
-import ThemeContext from "@/app/context/ThemeContext";
 import NoteView from "../atoms/Note";
 import AddNoteForm from "../forms/AddNoteForm";
 import { addNote } from "@/app/notesSlice";

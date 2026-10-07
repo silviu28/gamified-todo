@@ -1,6 +1,6 @@
-import { Task, Theme } from "@/types";
+import { Task } from "@/types";
 import { FC } from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert, View } from "react-native";
 import CheckBox from "./CheckBox";
 import { Name, Row } from ".";
 

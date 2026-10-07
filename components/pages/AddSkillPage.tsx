@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent } from "react";
 import { FlatList, Pressable, View } from "react-native";
 import AddSkillForm from "../forms/AddSkillForm";
 import { useNavigate } from "react-router-native";
@@ -7,15 +7,13 @@ import { useStateSelector } from "@/app/store";
 import { addSkill, removeSkill } from "@/app/skillsSlice";
 import SkillContainer from "../atoms/SkillContainer";
 import FadeInWrapper from "../FadeInWrapper";
-import ThemeContext from "@/app/context/ThemeContext";
 import { skills as skillsTable } from "@/db/schema";
 import { db } from "@/db";
 import { Skill } from "@/types";
 import { eq } from "drizzle-orm";
-import { Content, Headline, Actions, PrimaryButton, PrimaryButtonText, EmptyState, Scroll, SecondaryButton, SecondaryButtonText, SkillList, SkillRow, Lede, Background } from "../atoms";
+import { Content, Headline, Actions, PrimaryButton, PrimaryButtonText, EmptyState, Scroll, SecondaryButton, SecondaryButtonText, SkillList, SkillRow, Lede } from "../atoms";
 
 const AddSkillPage: FunctionComponent = () => {
-  const style = useContext(ThemeContext);
   const [theme, accent, skills] = useStateSelector((state) => [
     state.preferences.theme,
     state.preferences.accent,

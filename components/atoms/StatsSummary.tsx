@@ -1,6 +1,6 @@
-import { FlatList, Text, View } from "react-native";
+import { FlatList } from "react-native";
 import SkillContainer from "./SkillContainer";
-import { Theme, Skill } from "@/types";
+import { Skill } from "@/types";
 import { Name, TContainer } from ".";
 
 const StatsSummary = ({ theme, skills }: { theme: string, skills: Skill[] }) => {
