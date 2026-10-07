@@ -113,7 +113,7 @@ const MainPage: FC = () => {
                     data={tasksToDo}
                     keyExtractor={(task) => task.name}
                     renderItem={({ item }) => (
-                      <ToDoTask style={style} task={item} onCompletion={completeTask} />
+                      <ToDoTask theme={theme} accent={accent} task={item} onCompletion={completeTask} />
                     )}
                     scrollEnabled={false}
                   />
@@ -121,7 +121,7 @@ const MainPage: FC = () => {
                   <FlatList
                     data={completedTasks}
                     keyExtractor={(task) => task.name}
-                    renderItem={({ item }) => <ToDoTask style={style} task={item} completed />}
+                    renderItem={({ item }) => <ToDoTask theme={theme} accent={accent} task={item} completed />}
                     scrollEnabled={false}
                   />
                 </>
@@ -209,9 +209,9 @@ const MainPage: FC = () => {
  
             <StatsContainer theme={theme} accent={accent} skills={skills} />
             <TierContainer theme={theme} accent={accent} tier={tier} />
+            <View style={{ padding: 10 }}></View>
           </Content>
         </Scroll>
- 
         <BottomBar>
           <RevisionBar>
             <Pressable onPress={() => navigate("/addTask")}>

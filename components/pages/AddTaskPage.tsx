@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent } from "react";
 import { FlatList, Pressable, View } from "react-native";
 import AddTaskForm from "../forms/AddTaskForm";
 import { useNavigate } from "react-router-native";
@@ -7,7 +7,6 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { State, useStateSelector } from "@/app/store";
 import TaskContainer from "../atoms/TaskContainer";
 import FadeInWrapper from "../FadeInWrapper";
-import ThemeContext from "@/app/context/ThemeContext";
 import { addTask, assignTask, removeTask } from "@/app/tasksSlice";
 import { db } from "@/db";
 import { skillTasks, tasks } from "@/db/schema";
@@ -16,7 +15,6 @@ import { Scroll, Content, Headline, Lede, SkillList, EmptyState, SkillRow, Actio
 import SkillContainer from "../atoms/SkillContainer";
 
 const AddTaskPage: FunctionComponent = () => {
-  const style = useContext(ThemeContext);
   const { skills, allTasks } = useSelector((state: State) => ({
     skills: state.skills.allSkills,
     allTasks: state.tasks.tasksToDo
@@ -88,6 +86,7 @@ const AddTaskPage: FunctionComponent = () => {
             accent={accent}
             onSubmit={addNewTask} 
           />
+          <View style={{ padding: 10 }}></View>
 
           <FlatList
             data={allTasks}

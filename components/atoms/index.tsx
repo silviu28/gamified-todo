@@ -39,7 +39,7 @@ export const FeatureRow = styled.View<{ $theme: string }>`
   align-items: flex-start;
   padding: 18px 0;
   border-top-width: 1px;
-  border-top-color: ${({ $theme }) => $theme === "dark " ? "rgba(244, 242, 237, 0.1)" : "black"};
+  border-top-color: ${({ $theme }) => $theme === "dark " ?  "black" : "rgba(244, 242, 237, 0.1)"};
 `;
  
 export const FeatureIconWrap = styled.View`

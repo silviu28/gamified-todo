@@ -126,7 +126,7 @@ const MePage: FC = () => {
             )
             : (
               <Pressable onPress={() => setEditingName(true)}>
-                <Text style={[style.heading, {alignSelf: "center", top: -20}]}>
+                <Text style={[style.heading, { alignSelf: "center", top: -20 }]}>
                   {prefs.username}
                 </Text>
               </Pressable>
