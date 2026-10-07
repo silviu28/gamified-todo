@@ -18,6 +18,7 @@ const AddSkillForm = ({ theme, accent, onSubmit }: { theme: string, accent: stri
     <Form>
       <Label>Skill name</Label>
       <NameInput
+        $theme={theme}
         value={name}
         onChangeText={setName}
         placeholder="e.g. Drawing"
@@ -33,7 +34,7 @@ const AddSkillForm = ({ theme, accent, onSubmit }: { theme: string, accent: stri
       </PriorityRow>
  
       <AddButton onPress={handleSubmit} $accent={accent}>
-        <AddButtonText>+</AddButtonText>
+        <AddButtonText $theme={theme}>+</AddButtonText>
       </AddButton>
     </Form>
   );

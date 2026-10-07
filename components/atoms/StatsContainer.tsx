@@ -11,16 +11,16 @@ const StatsContainer = ({ theme, accent, skills }: { theme: string, accent: stri
   return (
     <Container>
       <SectionHeading>
-        <Icon.Stats />
+        <Icon.Stats darkVariant={theme === "light"} />
         <SectionTitle $theme={theme}>Your overall stats</SectionTitle>
       </SectionHeading>
  
       <StatRow>
-        <StatCard>
+        <StatCard $theme={theme}>
           <StatValue $accent={accent}>{totalXp}</StatValue>
           <StatLabel>Total XP</StatLabel>
         </StatCard>
-        <StatCard>
+        <StatCard $theme={theme}>
           <StatValue $accent={accent}>{totalLevels}</StatValue>
           <StatLabel>Total level</StatLabel>
         </StatCard>

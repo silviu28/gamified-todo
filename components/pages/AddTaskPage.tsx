@@ -126,7 +126,7 @@ const AddTaskPage: FunctionComponent = () => {
  
           <Actions>
             <PrimaryButton onPress={() => navigate("/main")} $accent={accent}>
-              <PrimaryButtonText>Done</PrimaryButtonText>
+              <PrimaryButtonText $theme={theme}>Done</PrimaryButtonText>
             </PrimaryButton>
  
             <Pressable onPress={() => navigate("/suggest")}>

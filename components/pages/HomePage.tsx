@@ -73,7 +73,7 @@ const HomePage: FC = () => {
                 $accent={accent}
                 onPress={() => navigate("/addSkill")}
               >
-                <PrimaryButtonText>Let's go</PrimaryButtonText>
+                <PrimaryButtonText $theme={theme}>Let's go</PrimaryButtonText>
               </PrimaryButton>
             </Pressable>
  

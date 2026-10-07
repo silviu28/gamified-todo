@@ -24,10 +24,9 @@ import { Task } from "@/types";
 import { db } from "@/db";
 import { tasks, completedTasks as completedTasksTable, skillTasks, notes as notesTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { TopBar, Scroll, Content, Section, SectionHeading, SectionTitle, Divider, EmptyState, CancelText, AddNoteButton, AddNoteButtonText, SkillStack, RevisionBar, RevisionText } from "../atoms";
+import { TopBar, Scroll, Content, Section, SectionHeading, SectionTitle, Divider, EmptyState, CancelText, AddNoteButton, AddNoteButtonText, SkillStack, RevisionBar, RevisionText, TContainer } from "../atoms";
 
 const MainPage: FC = () => {
-  const style = useContext(ThemeContext);
   const navigate = useNavigate();
   const { tasksToDo, completedTasks } = useSelector((state: State) => state.tasks);
   const skills = useSelector((state: State) => state.skills.allSkills);
@@ -103,7 +102,7 @@ const MainPage: FC = () => {
             {/* Quest list */}
             <Section>
               <SectionHeading>
-                <Icon.Checkbox />
+                <Icon.Checkbox darkVariant={theme === "light"} />
                 <SectionTitle $theme={theme}>Quest list</SectionTitle>
               </SectionHeading>
  
@@ -133,10 +132,10 @@ const MainPage: FC = () => {
             {/* Notes */}
             <Section>
               <SectionHeading>
-                <Icon.Pencil />
+                <Icon.Pencil darkVariant={theme === "light"} />
                 <SectionTitle $theme={theme}>Notes</SectionTitle>
               </SectionHeading>
- 
+              <TContainer $theme={theme}>
               {showNoteForm && (
                 <View>
                   <AddNoteForm onSubmit={onAddNote} />
@@ -158,18 +157,17 @@ const MainPage: FC = () => {
               )}
  
               {!showNoteForm && (
-                <Pressable onPress={() => setShowNoteForm(true)}>
-                  <AddNoteButton $accent={accent}>
-                    <AddNoteButtonText>+</AddNoteButtonText>
-                  </AddNoteButton>
-                </Pressable>
+                <AddNoteButton $accent={accent} onPress={() => setShowNoteForm(true)}>
+                  <AddNoteButtonText>+</AddNoteButtonText>
+                </AddNoteButton>
               )}
+              </TContainer>
             </Section>
  
             {/* Add quests */}
             <Section>
               <SectionHeading>
-                <Icon.Info />
+                <Icon.Info darkVariant={theme === "light"} />
                 <SectionTitle $theme={theme}>Add quests</SectionTitle>
               </SectionHeading>
  
@@ -196,7 +194,7 @@ const MainPage: FC = () => {
             {/* Skills */}
             <Section>
               <SectionHeading>
-                <Icon.UpArrow />
+                <Icon.UpArrow darkVariant={theme === "light"} />
                 <SectionTitle $theme={theme}>Your skills</SectionTitle>
               </SectionHeading>
  

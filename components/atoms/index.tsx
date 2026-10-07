@@ -39,7 +39,7 @@ export const FeatureRow = styled.View<{ $theme: string }>`
   align-items: flex-start;
   padding: 18px 0;
   border-top-width: 1px;
-  border-top-color: ${({ $theme }) => $theme === "dark " ?  "black" : "rgba(244, 242, 237, 0.1)"};
+  border-top-color: ${({ $theme }) => $theme === "dark " ?  "rgba(244, 242, 237, 0.1)" : "black"};
 `;
  
 export const FeatureIconWrap = styled.View`
@@ -78,8 +78,8 @@ export const PrimaryButton = styled.Pressable<{ $accent: string }>`
   align-items: center;
 `;
  
-export const PrimaryButtonText = styled.Text`
-  color: #16181d;
+export const PrimaryButtonText = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#16181d" : "#fffff"};
   font-size: 16px;
   font-weight: 700;
 `;
@@ -139,7 +139,7 @@ export const NameInput = styled.TextInput.attrs({
   placeholderTextColor: "#8a8d94",
 })<{ $theme: string }>`
   color: ${({ $theme }) => $theme === "dark" ? "#f4f2ed" : "#000000"};
-  background-color: rgba(244, 242, 237, 0.06);
+  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(160, 160, 160, 0.279)"};
   border-radius: 10px;
   padding: 13px 14px;
   font-size: 16px;
@@ -162,8 +162,8 @@ export const AddButton = styled.Pressable<{ $accent: string }>`
   justify-content: center;
 `;
  
-export const AddButtonText = styled.Text`
-  color: #16181d;
+export const AddButtonText = styled.Text<{ $theme: string }>`
+  color: ${({ $theme }) => $theme === "dark" ? "#16181d" : "#fff"};
   font-size: 26px;
   font-weight: 600;
   line-height: 28px;
@@ -194,7 +194,7 @@ export const PointHint = styled.Text`
 `;
 
 export const Row = styled.View<{ $theme: string }>`
-  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(244, 242, 237, 0.047)"};
+  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(160, 160, 160, 0.279)"};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -314,9 +314,9 @@ export const StatRow = styled.View`
   gap: 12px;
 `;
  
-export const StatCard = styled.View`
+export const StatCard = styled.View<{ $theme: string }>`
   flex: 1;
-  background-color: rgba(244, 242, 237, 0.06);
+  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(160, 160, 160, 0.279)"};
   border-radius: 14px;
   padding: 16px;
 `;
@@ -422,7 +422,7 @@ export const IntroText = styled.Text`
 `;
 
 export const TContainer = styled.View<{ $theme: string }>`
-  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(244, 242, 237, 0.244)"};
+  background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(160, 160, 160, 0.279)"};
   border-radius: 14px;
   padding: 14px 16px;
 `;

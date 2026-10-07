@@ -29,7 +29,7 @@ const TierContainer = ({ theme, accent, tier }: {
   return (
     <Container>
       <SectionHeading>
-        <Icon.Trophy />
+        <Icon.Trophy darkVariant={theme === "light"} />
         <SectionTitle $theme={theme}>Your tier</SectionTitle>
       </SectionHeading>
  

@@ -1,7 +1,7 @@
 import { State } from "@/app/store";
 import { FC, useContext } from "react";
 import { Image, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import SkillRadarChart from "../atoms/SkillRadarChart";
 import ThemeContext from "@/app/context/ThemeContext";
 import Icon from "../icons";
@@ -13,7 +13,7 @@ const MeCard: FC = () => {
     tier: state.tier,
     skills: state.skills.allSkills,
     accent: state.preferences.accent
-  }));
+  }), shallowEqual);
   const defaultImage = require("../../assets/images/partial-react-logo.png")
 
   return (

@@ -78,7 +78,7 @@ const AddTaskForm: FunctionComponent<AddTaskFormProps> = ({ skills, theme, accen
           style={{ opacity: canSubmit ? 1 : 0.4 }}
           onPress={() => skill && onSubmit(task, priority, frequency, skill)} disabled={!canSubmit}
         >
-          <AddButtonText>+</AddButtonText>
+          <AddButtonText $theme={theme}>+</AddButtonText>
         </AddButton>
       </Pressable>
     </Form>

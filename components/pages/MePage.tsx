@@ -16,9 +16,10 @@ import StatsSummary from "../atoms/StatsSummary";
 
 const MePage: FC = () => {
   const style = useContext(ThemeContext);
-  const { prefs, skills } = useSelector((state: State) => ({
+  const { prefs, skills, theme } = useSelector((state: State) => ({
     skills: state.skills.allSkills,
-    prefs: state.preferences
+    prefs: state.preferences,
+    theme: state.preferences.theme,
   }), shallowEqual);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -132,7 +133,7 @@ const MePage: FC = () => {
               </Pressable>
           )}
 
-        <StatsSummary style={style} skills={skills} />
+        <StatsSummary theme={theme} skills={skills} />
 
         <Text />
 
