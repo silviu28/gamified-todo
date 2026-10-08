@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Alert } from "react-native";
-import Icon from "../icons";
 import computeTier from "@/utils/computeTier";
-import { Container, RequirementRow, Requirements, RequirementsLabel, RequirementText, Row, SectionHeading, SectionTitle, TierBadge, TierBadgeText } from ".";
+import { Container, RequirementRow, Requirements, RequirementsLabel, RequirementText, Row, TierBadge, TierBadgeText } from ".";
 
 const TierContainer = ({ theme, accent, tier }: {
   theme: string,
@@ -28,11 +27,6 @@ const TierContainer = ({ theme, accent, tier }: {
 
   return (
     <Container>
-      <SectionHeading>
-        <Icon.Trophy darkVariant={theme === "light"} />
-        <SectionTitle $theme={theme}>Your tier</SectionTitle>
-      </SectionHeading>
- 
       <Row $theme={theme}>
         <TierBadge $accent={accent}>
           <TierBadgeText $accent={accent}>{currentTier}</TierBadgeText>

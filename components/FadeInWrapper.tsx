@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs */
 import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 
@@ -31,7 +32,8 @@ const FadeInWrapper = ({ children }) => {
   return (
     <Animated.View style={{ flex: 1, opacity, transform: [{ translateY }]}}>
       {children}
-    </Animated.View>);
+    </Animated.View>
+  );
 };
 
 export default FadeInWrapper;

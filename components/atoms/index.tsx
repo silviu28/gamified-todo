@@ -31,7 +31,7 @@ export const Lede = styled.Text`
 `;
  
 export const FeatureList = styled.View`
-  margin-top: 36px;
+  margin-top: 32px;
 `;
  
 export const FeatureRow = styled.View<{ $theme: string }>`
@@ -96,7 +96,6 @@ export const SkipButtonText = styled.Text`
 
 export const Scroll = styled.ScrollView`
   flex: 1;
-  background-color: #16181d;
 `;
  
 export const SkillList = styled.View`
@@ -292,11 +291,6 @@ export const AddNoteButtonText = styled.Text`
  
 export const SkillStack = styled.View`
   gap: 10px;
-`;
- 
-export const RevisionBar = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
 `;
  
 export const RevisionText = styled.Text<{ $accent: string }>`
