@@ -236,7 +236,7 @@ export const ActionButtonText = styled.Text<{ $variant: "remove" | "assign" }>`
 
 export const TopBar = styled.View`
   position: absolute;
-  top: 60px;
+  top: 32px;
   right: 20px;
   z-index: 10;
   flex-direction: row;

@@ -81,7 +81,7 @@ const MePage: FC = () => {
 
   return (
     <GradientBackground prefs={prefs}>
-      <View style={{ position: "absolute", top: 60, right: 20, zIndex: 10 }}>
+      <View style={{ position: "absolute", top: 22, right: 20, zIndex: 10, padding: 10 }}>
         <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
           <Pressable>
             <Icon.Pencil />

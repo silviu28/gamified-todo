@@ -96,7 +96,7 @@ const MainPage: FC = () => {
  
         <Scroll showsVerticalScrollIndicator={false}>
           <Content $theme={theme}>
-            <View style={{ marginTop: 64 }}></View>
+            <View style={{ marginTop: 32 }}></View>
             {/* Quest list */}
             <Section>
               <SectionHeading>

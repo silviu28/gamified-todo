@@ -40,7 +40,7 @@ const AddSkillPage: FunctionComponent = () => {
     <FadeInWrapper>
       <Scroll showsVerticalScrollIndicator={false}>
         <Content $theme={theme}>
-          <View style={{ padding: 54 }}></View>
+          <View style={{ padding: 32 }}></View>
           <Headline $theme={theme}>1.</Headline>
           <Lede>
             Start by adding any skill: drawing, programming, doing dishes,
