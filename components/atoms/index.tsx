@@ -39,7 +39,7 @@ export const FeatureRow = styled.View<{ $theme: string }>`
   align-items: flex-start;
   padding: 18px 0;
   border-top-width: 1px;
-  border-top-color: ${({ $theme }) => $theme === "dark " ?  "rgba(244, 242, 237, 0.1)" : "black"};
+  border-top-color: ${({ $theme }) => $theme === "dark" ?  "rgba(244, 242, 237, 0.1)" : "black"};
 `;
  
 export const FeatureIconWrap = styled.View`
@@ -77,9 +77,9 @@ export const PrimaryButton = styled.Pressable<{ $accent: string }>`
   padding: 17px;
   align-items: center;
 `;
- 
+
 export const PrimaryButtonText = styled.Text<{ $theme: string }>`
-  color: ${({ $theme }) => $theme === "dark" ? "#16181d" : "#fffff"};
+  color: ${({ $theme }) => $theme === "dark" ? "#1d1616" : "#ffffff"};
   font-size: 16px;
   font-weight: 700;
 `;

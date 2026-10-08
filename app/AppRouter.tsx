@@ -3,7 +3,7 @@ import useDynamicTheme from "@/hooks/useDynamicTheme";
 import { View } from "react-native";
 import { NativeRouter, Route, Routes } from "react-router-native";
 import BackButtonHandler from "@/components/BackButtonHandler";
-import HomePage from "@/components/pages/HomePage";
+import StarterPage from "@/components/pages/StarterPage";
 import AddSkillPage from "@/components/pages/AddSkillPage";
 import AddTaskPage from "@/components/pages/AddTaskPage";
 import SettingsPage from "@/components/pages/SettingsPage";
@@ -34,7 +34,7 @@ const AppRouter = () => {
             <BackButtonHandler />
             <PersistentBackButton theme={theme} />
             <Routes>
-              <Route path='*' element={<HomePage />} />
+              <Route path='*' element={<StarterPage />} />
               <Route path='/addSkill' element={<AddSkillPage />} />
               <Route path='/addTask' element={<AddTaskPage />} />
               <Route path='/main' element={<MainPage />} />
