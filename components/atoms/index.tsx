@@ -5,10 +5,10 @@ export const Background = styled.View<{ $theme: string }>`
   background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : "#fff"};
 `;
 
-export const Content = styled.View<{ $theme: string }>`
+export const Content = styled.View<{ $theme?: string }>`
   flex: 1;
   padding: 28px 24px 32px;
-  background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : "#fff"};
+  background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : $theme ? "#fff" : "transparent"};
 `;
  
 export const Intro = styled.View`
@@ -419,6 +419,7 @@ export const TContainer = styled.View<{ $theme: string }>`
   background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(160, 160, 160, 0.279)"};
   border-radius: 14px;
   padding: 14px 16px;
+  margin-bottom: 10px;
 `;
  
 export const TopRow = styled.View`

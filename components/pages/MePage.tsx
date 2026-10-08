@@ -16,10 +16,11 @@ import StatsSummary from "../atoms/StatsSummary";
 
 const MePage: FC = () => {
   const style = useContext(ThemeContext);
-  const { prefs, skills, theme } = useSelector((state: State) => ({
+  const { prefs, skills, theme, accent } = useSelector((state: State) => ({
     skills: state.skills.allSkills,
     prefs: state.preferences,
     theme: state.preferences.theme,
+    accent: state.preferences.accent
   }), shallowEqual);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -80,14 +81,14 @@ const MePage: FC = () => {
   };
 
   return (
-    <GradientBackground prefs={prefs}>
+    <GradientBackground theme={theme} accent={accent}>
       <View style={{ position: "absolute", top: 22, right: 20, zIndex: 10, padding: 10 }}>
         <View style={{ display: "flex", flexDirection: "row", gap: 10 }}>
           <Pressable>
-            <Icon.Pencil />
+            <Icon.Pencil darkVariant={theme === "light"} />
           </Pressable>
           <Pressable onPress={() => navigate("/share")}>
-            <Icon.Share />
+            <Icon.Share darkVariant={theme === "light"} />
           </Pressable>
         </View>
       </View>
@@ -134,7 +135,6 @@ const MePage: FC = () => {
           )}
 
         <StatsSummary theme={theme} skills={skills} />
-
         <Text />
 
         <View style={style.container}>

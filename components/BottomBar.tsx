@@ -5,7 +5,7 @@ const Bar = styled.View<{ $theme: string, $accent: string }>`
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 50px;
   flex-direction: row;
   justify-content: center;
   align-items: center;

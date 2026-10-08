@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-native";
 import { db } from "@/db";
 import { completedTasks, notes, preferences, skills, tasks } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { Background, Content, DangerZone, Group, GroupSub, GroupTitle, Intro, IntroText, OptionRow } from "../atoms";
+import { Background, DangerZone, Group, GroupSub, GroupTitle, IntroText, OptionRow } from "../atoms";
 import{ styled }from "styled-components/native";
 
 const COLORS = ["lime", "purple", "indigo", "red", "orange", "navy", "teal", "hotpink"];

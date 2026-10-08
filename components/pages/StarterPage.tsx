@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { FC, FunctionComponent } from "react";
-import { Pressable } from "react-native";
+import { FunctionComponent } from "react";
 import {  useNavigate } from "react-router-native";
 import FadeInWrapper from "../FadeInWrapper";
 import Icon from "../icons";

@@ -117,7 +117,7 @@ const AddTaskPage: FunctionComponent = () => {
                 data={skills}
                 scrollEnabled={false}
                 keyExtractor={(skill) => skill.name}
-                renderItem={({ item }) => (
+                renderItem={({ item }) =>
                   <SkillRow>
                     <SkillContainer
                       theme={theme}
@@ -125,7 +125,7 @@ const AddTaskPage: FunctionComponent = () => {
                       onRemove={() => onRemoveTask(item)}
                     />
                   </SkillRow>
-                )}
+                }
               />
             )}
           </SkillList>

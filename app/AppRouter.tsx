@@ -33,7 +33,6 @@ const AppRouter = () => {
             }}
             >
             <StatusBar barStyle="light-content" />
-            <NavigationBar style={theme === "dark" ? "light" : "dark"} />
             <BackButtonHandler />
             <PersistentBackButton theme={theme} />
             <Routes>

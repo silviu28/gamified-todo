@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { FlatList, Pressable, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import TaskContainer from "../atoms/TaskContainer";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { State, useStateSelector } from "@/app/store";
@@ -84,7 +84,7 @@ const MainPage: FC = () => {
 
   return (
     <FadeInWrapper>
-      <GradientBackground prefs={preferences}>
+      <GradientBackground theme={theme} accent={accent}>
         <TopBar>
           <Pressable onPress={() => navigate("/me")}>
             <Icon.Person darkVariant={theme === "light"} />
@@ -95,7 +95,7 @@ const MainPage: FC = () => {
         </TopBar>
  
         <Scroll showsVerticalScrollIndicator={false}>
-          <Content $theme={theme}>
+          <Content>
             <View style={{ marginTop: 32 }}></View>
             {/* Quest list */}
             <Section>
@@ -220,6 +220,7 @@ const MainPage: FC = () => {
           <Pressable onPress={() => navigate("/addTask")}>
             <RevisionText $accent={accent}>Revise tasks</RevisionText>
           </Pressable>
+          <Text>|</Text>
           <Pressable onPress={() => navigate("/addSkill")}>
             <RevisionText $accent={accent}>Revise skills</RevisionText>
           </Pressable>
