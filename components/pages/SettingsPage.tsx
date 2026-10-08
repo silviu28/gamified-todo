@@ -47,9 +47,12 @@ const SettingsPage: FC = () => {
   const onWipeAll = async () => {
    await Promise.all([
       db.delete(skills),
+
       db.delete(tasks),
+
       db.delete(tasks)
         .where(eq(tasks.manuallyAssigned, true)),
+
       db.select({
           id: tasks.id,
           name: tasks.name,
@@ -60,7 +63,9 @@ const SettingsPage: FC = () => {
         .from(completedTasks)
         .innerJoin(tasks, eq(completedTasks.taskId, tasks.id))
         .groupBy(tasks.id),
+
       db.delete(notes),
+
       db.delete(preferences)
     ]);
   }
@@ -70,10 +75,10 @@ const SettingsPage: FC = () => {
       "Are you really sure you want to do this? This process is irreversible.", [
       {
         text: "Yes",
-        onPress: () => {
-          onWipeAll()
-            .then(() => navigate("*"))
-            .then(() => Alert.alert("Data erase", "Wipe successful. Please open and close the app."));
+        onPress: async () => {
+          await onWipeAll();
+          navigate("*");
+          Alert.alert("Data erase", "Wipe successful. Please open and close the app.");
         }
       },
       {

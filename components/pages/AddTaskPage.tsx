@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { FlatList, Pressable, View } from "react-native";
 import AddTaskForm from "../forms/AddTaskForm";
 import { useNavigate } from "react-router-native";
-import { Frequency, Skill } from "@/types";
+import { Frequency, Skill, Task } from "@/types";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { State, useStateSelector } from "@/app/store";
 import TaskContainer from "../atoms/TaskContainer";
@@ -13,6 +13,7 @@ import { skillTasks, tasks } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { Scroll, Content, Headline, Lede, SkillList, EmptyState, SkillRow, Actions, PrimaryButton, PrimaryButtonText, SecondaryButton, SecondaryButtonText } from "../atoms";
 import SkillContainer from "../atoms/SkillContainer";
+import Time from "@/utils/time";
 
 const AddTaskPage: FunctionComponent = () => {
   const { skills, allTasks } = useSelector((state: State) => ({
@@ -26,48 +27,53 @@ const AddTaskPage: FunctionComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const addNewTask = (name: string, priority: number, frequency: Frequency, skill: Skill) => {
-    let [pts, freq] = [10 * priority, 0];
-    switch (frequency) {
-      case "one-time": freq = 0; break;
-      case "daily": freq = 24 * 3600 * 1000; break;
-      case "weekly": freq = 7 * 24 * 3600 * 1000; break;
-      case "monthly": freq = 30 * 24 * 3600 * 1000; break;
-      case "yearly": freq = 365 * 24 * 3600 * 1000; break;
+  const addNewTask = async (name: string, priority: number, frequency: Frequency, skill: Skill) => {
+    let [pts, freq] = [10 * priority, Time.frequencyToMilis(frequency)];
+
+    try {
+      const [task] = await db.insert(tasks)
+        .values({
+          name,
+          frequency: freq,
+          priority,
+        })
+        .returning();
+
+      await db.insert(skillTasks)
+        .values({
+          skillId: skill.id,
+          taskId: task.id,
+          pts
+        });
+
+      dispatch(addTask(task));
+    } catch (e: unknown) {
+      console.error(e);
     }
-
-    db.insert(tasks)
-      .values({
-        name,
-        frequency: freq,
-        priority,
-      })
-      .returning()
-      .then(([task]) => {
-        db.insert(skillTasks)
-          .values({
-            skillId: skill.id,
-            taskId: task.id,
-            pts
-          })
-          .then(() => dispatch(addTask(task)));
-      });
   };
 
-  const onAssignTask = (task) => {
-    dispatch(assignTask(task));
-    db.update(tasks)
-      .set({ manuallyAssigned: true })
-      .where(eq(tasks.id, task.id))
-      .then((_) => { /* something */ });
+  const onAssignTask = async (task: Task) => {
+    try {
+      await db.update(tasks)
+        .set({ manuallyAssigned: true })
+        .where(eq(tasks.id, task.id));
+
+      dispatch(assignTask(task));
+    } catch (e: unknown) {
+      console.error(e);
+    }
   };
 
-  const onRemoveTask = (task) => {
-    dispatch(removeTask(task));
-    db.update(tasks)
-      .set({ manuallyAssigned: false })
-      .where(eq(tasks.id, task.id))
-      .then((_) => { /* something */ });
+  const onRemoveTask = async (task: Task) => {
+    try {
+      await db.update(tasks)
+        .set({ manuallyAssigned: false })
+        .where(eq(tasks.id, task.id))
+      // do something else maybe...
+      dispatch(removeTask(task));
+    } catch (e: unknown) {
+      console.error(e);
+    }
   };
 
   return (
