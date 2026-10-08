@@ -1,6 +1,6 @@
 import UserPreferencesContext from "./context/UserPreferencesContext";
 import useDynamicTheme from "@/hooks/useDynamicTheme";
-import { View } from "react-native";
+import { StatusBar, View } from "react-native";
 import { NativeRouter, Route, Routes } from "react-router-native";
 import BackButtonHandler from "@/components/BackButtonHandler";
 import StarterPage from "@/components/pages/StarterPage";
@@ -14,6 +14,7 @@ import ThemeContext from "./context/ThemeContext";
 import PersistentBackButton from "@/components/PersistentBackButton";
 import SuggestThingsPage from "@/components/pages/SuggestThingsPage";
 import { useStateSelector } from "./store";
+import { NavigationBar } from "expo-navigation-bar";
 
 const AppRouter = () => {
   // uncomment this is case the store breaks the app
@@ -31,6 +32,8 @@ const AppRouter = () => {
               v7_relativeSplatPath: true
             }}
             >
+            <StatusBar barStyle="light-content" />
+            <NavigationBar style={theme === "dark" ? "light" : "dark"} />
             <BackButtonHandler />
             <PersistentBackButton theme={theme} />
             <Routes>
