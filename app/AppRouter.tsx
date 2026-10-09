@@ -1,9 +1,9 @@
 import UserPreferencesContext from "./context/UserPreferencesContext";
 import useDynamicTheme from "@/hooks/useDynamicTheme";
-import { View } from "react-native";
+import { StatusBar, View } from "react-native";
 import { NativeRouter, Route, Routes } from "react-router-native";
 import BackButtonHandler from "@/components/BackButtonHandler";
-import HomePage from "@/components/pages/HomePage";
+import StarterPage from "@/components/pages/StarterPage";
 import AddSkillPage from "@/components/pages/AddSkillPage";
 import AddTaskPage from "@/components/pages/AddTaskPage";
 import SettingsPage from "@/components/pages/SettingsPage";
@@ -14,6 +14,7 @@ import ThemeContext from "./context/ThemeContext";
 import PersistentBackButton from "@/components/PersistentBackButton";
 import SuggestThingsPage from "@/components/pages/SuggestThingsPage";
 import { useStateSelector } from "./store";
+import { NavigationBar } from "expo-navigation-bar";
 
 const AppRouter = () => {
   // uncomment this is case the store breaks the app
@@ -31,10 +32,11 @@ const AppRouter = () => {
               v7_relativeSplatPath: true
             }}
             >
+            <StatusBar barStyle="light-content" />
             <BackButtonHandler />
             <PersistentBackButton theme={theme} />
             <Routes>
-              <Route path='*' element={<HomePage />} />
+              <Route path='*' element={<StarterPage />} />
               <Route path='/addSkill' element={<AddSkillPage />} />
               <Route path='/addTask' element={<AddTaskPage />} />
               <Route path='/main' element={<MainPage />} />

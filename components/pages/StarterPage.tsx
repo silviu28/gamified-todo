@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { FC } from "react";
-import { Pressable } from "react-native";
+import { FunctionComponent } from "react";
 import {  useNavigate } from "react-router-native";
 import FadeInWrapper from "../FadeInWrapper";
 import Icon from "../icons";
@@ -8,7 +7,7 @@ import { shallowEqual } from "react-redux";
 import { useStateSelector } from "@/app/store";
 import { Background, Content, Intro, Headline, Lede, FeatureList, FeatureRow, FeatureIconWrap, FeatureText, FeatureTitle, FeatureSub, Actions, PrimaryButton, PrimaryButtonText, SkipButton, SkipButtonText } from "../atoms";
 
-const HomePage: FC = () => {
+const StarterPage: FunctionComponent = () => {
   const [accent, theme] = useStateSelector((state) => [
     state.preferences.accent,
     state.preferences.theme
@@ -68,20 +67,16 @@ const HomePage: FC = () => {
           </Intro>
  
           <Actions>
-            <Pressable>
-              <PrimaryButton 
-                $accent={accent}
-                onPress={() => navigate("/addSkill")}
-              >
-                <PrimaryButtonText $theme={theme}>Let's go</PrimaryButtonText>
-              </PrimaryButton>
-            </Pressable>
+            <PrimaryButton 
+              $accent={accent}
+              onPress={() => navigate("/addSkill")}
+            >
+              <PrimaryButtonText $theme={theme}>Let's go</PrimaryButtonText>
+            </PrimaryButton>
  
-            <Pressable>
-              <SkipButton onPress={() => navigate("/main")}>
-                <SkipButtonText>Skip for now</SkipButtonText>
-              </SkipButton>
-            </Pressable>
+            <SkipButton onPress={() => navigate("/main")}>
+              <SkipButtonText>Skip for now</SkipButtonText>
+            </SkipButton>
           </Actions>
         </Content>
       </Background>
@@ -89,4 +84,4 @@ const HomePage: FC = () => {
   );
 };
 
-export default HomePage;
+export default StarterPage;

@@ -22,25 +22,25 @@ const AddSkillPage: FunctionComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (name: string) => {
-    db.insert(skillsTable)
+  const onSubmit = async (name: string) => {
+    const [ins] = await db.insert(skillsTable)
       .values({ name, pts: 0 })
-      .returning()
-      .then(([ins]) => dispatch(addSkill(ins)));
+      .returning();
+    dispatch(addSkill(ins));
   };
 
-  const onRemove = (item: Skill) => {
-    db.delete(skillsTable)
+  const onRemove = async (item: Skill) => {
+    const [rem] = await db.delete(skillsTable)
       .where(eq(skillsTable.id, item.id))
-      .returning()
-      .then(([rem]) => dispatch(removeSkill(rem)));
+      .returning();
+    removeSkill(rem);
   };
 
   return (
     <FadeInWrapper>
       <Scroll showsVerticalScrollIndicator={false}>
         <Content $theme={theme}>
-          <View style={{ padding: 54 }}></View>
+          <View style={{ padding: 32 }}></View>
           <Headline $theme={theme}>1.</Headline>
           <Lede>
             Start by adding any skill: drawing, programming, doing dishes,

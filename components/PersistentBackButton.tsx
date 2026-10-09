@@ -8,7 +8,7 @@ const PersistentBackButton = ({ theme }: { theme: string }) => {
 
   return (
     <Pressable
-      style={{ position: "fixed", left: 20, top: 60, zIndex: 2, width: 20, height: 0 }}
+      style={{ position: "fixed", left: 20, top: 25, zIndex: 2, width: 20, height: 0 }}
       onPress={() => navigate(-1)}>
       <Icon.LeftArrow darkVariant={theme === "light"} />
     </Pressable>

@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { FlatList, Pressable, View } from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import TaskContainer from "../atoms/TaskContainer";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { State, useStateSelector } from "@/app/store";
@@ -22,7 +22,7 @@ import { Task } from "@/types";
 import { db } from "@/db";
 import { tasks, completedTasks as completedTasksTable, skillTasks, notes as notesTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { TopBar, Scroll, Content, Section, SectionHeading, SectionTitle, Divider, EmptyState, CancelText, AddNoteButton, AddNoteButtonText, SkillStack, RevisionBar, RevisionText, TContainer } from "../atoms";
+import { TopBar, Scroll, Content, Section, SectionHeading, SectionTitle, Divider, EmptyState, CancelText, AddNoteButton, AddNoteButtonText, SkillStack, RevisionText, TContainer } from "../atoms";
 
 const MainPage: FC = () => {
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ const MainPage: FC = () => {
 
   return (
     <FadeInWrapper>
-      <GradientBackground prefs={preferences}>
+      <GradientBackground theme={theme} accent={accent}>
         <TopBar>
           <Pressable onPress={() => navigate("/me")}>
             <Icon.Person darkVariant={theme === "light"} />
@@ -95,20 +95,20 @@ const MainPage: FC = () => {
         </TopBar>
  
         <Scroll showsVerticalScrollIndicator={false}>
-          <Content $theme={theme}>
-            <View style={{ marginTop: 64 }}></View>
+          <Content>
+            <View style={{ marginTop: 32 }}></View>
             {/* Quest list */}
             <Section>
               <SectionHeading>
                 <Icon.Checkbox darkVariant={theme === "light"} />
-                <SectionTitle $theme={theme}>Quest list</SectionTitle>
+                <SectionTitle $theme={theme}>Tasks to do</SectionTitle>
               </SectionHeading>
  
               {tasksToDo.length > 0 || completedTasks.length > 0 ? (
                 <>
                   <FlatList
                     data={tasksToDo}
-                    keyExtractor={(task) => task.name}
+                    keyExtractor={({ name }) => name}
                     renderItem={({ item }) => (
                       <ToDoTask theme={theme} accent={accent} task={item} onCompletion={completeTask} />
                     )}
@@ -127,7 +127,6 @@ const MainPage: FC = () => {
               )}
             </Section>
  
-            {/* Notes */}
             <Section>
               <SectionHeading>
                 <Icon.Pencil darkVariant={theme === "light"} />
@@ -162,11 +161,10 @@ const MainPage: FC = () => {
               </TContainer>
             </Section>
  
-            {/* Add quests */}
             <Section>
               <SectionHeading>
                 <Icon.Info darkVariant={theme === "light"} />
-                <SectionTitle $theme={theme}>Add quests</SectionTitle>
+                <SectionTitle $theme={theme}>Add tasks</SectionTitle>
               </SectionHeading>
  
               {tasksToDo.length > 0 ? (
@@ -203,21 +201,29 @@ const MainPage: FC = () => {
               </SkillStack>
             </Section>
  
+            <SectionHeading>
+              <Icon.Stats darkVariant={theme === "light"} />
+              <SectionTitle $theme={theme}>Your overall stats</SectionTitle>
+            </SectionHeading>
             <StatsContainer theme={theme} accent={accent} skills={skills} />
+
+            <SectionHeading>
+              <Icon.Trophy darkVariant={theme === "light"} />
+              <SectionTitle $theme={theme}>Your tier</SectionTitle>
+            </SectionHeading>
             <TierContainer theme={theme} accent={accent} tier={tier} />
+            
             <View style={{ padding: 10 }}></View>
           </Content>
         </Scroll>
-        <BottomBar>
-          <RevisionBar>
-            <Pressable onPress={() => navigate("/addTask")}>
-              <RevisionText $accent={accent}>Revise tasks</RevisionText>
-            </Pressable>
-            <View style={{ margin: 10 }} />
-            <Pressable onPress={() => navigate("/addSkill")}>
-              <RevisionText $accent={accent}>Revise skills</RevisionText>
-            </Pressable>
-          </RevisionBar>
+        <BottomBar theme={theme} accent={accent}>
+          <Pressable onPress={() => navigate("/addTask")}>
+            <RevisionText $accent={accent}>Revise tasks</RevisionText>
+          </Pressable>
+          <Text>|</Text>
+          <Pressable onPress={() => navigate("/addSkill")}>
+            <RevisionText $accent={accent}>Revise skills</RevisionText>
+          </Pressable>
         </BottomBar>
       </GradientBackground>
     </FadeInWrapper>

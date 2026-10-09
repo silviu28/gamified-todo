@@ -5,10 +5,10 @@ export const Background = styled.View<{ $theme: string }>`
   background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : "#fff"};
 `;
 
-export const Content = styled.View<{ $theme: string }>`
+export const Content = styled.View<{ $theme?: string }>`
   flex: 1;
   padding: 28px 24px 32px;
-  background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : "#fff"};
+  background-color: ${({ $theme }) => $theme === "dark" ? "#0b0c0f" : $theme ? "#fff" : "transparent"};
 `;
  
 export const Intro = styled.View`
@@ -31,7 +31,7 @@ export const Lede = styled.Text`
 `;
  
 export const FeatureList = styled.View`
-  margin-top: 36px;
+  margin-top: 32px;
 `;
  
 export const FeatureRow = styled.View<{ $theme: string }>`
@@ -39,7 +39,7 @@ export const FeatureRow = styled.View<{ $theme: string }>`
   align-items: flex-start;
   padding: 18px 0;
   border-top-width: 1px;
-  border-top-color: ${({ $theme }) => $theme === "dark " ?  "rgba(244, 242, 237, 0.1)" : "black"};
+  border-top-color: ${({ $theme }) => $theme === "dark" ?  "rgba(244, 242, 237, 0.1)" : "black"};
 `;
  
 export const FeatureIconWrap = styled.View`
@@ -77,9 +77,9 @@ export const PrimaryButton = styled.Pressable<{ $accent: string }>`
   padding: 17px;
   align-items: center;
 `;
- 
+
 export const PrimaryButtonText = styled.Text<{ $theme: string }>`
-  color: ${({ $theme }) => $theme === "dark" ? "#16181d" : "#fffff"};
+  color: ${({ $theme }) => $theme === "dark" ? "#1d1616" : "#ffffff"};
   font-size: 16px;
   font-weight: 700;
 `;
@@ -96,7 +96,6 @@ export const SkipButtonText = styled.Text`
 
 export const Scroll = styled.ScrollView`
   flex: 1;
-  background-color: #16181d;
 `;
  
 export const SkillList = styled.View`
@@ -237,7 +236,7 @@ export const ActionButtonText = styled.Text<{ $variant: "remove" | "assign" }>`
 
 export const TopBar = styled.View`
   position: absolute;
-  top: 60px;
+  top: 32px;
   right: 20px;
   z-index: 10;
   flex-direction: row;
@@ -292,11 +291,6 @@ export const AddNoteButtonText = styled.Text`
  
 export const SkillStack = styled.View`
   gap: 10px;
-`;
- 
-export const RevisionBar = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
 `;
  
 export const RevisionText = styled.Text<{ $accent: string }>`
@@ -425,6 +419,7 @@ export const TContainer = styled.View<{ $theme: string }>`
   background-color: ${({ $theme }) => $theme === "dark" ? "rgba(244, 242, 237, 0.06)" : "rgba(160, 160, 160, 0.279)"};
   border-radius: 14px;
   padding: 14px 16px;
+  margin-bottom: 10px;
 `;
  
 export const TopRow = styled.View`
